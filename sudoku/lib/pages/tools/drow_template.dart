@@ -56,6 +56,8 @@ Row drawRow(int x, Size size) {
 
           } else if (!sudokuCell.bySystem) {
             sudokuCell.value = 0;
+            gameController.currentCol=10;
+            gameController.currentRow=10;
             sudokuCell.error = false;
           }
 

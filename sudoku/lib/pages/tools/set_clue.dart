@@ -10,6 +10,7 @@ Color getColor(int x, int y) {
   Color b = (odd) ? customColors.background : customColors.grey;
 
   Color toSet = (y > 2 && y < 6) ? a : b;
+  
   int match = gameController.matchColRow(x, y);
   toSet = (match == 1) ? customColors.greenLight : toSet;
   toSet = (match == 2) ? customColors.green : toSet;
@@ -96,7 +97,6 @@ lineError(int x, int y, int value) {
   while (xx < 9) {
     if (sudoku.cells!['$xx,$y']!.value == value && value != 0) {
       if (xx != x) {
-          print("found x");
           error = true;
       }
     }
@@ -108,13 +108,11 @@ lineError(int x, int y, int value) {
   while (yy < 9) {
     if (sudoku.cells!['$x,$yy']!.value == value && value != 0) {
       if (yy != y) {
-          print("found in $x,$yy");
           error = true;
       }
     }
     yy++;
   }
-  print(error);
 
   return error;
 }
