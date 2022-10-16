@@ -47,7 +47,10 @@ class _CustomPageTemplateState extends State<CustomPageTemplate> {
               height: widget.size.height,
               width: widget.size.width,
               // color: customColors.background,
-              child: widget.child,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: widget.child,
+              ),
             ),
           ),
         ),

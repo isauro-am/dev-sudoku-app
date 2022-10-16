@@ -21,6 +21,27 @@ class Dificult {
 
   int selected = 0;
 
+  bool clues = true;
+
+  int currentCol = 10;
+  int currentRow = 10;
+
+  matchColRow(int x, int y){
+    int coincidence = 0;
+    if(currentRow == x){
+     coincidence++;
+    }
+    if(currentCol == y){
+     coincidence++;
+    }
+    return coincidence;
+  }
+
+  setXY(int x, int y){
+    currentCol = y;
+    currentRow = x;
+  }
+
 
 }
 
