@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
+import '../../models/sudoku_cell.dart';
 import '../../services/services.dart';
 
 Color getColor(int x, int y) {
@@ -10,7 +11,7 @@ Color getColor(int x, int y) {
   Color b = (odd) ? customColors.background : customColors.grey;
 
   Color toSet = (y > 2 && y < 6) ? a : b;
-  
+
   int match = gameController.matchColRow(x, y);
   toSet = (match == 1) ? customColors.greenLight : toSet;
   toSet = (match == 2) ? customColors.green : toSet;
@@ -85,8 +86,7 @@ checkErrorBox(int xMin, int xMax, int yMin, int yMax, int x, int y) {
     xMin++;
   }
 
-  return lineError(x,y,value);
-
+  return lineError(x, y, value);
 }
 
 lineError(int x, int y, int value) {
@@ -97,7 +97,7 @@ lineError(int x, int y, int value) {
   while (xx < 9) {
     if (sudoku.cells!['$xx,$y']!.value == value && value != 0) {
       if (xx != x) {
-          error = true;
+        error = true;
       }
     }
     xx++;
@@ -108,11 +108,47 @@ lineError(int x, int y, int value) {
   while (yy < 9) {
     if (sudoku.cells!['$x,$yy']!.value == value && value != 0) {
       if (yy != y) {
-          error = true;
+        error = true;
       }
     }
     yy++;
   }
 
   return error;
+}
+
+completed() {
+  int count = 0;
+  int x = 0;
+  int y = 0;
+
+  while (x < 9) {
+    y = 0;
+    while (y < 9) {
+      SudokuCell? sudokuCell = sudoku.cells!['$x,$y'];
+
+      if (sudokuCell!.value == sudokuCell.solution) {
+        count++;
+      }
+
+      y++;
+    }
+
+    x++;
+  }
+
+  if (count == 81) {
+    gameController.completed = true;
+    print("COMPLETED!");
+    x = 0;
+    while (x < 9) {
+      y = 0;
+      while (y < 9) {
+        SudokuCell? sudokuCell = sudoku.cells!['$x,$y'];
+        sudokuCell?.bySystem = true;
+        y++;
+      }
+      x++;
+    }
+  }
 }

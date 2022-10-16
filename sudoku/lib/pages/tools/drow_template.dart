@@ -61,6 +61,7 @@ Row drawRow(int x, Size size) {
             sudokuCell.error = false;
           }
 
+          completed();
 
           gameController.update();
         },
@@ -71,7 +72,7 @@ Row drawRow(int x, Size size) {
               ),
               color: toSet2,
               borderRadius: const BorderRadius.all(Radius.circular(5))),
-          height: width,
+          height: (size.height-60)/12,
           width: width,
           child: Center(
             child: Text(

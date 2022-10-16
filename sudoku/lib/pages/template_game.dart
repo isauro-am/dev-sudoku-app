@@ -3,9 +3,7 @@ import 'package:sudoku/models/models.dart';
 import 'package:sudoku/pages/home.dart';
 import 'package:sudoku/services/services.dart';
 
-import '../models/sudoku_cell.dart';
 import 'tools/drow_template.dart';
-import 'tools/set_clue.dart';
 import 'template_page.dart';
 import 'tools/set_user_number.dart';
 
@@ -33,27 +31,27 @@ class _TemplateGameState extends State<TemplateGame> {
       size: size,
       title: "Sudoku",
       color: customColors.inputBorder,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              errorButton(),
-              exitButton(context),
-              cluesButton(),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: drawPanel(size),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          userNumberTools(1, 5, size),
-          userNumberTools(5, 10, size),
-          jump(1),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                (gameController.completed)? const SizedBox() : errorButton(),
+                exitButton(context),
+                (gameController.completed)? const SizedBox() : cluesButton(),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: drawPanel(size),
+            ),
+            jump(2),
+            userNumberTools(1, 5, size),
+            userNumberTools(5, 10, size),
+            jump(1),
+          ],
+        ),
       ),
     );
   }

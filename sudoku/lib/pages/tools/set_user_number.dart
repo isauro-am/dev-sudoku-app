@@ -6,7 +6,7 @@ import '../../models/models.dart';
 import '../../services/services.dart';
 
 Row userNumberTools(int init, int end, Size size) {
-  double width = (size.width > 400) ? 360 / 6 : (size.width - 40) / 6;
+  double width = (size.width > 400) ? 360 / 8 : (size.width - 40) / 8;
 
   List<Widget> row = [];
 

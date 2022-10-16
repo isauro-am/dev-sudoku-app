@@ -21,6 +21,8 @@ class Dificult {
 
   int selected = 0;
 
+  bool completed = false;
+
   bool clues = true;
 
   int currentCol = 10;

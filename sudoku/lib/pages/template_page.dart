@@ -36,7 +36,7 @@ class _CustomPageTemplateState extends State<CustomPageTemplate> {
           child: SingleChildScrollView(
             child: Container(
               constraints: const BoxConstraints(
-                  minWidth: 330, maxWidth: 500, minHeight: 400, maxHeight: 600),
+                  minWidth: 330, maxWidth: 500, minHeight: 300, maxHeight: 600),
               decoration: BoxDecoration(
                 color: widget.color,
                 image: DecorationImage(
