@@ -15,6 +15,9 @@ class CustomColors {
 
   Color inputBorder = const Color(0xFF1f262d);
 
+  Color yellowLight = const Color(0xFF383A0E);
+  Color yellow = const Color(0xFFD6DF1C);
+
 
   // Default
   Color grey = const Color(0xFF9E9E9E);
@@ -22,6 +25,10 @@ class CustomColors {
 
   Color green = const Color(0xFF077219);
   Color greenLight = const Color(0xFF65816A);
+
+
+  Color blueLightTransparent = const Color.fromARGB(107, 101, 129, 106);
+  Color blueTransparent = Color.fromARGB(192, 7, 112, 114);
 
 
   textStyle( color ){

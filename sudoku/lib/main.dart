@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'pages/home.dart';
-import 'pages/services/services.dart';
+import 'services/services.dart';
 
 
 void main() {

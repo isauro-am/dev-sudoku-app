@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/pages/services/services.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../models/models.dart';
-import 'services/drawer.dart';
+import '../services/drawer.dart';
+import '../services/services.dart';
 import 'utils.dart';
 
 class Home extends StatefulWidget {
@@ -27,86 +27,87 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: customAppBar(true, "Sudoku"),
       body: Container(
-        height: size.height,
-        width: size.width,
-        color: customColors.background,
-        child: Column(
-          children: [
-            jump(3),
-            dificultButton(1, "Easy", update),
-            jump(2),
-            dificultButton(2, "Medium", update),
-            jump(2),
-            dificultButton(3, "Hard", update),
-            jump(2),
-            Center(
-              child: ElevatedButton(
-                child: const Text("Start Game"),
-                onPressed: () {
-                  PuzzleOptions puzzleOptions = PuzzleOptions(
-                    patternName: dificultController.patternName,
-                    clues: dificultController.dificult,
-                  );
-                  Puzzle puzzle = Puzzle(puzzleOptions);
-                  puzzle.generate().then(
-                    (_) {
-                      createSudoku(puzzle);
-                      print(sudoku.toJson());
-                      print("");
-                      printGrid(puzzle.board());
-
-                      // print("=====================================");
-                      // print("Your puzzle, fresh off the press:");
-                      // print("-------------------------------------");
-
-                      // print(puzzle.board()?.cellAt(Position(column: 1, row: 1)).getValue());
-                      // print("=====================================");
-                      // print(puzzle.solvedBoard()?.cellAt(Position(column: 1, row: 1)).getValue());
-                      // print("Give up? Here's your puzzle solution:");
-                      // print("-------------------------------------");
-                      // printGrid(puzzle.solvedBoard());
-                      // print("=====================================");
-                    },
-                  );
-                },
+        color: customColors.menu,
+        child: Center(
+          child: Container(
+            constraints: const BoxConstraints(minWidth: 100, maxWidth: 500),
+            decoration:  BoxDecoration(
+              color: customColors.background,
+              image: const DecorationImage(
+                image: AssetImage("assets/menu.png"),
+                fit: BoxFit.cover,
               ),
             ),
-          ],
+            height: size.height,
+            width: size.width,
+            // color: customColors.background,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                jump(3),
+                dificultButton(1, "Easy", update),
+                jump(2),
+                dificultButton(2, "Medium", update),
+                jump(2),
+                dificultButton(3, "Hard", update),
+                jump(6),
+                ElevatedButton(
+                  child: const SizedBox(
+                    height: 30,
+                    width: 120,
+                    child: Center(child: Text("Start Game")),),
+                  onPressed: () {
+                    PuzzleOptions puzzleOptions = PuzzleOptions(
+                      patternName: dificultController.patternName,
+                      clues: dificultController.dificult,
+                    );
+                    Puzzle puzzle = Puzzle(puzzleOptions);
+                    puzzle.generate().then(
+                      (_) {
+                        createSudoku(puzzle);
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-jump(double value) {
+SizedBox jump(double value) {
   return SizedBox(
     height: value * 10,
   );
 }
 
-dificultButton(int star, String text, Function update) {
+OutlinedButton dificultButton(int star, String text, Function update) {
   List<Widget> icons = [];
   List<int> clues = [40, 32, 24];
   int dificult = clues[star - 1];
 
   while (star > 0) {
     icons.add(
-      const Icon(
+      Icon(
         Icons.star,
         size: 18,
-        color: Colors.yellow,
+        color: (dificultController.dificult == dificult)? customColors.yellow : customColors.yellowLight,
       ),
     );
     star--;
   }
 
   return OutlinedButton.icon(
+    
     style: ButtonStyle(
-      elevation: MaterialStateProperty.all(15),
+      elevation: MaterialStateProperty.all(10),
       backgroundColor: MaterialStateProperty.all(
           (dificultController.dificult == dificult)
-              ? customColors.green
-              : customColors.greenLight),
+              ? customColors.blueTransparent
+              : customColors.blueLightTransparent ),
     ),
     onPressed: () {
       dificultController.dificult = dificult;
