@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/models/dificult.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../models/models.dart';
+import '../models/sudoku_model.dart';
 import '../services/services.dart';
 import 'template_page.dart';
 import 'utils.dart';
@@ -54,7 +56,9 @@ class _HomeState extends State<Home> {
               Puzzle puzzle = Puzzle(puzzleOptions);
               puzzle.generate().then(
                 (_) {
+                  sudoku = Sudoku();
                   createSudoku(puzzle);
+                  gameController = Dificult();
                   customRoutes.navigator(context, customRoutes.game);
                 },
               );

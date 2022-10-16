@@ -39,6 +39,7 @@ class _TemplateGameState extends State<TemplateGame> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               errorButton(),
+              exitButton(context),
               cluesButton(),
             ],
           ),
@@ -88,5 +89,18 @@ ElevatedButton errorButton() {
     ),
     onPressed: () {},
     child: Text("Errors [${sudoku.error}]"),
+  );
+}
+
+
+ElevatedButton exitButton(BuildContext context) {
+  return ElevatedButton(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(customColors.green),
+    ),
+    onPressed: () {
+      customRoutes.navigator(context, customRoutes.home);
+    },
+    child: const Text(" Regresar "),
   );
 }
