@@ -79,9 +79,42 @@ checkErrorBox(int xMin, int xMax, int yMin, int yMax, int x, int y) {
           }
         }
       }
-      yy ++;
+      yy++;
     }
     xMin++;
   }
-  return false;
+
+  return lineError(x,y,value);
+
+}
+
+lineError(int x, int y, int value) {
+  bool error = false;
+
+  int xx = 0;
+  int yy = 0;
+  while (xx < 9) {
+    if (sudoku.cells!['$xx,$y']!.value == value && value != 0) {
+      if (xx != x) {
+          print("found x");
+          error = true;
+      }
+    }
+    xx++;
+  }
+
+  xx = 0;
+
+  while (yy < 9) {
+    if (sudoku.cells!['$x,$yy']!.value == value && value != 0) {
+      if (yy != y) {
+          print("found in $x,$yy");
+          error = true;
+      }
+    }
+    yy++;
+  }
+  print(error);
+
+  return error;
 }

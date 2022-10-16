@@ -38,9 +38,6 @@ Row drawRow(int x, Size size) {
     row.add(
       InkWell(
         onTap:
-            // (sudokuCell.bySystem)
-            //     ? null
-            //     :
             () {
           gameController.setXY(x, yy);
           if (!sudokuCell.bySystem &&
@@ -52,6 +49,11 @@ Row drawRow(int x, Size size) {
           } else if (!sudokuCell.bySystem && sudokuCell.value != gameController.selected ) {
             sudokuCell.value = gameController.selected;
             sudokuCell.error = groupLimitsError(x, yy);
+
+            if(sudokuCell.error){
+              sudoku.error++;
+            }
+
           } else if (!sudokuCell.bySystem) {
             sudokuCell.value = 0;
             sudokuCell.error = false;
