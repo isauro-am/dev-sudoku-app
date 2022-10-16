@@ -19,6 +19,9 @@ class Dificult {
   int dificult = 40;
   String patternName = "random";
 
+  int selected = 0;
+
+
 }
 
 

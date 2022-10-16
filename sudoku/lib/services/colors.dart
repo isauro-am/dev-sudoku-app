@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 class CustomColors {
 
-  Color black = const Color.fromRGBO(31, 38, 45, 1);
-  Color white = const Color.fromARGB(255, 241, 241, 241);
-  Color background = const Color(0xFFdddddd);
+  Color black = const Color(0xFF1F262D);
+  Color white = const Color(0xFFF1F1F1);
+  Color background = const Color(0xFFBCB6B6);
+  Color background2 = const Color(0xFFdddddd);
 
 
   Color blueLight = const Color(0xFF31aae1);
@@ -27,8 +28,11 @@ class CustomColors {
   Color greenLight = const Color(0xFF65816A);
 
 
-  Color blueLightTransparent = const Color.fromARGB(107, 101, 129, 106);
-  Color blueTransparent = Color.fromARGB(192, 7, 112, 114);
+  Color blueLightTransparent = const Color(0x6B65816A);
+  Color blueTransparent = const Color(0xC0077072);
+
+  Color selectionAlfa = const Color(0xF0074572);
+  Color selectionTransparent = const Color(0x94077072);
 
 
   textStyle( color ){

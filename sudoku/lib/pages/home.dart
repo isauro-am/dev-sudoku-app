@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../models/models.dart';
-import '../services/drawer.dart';
 import '../services/services.dart';
+import 'template_page.dart';
 import 'utils.dart';
 
 class Home extends StatefulWidget {
@@ -22,57 +22,45 @@ class _HomeState extends State<Home> {
       setState(() {});
     }
 
-    dificultController.update = update;
+    gameController.update = update;
 
-    return Scaffold(
-      appBar: customAppBar(true, "Sudoku"),
-      body: Container(
-        color: customColors.menu,
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(minWidth: 100, maxWidth: 500),
-            decoration:  BoxDecoration(
-              color: customColors.background,
-              image: const DecorationImage(
-                image: AssetImage("assets/menu.png"),
-                fit: BoxFit.cover,
-              ),
+    return CustomPageTemplate(
+      appBar: false,
+      background: "assets/menu.png",
+      size: size,
+      color: customColors.green,
+      title: "Sudoku",
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          jump(3),
+          dificultButton(1, "Easy", update),
+          jump(2),
+          dificultButton(2, "Medium", update),
+          jump(2),
+          dificultButton(3, "Hard", update),
+          jump(6),
+          ElevatedButton(
+            child: const SizedBox(
+              height: 30,
+              width: 120,
+              child: Center(child: Text("Start Game")),
             ),
-            height: size.height,
-            width: size.width,
-            // color: customColors.background,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                jump(3),
-                dificultButton(1, "Easy", update),
-                jump(2),
-                dificultButton(2, "Medium", update),
-                jump(2),
-                dificultButton(3, "Hard", update),
-                jump(6),
-                ElevatedButton(
-                  child: const SizedBox(
-                    height: 30,
-                    width: 120,
-                    child: Center(child: Text("Start Game")),),
-                  onPressed: () {
-                    PuzzleOptions puzzleOptions = PuzzleOptions(
-                      patternName: dificultController.patternName,
-                      clues: dificultController.dificult,
-                    );
-                    Puzzle puzzle = Puzzle(puzzleOptions);
-                    puzzle.generate().then(
-                      (_) {
-                        createSudoku(puzzle);
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
+            onPressed: () {
+              PuzzleOptions puzzleOptions = PuzzleOptions(
+                patternName: gameController.patternName,
+                clues: gameController.dificult,
+              );
+              Puzzle puzzle = Puzzle(puzzleOptions);
+              puzzle.generate().then(
+                (_) {
+                  createSudoku(puzzle);
+                  customRoutes.navigator(context, customRoutes.game);
+                },
+              );
+            },
           ),
-        ),
+        ],
       ),
     );
   }
@@ -94,23 +82,24 @@ OutlinedButton dificultButton(int star, String text, Function update) {
       Icon(
         Icons.star,
         size: 18,
-        color: (dificultController.dificult == dificult)? customColors.yellow : customColors.yellowLight,
+        color: (gameController.dificult == dificult)
+            ? customColors.yellow
+            : customColors.yellowLight,
       ),
     );
     star--;
   }
 
   return OutlinedButton.icon(
-    
     style: ButtonStyle(
       elevation: MaterialStateProperty.all(10),
       backgroundColor: MaterialStateProperty.all(
-          (dificultController.dificult == dificult)
+          (gameController.dificult == dificult)
               ? customColors.blueTransparent
-              : customColors.blueLightTransparent ),
+              : customColors.blueLightTransparent),
     ),
     onPressed: () {
-      dificultController.dificult = dificult;
+      gameController.dificult = dificult;
       update();
     },
     icon: SizedBox(

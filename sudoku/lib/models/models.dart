@@ -1,6 +1,6 @@
 import 'dificult.dart';
 import 'sudoku_model.dart';
 
-Dificult dificultController = Dificult();
+Dificult gameController = Dificult();
 
 Sudoku sudoku = Sudoku();

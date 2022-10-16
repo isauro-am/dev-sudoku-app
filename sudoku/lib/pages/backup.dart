@@ -9,7 +9,7 @@ import '../services/services.dart';
 List<Widget> dificult() {
   List<Widget> buttons = [];
 
-  int lines = dificultController.patternNames.length;
+  int lines = gameController.patternNames.length;
 
   lines = (lines ~/ 3);
   lines = lines + 1;
@@ -34,17 +34,17 @@ List<Widget> dificult() {
 createFile(int cicle) {
   List<Widget> tmp = [];
 
-  int limit = dificultController.patternNames.length;
+  int limit = gameController.patternNames.length;
   if (cicle < limit) {
-    tmp.add(buttonCreator(dificultController.patternNames[cicle]));
+    tmp.add(buttonCreator(gameController.patternNames[cicle]));
   }
 
   if (cicle + 1 < limit) {
-    tmp.add(buttonCreator(dificultController.patternNames[cicle + 1]));
+    tmp.add(buttonCreator(gameController.patternNames[cicle + 1]));
   }
 
   if (cicle + 2 < limit) {
-    tmp.add(buttonCreator(dificultController.patternNames[cicle + 2]));
+    tmp.add(buttonCreator(gameController.patternNames[cicle + 2]));
   }
   return tmp;
 }
@@ -55,13 +55,13 @@ buttonCreator(String value) {
     child: ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-            (dificultController.patternName == value)
+            (gameController.patternName == value)
                 ? customColors.green
                 : customColors.greenLight),
       ),
       onPressed: () {
-        dificultController.patternName = value;
-        dificultController.update();
+        gameController.patternName = value;
+        gameController.update();
       },
       child: Text(value),
     ),

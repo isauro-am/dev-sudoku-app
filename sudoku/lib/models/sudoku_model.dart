@@ -16,26 +16,27 @@ class Sudoku {
     this.error = 0,
     this.clues = 10,
     this.cells,
-    this.solution,
+    // this.solution,
   });
 
   int points;
   int error;
   int clues;
   Map<String, SudokuCell>? cells;
-  Map<String, SudokuCell>? solution;
+  // Map<String, SudokuCell>? solution;
 
   factory Sudoku.fromJson(Map<String, dynamic> json) => Sudoku(
         points: json["points"],
         error: json["error"],
         clues: json["clues"],
         cells: fromJsonCells(json["cells"]),
-        solution: fromJsonCells(json["solution"]),
+        // solution: fromJsonCells(json["solution"]),
       );
 
   Map<dynamic, dynamic> jsonCells(bool isSolution) {
     Map<dynamic, dynamic> matriz = {};
-    Iterable<String>? keys = (isSolution) ? solution?.keys : cells?.keys;
+    Iterable<String>? keys = cells?.keys;
+    // Iterable<String>? keys = (isSolution) ? solution?.keys : cells?.keys;
     for (String key in keys!) {
       matriz[key] = cells![key]?.toJson();
     }
@@ -47,7 +48,7 @@ class Sudoku {
         "error": error,
         "clues": clues,
         "cells": jsonCells(false),
-        "solution": jsonCells(true),
+        // "solution": jsonCells(true),
       };
 }
 
