@@ -10,9 +10,11 @@ class CustomPageTemplate extends StatefulWidget {
   final Widget child;
   final bool appBar;
   final Color color;
+  final Widget? actionButton;
 
   const CustomPageTemplate({
     Key? key,
+    this.actionButton,
     required this.title,
     required this.background,
     required this.size,
@@ -29,6 +31,7 @@ class _CustomPageTemplateState extends State<CustomPageTemplate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: widget.actionButton,
       appBar: (widget.appBar) ? customAppBar(true, widget.title) : null,
       body: Container(
         color: customColors.menu,

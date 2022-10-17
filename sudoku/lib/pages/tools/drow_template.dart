@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
@@ -37,31 +35,42 @@ Row drawRow(int x, Size size) {
 
     row.add(
       InkWell(
-        onTap:
-            () {
-          gameController.setXY(x, yy);
-          if (!sudokuCell.bySystem &&
-              gameController.selected == 0 &&
-              sudoku.clues > 0) {
-            sudokuCell.value = sudokuCell.solution;
-            sudokuCell.bySystem = (sudokuCell.value != 0) ? true : false;
-            sudoku.clues--;
-          } else if (!sudokuCell.bySystem && sudokuCell.value != gameController.selected ) {
-            sudokuCell.value = gameController.selected;
-            sudokuCell.error = groupLimitsError(x, yy);
+        onTap: () {
+          if (!gameController.noteMode) {
+            sudokuCell.notes = [];
+            sudokuCell.hadNotes = false;
 
-            if(sudokuCell.error){
-              sudoku.error++;
+            gameController.setXY(x, yy);
+            if (!sudokuCell.bySystem &&
+                gameController.selected == 0 &&
+                sudoku.clues > 0) {
+              sudokuCell.value = sudokuCell.solution;
+              sudokuCell.bySystem = (sudokuCell.value != 0) ? true : false;
+              sudoku.clues--;
+            } else if (!sudokuCell.bySystem &&
+                sudokuCell.value != gameController.selected) {
+              sudokuCell.value = gameController.selected;
+              sudokuCell.error = groupLimitsError(x, yy);
+
+              if (sudokuCell.error) {
+                sudoku.error++;
+              }
+            } else if (!sudokuCell.bySystem) {
+              sudokuCell.value = 0;
+              gameController.currentCol = 10;
+              gameController.currentRow = 10;
+              sudokuCell.error = false;
             }
 
-          } else if (!sudokuCell.bySystem) {
+            completed();
+          } else {
+            // SET NOTE
             sudokuCell.value = 0;
-            gameController.currentCol=10;
-            gameController.currentRow=10;
-            sudokuCell.error = false;
+            sudokuCell.error = groupLimitsError(x, yy);
+            gameController.currentCol = 10;
+            gameController.currentRow = 10;
+            setNotes(sudokuCell);
           }
-
-          completed();
 
           gameController.update();
         },
@@ -72,18 +81,10 @@ Row drawRow(int x, Size size) {
               ),
               color: toSet2,
               borderRadius: const BorderRadius.all(Radius.circular(5))),
-          height: (size.height-60)/12,
+          height: (size.height - 60) / 12,
           width: width,
           child: Center(
-            child: Text(
-              (value == 0) ? "" : value.toString(),
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: (sudokuCell.bySystem == true)
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-              ),
-            ),
+            child: displayNoteValue(sudokuCell),
           ),
         ),
       ),
@@ -98,4 +99,54 @@ Row drawRow(int x, Size size) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: row,
   );
+}
+
+displayNoteValue(SudokuCell sudokuCell) {
+  if (sudokuCell.notes == null) {
+    sudokuCell.notes = [];
+    sudokuCell.hadNotes = false;
+  }
+  String list = sudokuCell.notes.toString();
+  list = list.replaceAll('[', '');
+  list = list.replaceAll(']', '');
+  return Text(
+    (sudokuCell.hadNotes)
+        ? list
+        : (sudokuCell.value == 0)
+            ? ""
+            : sudokuCell.value.toString(),
+    style: TextStyle(
+      fontSize: (sudokuCell.hadNotes) ? 12 : 20,
+      fontWeight:
+          (sudokuCell.bySystem == true) ? FontWeight.bold : FontWeight.normal,
+    ),
+  );
+}
+
+setNotes(SudokuCell sudokuCell) {
+  if (gameController.selected != 0) {
+    sudokuCell.hadNotes = true;
+    sudokuCell.value = 0;
+
+    bool contains = false;
+
+    try {
+      contains = sudokuCell.notes!.contains("${gameController.selected}");
+    } catch (e) {
+      sudokuCell.notes = [];
+      contains = false;
+    }
+
+    if (contains == false) {
+      sudokuCell.notes?.add("${gameController.selected}");
+    } else {
+      sudokuCell.notes?.remove("${gameController.selected}");
+    }
+
+    if (sudokuCell.notes == null || sudokuCell.notes == []) {
+      sudokuCell.hadNotes = false;
+    } else {
+      sudokuCell.hadNotes = true;
+    }
+  }
 }

@@ -26,6 +26,7 @@ class _TemplateGameState extends State<TemplateGame> {
     Size size = MediaQuery.of(context).size;
 
     return CustomPageTemplate(
+      actionButton: noteButton(),
       appBar: false,
       background: "assets/game.png",
       size: size,
@@ -37,9 +38,9 @@ class _TemplateGameState extends State<TemplateGame> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                (gameController.completed)? const SizedBox() : errorButton(),
+                (gameController.completed) ? const SizedBox() : errorButton(),
                 exitButton(context),
-                (gameController.completed)? const SizedBox() : cluesButton(),
+                (gameController.completed) ? const SizedBox() : cluesButton(),
               ],
             ),
             Column(
@@ -90,7 +91,6 @@ ElevatedButton errorButton() {
   );
 }
 
-
 ElevatedButton exitButton(BuildContext context) {
   return ElevatedButton(
     style: ButtonStyle(
@@ -100,5 +100,18 @@ ElevatedButton exitButton(BuildContext context) {
       customRoutes.navigator(context, customRoutes.home);
     },
     child: const Text(" Regresar "),
+  );
+}
+
+noteButton() {
+  return FloatingActionButton(
+    backgroundColor: (gameController.noteMode)? customColors.green :customColors.blueTransparent,
+    foregroundColor: customColors.white,
+    onPressed: () {
+      gameController.noteMode = !gameController.noteMode;
+      gameController.update();
+    },
+    child: const Text("Note"),
+    // child: const Icon(Icons.note_add),
   );
 }

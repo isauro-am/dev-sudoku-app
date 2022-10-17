@@ -28,6 +28,7 @@ Color getColor(int x, int y) {
 }
 
 groupLimitsError(int x, int y) {
+  print("$x,$y");
   bool error = false;
   if (x < 3 && y < 3) {
     error = checkErrorBox(0, 3, 0, 3, x, y);

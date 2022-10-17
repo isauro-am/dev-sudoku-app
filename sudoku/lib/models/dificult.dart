@@ -22,6 +22,7 @@ class Dificult {
   int selected = 0;
 
   bool completed = false;
+  bool noteMode = false;
 
   bool clues = true;
 
