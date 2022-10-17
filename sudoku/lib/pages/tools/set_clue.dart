@@ -13,12 +13,9 @@ Color getColor(int x, int y) {
   Color toSet = (y > 2 && y < 6) ? a : b;
 
   int match = gameController.matchColRow(x, y);
-  toSet = (match == 1) ? customColors.greenLight : toSet;
-  toSet = (match == 2) ? customColors.green : toSet;
+  // toSet = (match == 1) ? customColors.greenLight : toSet;
+  toSet = (match == 2) ? customColors.white : toSet;
 
-  // if (groupLimitsError(x, y)) {
-  //   toSet = customColors.error;
-  // }
 
   if (sudoku.cells!['$x,$y']!.error) {
     toSet = customColors.error;
@@ -28,7 +25,6 @@ Color getColor(int x, int y) {
 }
 
 groupLimitsError(int x, int y) {
-  print("$x,$y");
   bool error = false;
   if (x < 3 && y < 3) {
     error = checkErrorBox(0, 3, 0, 3, x, y);

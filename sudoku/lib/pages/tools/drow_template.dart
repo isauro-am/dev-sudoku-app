@@ -29,8 +29,6 @@ Row drawRow(int x, Size size) {
     int yy = y * 1;
     SudokuCell sudokuCell = sudoku.cells!["$x,$y"]!;
 
-    int value = sudokuCell.value;
-
     Color toSet2 = getColor(x, yy);
 
     row.add(
@@ -63,7 +61,7 @@ Row drawRow(int x, Size size) {
             }
 
             completed();
-          } else {
+          } else if (!sudokuCell.bySystem) {
             // SET NOTE
             sudokuCell.value = 0;
             sudokuCell.error = groupLimitsError(x, yy);
@@ -77,7 +75,10 @@ Row drawRow(int x, Size size) {
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(
-                color: customColors.blueLightTransparent,
+                width: 2,
+                color: (gameController.selected == sudokuCell.value && sudokuCell.value != 0)
+                  ? customColors.error
+                  :customColors.blueLightTransparent,
               ),
               color: toSet2,
               borderRadius: const BorderRadius.all(Radius.circular(5))),

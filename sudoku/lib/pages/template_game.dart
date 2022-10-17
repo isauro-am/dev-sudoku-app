@@ -75,7 +75,7 @@ ElevatedButton cluesButton() {
       }
       gameController.update();
     },
-    child: Text("HELP [${sudoku.clues}]"),
+    child: Text("Help [${sudoku.clues}]"),
   );
 }
 
@@ -99,7 +99,7 @@ ElevatedButton exitButton(BuildContext context) {
     onPressed: () {
       customRoutes.navigator(context, customRoutes.home);
     },
-    child: const Text(" Regresar "),
+    child: const Text(" Home "),
   );
 }
 
