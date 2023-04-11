@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/models/dificult.dart';
+import 'package:resize/resize.dart';
+import 'package:sudoku/ui/sudoku_board/sudoku_board.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../colors.dart';
+import '../domain/game_control.dart';
 import '../domain/sudoku_model.dart';
 import '../models/models.dart';
-import '../pages/template_page.dart';
-import '../pages/utils.dart';
-import '../services/services.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,62 +18,97 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     update() {
       setState(() {});
     }
 
     gameController.update = update;
 
-    return CustomPageTemplate(
-      appBar: false,
-      background: "assets/wallpaper/wallpaper.jpg",
-      size: size,
-      color: customColors.green,
-      title: "Sudoku",
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          jump(3),
-          dificultButton(1, "Easy", update),
-          jump(2),
-          dificultButton(2, "Medium", update),
-          jump(2),
-          dificultButton(3, "Hard", update),
-          jump(6),
-          ElevatedButton(
-            child: const SizedBox(
-              height: 30,
-              width: 120,
-              child: Center(child: Text("Start Game")),
-            ),
-            onPressed: () {
-              PuzzleOptions puzzleOptions = PuzzleOptions(
-                patternName: gameController.patternName,
-                clues: gameController.dificult,
-              );
-              Puzzle puzzle = Puzzle(puzzleOptions);
-              puzzle.generate().then(
-                (_) {
-                  sudoku = Sudoku();
-                  createSudoku(puzzle);
-                  gameController = Dificult();
-                  customRoutes.navigator(context, customRoutes.game);
-                },
-              );
-            },
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/wallpaper/wallpaper.jpg'),
+            fit: BoxFit.cover,
           ),
-        ],
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              dificultButton(1, "Easy", update),
+              const SizedBox(
+                height: 20,
+              ),
+              dificultButton(2, "Medium", update),
+              SizedBox(
+                height: 20.h,
+              ),
+              dificultButton(3, "Hard", update),
+              const SizedBox(
+                height: 60,
+              ),
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: customColors.white,
+                    width: 2.0,
+                  ),
+                  color: Colors.amberAccent,
+                  image: const DecorationImage(
+                    image: AssetImage('assets/tiles_wallpaper/system.jpg'),
+                    fit: BoxFit.cover,
+                    opacity: 1,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+
+                  // color: customColors.blueLightTransparent,
+                ),
+                constraints: const BoxConstraints(maxWidth: 250, minWidth: 180),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(50),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.transparent),
+                  ),
+                  child: const Text("Start Game"),
+                  onPressed: () {
+                    // Create a new puzzle with the selected dificult
+                    Puzzle puzzle = Puzzle(
+                      PuzzleOptions(
+                        patternName: gameControl.patternName,
+                        clues: gameControl.dificult,
+                      ),
+                    );
+
+                    puzzle.generate().then(
+                      (_) {
+                        // Reset instance of the sudoku board
+                        sudokuBoard = Sudoku();
+
+                        sudokuBoard.setRowColumns(puzzle);
+
+                        Navigator.pushReplacement(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                const SudokuBoard(),
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-}
-
-SizedBox jump(double value) {
-  return SizedBox(
-    height: value * 10,
-  );
 }
 
 Container dificultButton(int star, String text, Function update) {
@@ -88,30 +122,34 @@ Container dificultButton(int star, String text, Function update) {
   while (star > 0) {
     icons.add(
       Padding(
-        padding: const EdgeInsets.only(left:2.0),
-        child: Image.asset("assets/icons/star.png", width: 20, height: 20),
-      )
+        padding: const EdgeInsets.only(left: 2.0),
+        child: Image.asset(
+          "assets/icons/star.png",
+          width: 20,
+          height: 20,
+        ),
+      ),
     );
     star--;
   }
 
   return Container(
-
     decoration: BoxDecoration(
+      image: DecorationImage(
+        image: const AssetImage('assets/buttons/dificult.jpeg'),
+        fit: BoxFit.cover,
+        opacity: (gameController.dificult == dificult) ? 1 : 0.4,
+      ),
       borderRadius: BorderRadius.circular(10),
-      color: customColors.blueLightTransparent,
+      // color: customColors.blueLightTransparent,
     ),
     constraints: const BoxConstraints(
-      maxWidth: 200,
+      maxWidth: 250,
     ),
-
     child: OutlinedButton.icon(
       style: ButtonStyle(
-        elevation: MaterialStateProperty.all(10),
-        backgroundColor: MaterialStateProperty.all(
-            (gameController.dificult == dificult)
-                ? customColors.blueTransparent
-                : customColors.blueLightTransparent),
+        elevation: MaterialStateProperty.all(
+            (gameController.dificult == dificult) ? 30 : 1),
       ),
       onPressed: () {
         gameController.dificult = dificult;
@@ -126,13 +164,12 @@ Container dificultButton(int star, String text, Function update) {
         child: Text(
           text,
           style: TextStyle(
-            color: customColors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+              color: customColors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              overflow: TextOverflow.ellipsis),
         ),
       ),
     ),
   );
 }
-

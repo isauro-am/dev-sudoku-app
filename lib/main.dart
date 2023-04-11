@@ -7,7 +7,7 @@ import 'package:resize/resize.dart';
 
 import 'colors.dart';
 import 'services/services.dart';
-import 'ui/home2.dart';
+import 'ui/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
