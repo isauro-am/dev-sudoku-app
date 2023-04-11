@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/ui/sudoku_board/widgets/utils.dart';
 
 import '../../../colors.dart';
 import '../../../domain/game_control.dart';
@@ -223,28 +224,20 @@ Row drawRow1x3(int x, int y) {
 drawCube1x1(x, y) {
   SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
 
+  List<Color> colors = sudokuCellColors(sudokuCell);
+
   return Material(
     elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
     child: Container(
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
-          color: (sudokuBoard.selected == "$x,$y")
-              ? customColors.white
-              : customColors.black,
+          color: colors[0],
         ),
-        color: (sudokuCell.bySystem)
-            ? customColors.blueLight
-            : (sudokuCell.error)
-                ? customColors.error
-                : (sudokuBoard.selected == "$x,$y"
-                    // && sudokuCell.value != 0
-                    )
-                    ? customColors.yellow
-                    : customColors.blueLightTransparent,
+        color: colors[1],
       ),
-      width: 37,
-      height: 40,
+      width: maxWidth(gameControl.size),
+      height: maxWidth(gameControl.size),
       child: TextButton(
         onPressed: () {
           validateCell(sudokuCell);
@@ -252,9 +245,7 @@ drawCube1x1(x, y) {
         child: Text(
           (sudokuCell.value == 0) ? "" : sudokuCell.value.toString(),
           style: TextStyle(
-            color: (sudokuCell.value == 0)
-                ? customColors.white
-                : customColors.black,
+            color: colors[2],
             fontSize: 20,
             fontWeight: (sudokuCell.bySystem == true)
                 ? FontWeight.bold
@@ -267,9 +258,16 @@ drawCube1x1(x, y) {
 }
 
 validateCell(SudokuCell sudokuCell) {
+  // Set or remove value
+  if (!sudokuCell.bySystem) {
+    if (gameControl.selected != 0 && sudokuCell.value != gameControl.selected) {
+      sudokuCell.value = gameControl.selected;
+    } else {
+      sudokuCell.value = 0;
+    }
+  }
 
   sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
-
 
   gameControl.update();
 }

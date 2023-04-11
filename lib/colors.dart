@@ -29,6 +29,10 @@ class CustomColors {
   Color selectionAlfa = const Color(0xF0074572);
   Color selectionTransparent = const Color(0x94077072);
 
+  Color boardYellow = const Color(0xFFc59a55);
+  Color boardBlack = const Color(0xFF222423);
+  Color boardBlackSystem = const Color(0xFF141515);
+
   textStyle(color) {
     return TextStyle(
       color: color,

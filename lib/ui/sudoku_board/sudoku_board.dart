@@ -3,7 +3,7 @@ import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/models/models.dart';
 import 'package:sudoku/services/services.dart';
 
-import 'widgets/board.dart';
+import 'widgets/draw_board.dart';
 import 'widgets/number_pad.dart';
 
 class SudokuBoard extends StatefulWidget {
@@ -21,6 +21,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
     }
 
     gameControl.update = update; 
+    gameControl.size = MediaQuery.of(context).size;
 
     Size size = MediaQuery.of(context).size;
 
