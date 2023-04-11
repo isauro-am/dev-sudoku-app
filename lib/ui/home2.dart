@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:resize/resize.dart';
 import 'package:sudoku/ui/sudoku_board/sudoku_board.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../colors.dart';
 import '../domain/game_control.dart';
-import '../models/models.dart';
 import '../domain/sudoku_model.dart';
+import '../models/models.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -40,8 +41,8 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               dificultButton(2, "Medium", update),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               dificultButton(3, "Hard", update),
               const SizedBox(

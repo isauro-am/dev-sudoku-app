@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 
 GameControl gameControl = GameControl();
 
@@ -13,7 +12,6 @@ class GameControl {
     currentPos = [0, 0];
   }
 
-  Size size = const Size(0, 0);
 
   Function update = () {};
 

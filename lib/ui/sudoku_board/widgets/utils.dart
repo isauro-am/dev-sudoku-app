@@ -4,12 +4,6 @@ import 'package:sudoku/domain/sudoku_cell.dart';
 import '../../../colors.dart';
 import '../../../domain/sudoku_model.dart';
 
-double maxWidth(Size size) {
-  double avalaibleWidth = size.width - 10;
-
-  return avalaibleWidth / 19;
-}
-
 List<Color> sudokuCellColors(SudokuCell sudokuCell) {
   int x = sudokuCell.column;
   int y = sudokuCell.row;

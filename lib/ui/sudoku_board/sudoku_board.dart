@@ -21,9 +21,6 @@ class _SudokuBoardState extends State<SudokuBoard> {
     }
 
     gameControl.update = update; 
-    gameControl.size = MediaQuery.of(context).size;
-
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       floatingActionButton: noteButton(),
@@ -52,14 +49,14 @@ class _SudokuBoardState extends State<SudokuBoard> {
                 // ),
               ),
               child: Column(
-                children: drawPanel(size),
+                children: drawPanel(),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             Center(
-              child: numberPad(1, 10, size),
+              child: numberPad(1, 10),
             ),
             const SizedBox(
               height: 20,

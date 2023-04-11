@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resize/resize.dart';
 import 'package:sudoku/ui/sudoku_board/widgets/utils.dart';
 
 import '../../../colors.dart';
@@ -6,7 +7,7 @@ import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_cell.dart';
 import '../../../domain/sudoku_model.dart';
 
-List<Widget> drawPanel(Size size) {
+List<Widget> drawPanel() {
   List<Widget> column = [
     const SizedBox(
       height: 10,
@@ -21,8 +22,7 @@ List<Widget> drawPanel(Size size) {
   return column;
 }
 
-Row drawRow(int x, Size size) {
-  double width = (size.width > 400) ? 390 / 9 : (size.width - 10) / 9;
+Row drawRow(int x) {
   int y = 0;
   List<Widget> row = [];
 
@@ -94,8 +94,8 @@ Row drawRow(int x, Size size) {
               // color: toSet2,
               borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
-            height: (size.height - 60) / 13,
-            width: width - 4,
+            height: 40.h,
+            width: 36.w,
             child: Center(
               child: displayNoteValue(sudokuCell),
             ),
@@ -221,6 +221,22 @@ Row drawRow1x3(int x, int y) {
   );
 }
 
+drawCubeR1x1(x, y) {
+  return Resize(
+    allowtextScaling: true,
+    builder: () {
+      // print(ResizeUtil().deviceType);
+      // print(ResizeUtil().orientation);
+      // print(ResizeUtil().screenHeight);
+      // print(ResizeUtil().screenWidth);
+      return Container(
+        color: Colors.red,
+        height: 20.h, // Using Responsive height
+      );
+    },
+  );
+}
+
 drawCube1x1(x, y) {
   SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
 
@@ -236,8 +252,8 @@ drawCube1x1(x, y) {
         ),
         color: colors[1],
       ),
-      width: maxWidth(gameControl.size),
-      height: maxWidth(gameControl.size),
+      width: 36.w,
+      height: 38.h,
       child: TextButton(
         onPressed: () {
           validateCell(sudokuCell);

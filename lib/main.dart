@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:resize/resize.dart';
 
 import 'services/services.dart';
 import 'ui/home2.dart';
@@ -26,19 +27,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      scrollBehavior: MyCustomScrollBehavior(),
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        appBarTheme: AppBarTheme(color: customColors.menu),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      initialRoute: customRoutes.home,
-      routes: {
-        // Dashboard
-        customRoutes.home: (context) => const Home(),
-      },
+    return Resize(
+      allowtextScaling: true,
+      builder: (){
+        return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        scrollBehavior: MyCustomScrollBehavior(),
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+          appBarTheme: AppBarTheme(color: customColors.menu),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        initialRoute: customRoutes.home,
+        routes: {
+          // Dashboard
+          customRoutes.home: (context) => const Home(),
+        },
+      );
+      }
     );
   }
 }
