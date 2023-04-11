@@ -12,6 +12,7 @@ class GameControl {
     currentPos = [0, 0];
   }
 
+  bool clues = false;
 
   Function update = () {};
 

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sudoku/models/dificult.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
-import '../models/models.dart';
+import '../colors.dart';
 import '../domain/sudoku_model.dart';
-import '../services/services.dart';
+import '../models/models.dart';
 import '../pages/template_page.dart';
 import '../pages/utils.dart';
+import '../services/services.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

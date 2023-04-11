@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/models/models.dart';
-import 'package:sudoku/services/services.dart';
 
+import '../../colors.dart';
 import 'widgets/draw_board.dart';
 import 'widgets/number_pad.dart';
+import 'widgets/pad_menu.dart';
 
 class SudokuBoard extends StatefulWidget {
   const SudokuBoard({Key? key}) : super(key: key);
@@ -20,10 +21,11 @@ class _SudokuBoardState extends State<SudokuBoard> {
       setState(() {});
     }
 
-    gameControl.update = update; 
+    gameControl.update = update;
 
     return Scaffold(
       floatingActionButton: noteButton(),
+      backgroundColor: customColors.boardBlack.withOpacity(0.5),
       body: SafeArea(
         minimum: const EdgeInsets.only(top: 30),
         child: Column(
@@ -37,10 +39,16 @@ class _SudokuBoardState extends State<SudokuBoard> {
               ],
             ),
             Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.all(10).copyWith(top: 0),
               decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image: AssetImage('assets/tiles_wallpaper/system.jpg'),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(
-                  color: customColors.white,
-                  width: 2.0,
+                  color: customColors.boardYellow,
+                  width: 3.0,
                 ),
                 // color: Colors.amberAccent,
                 // image: const DecorationImage(
@@ -66,63 +74,4 @@ class _SudokuBoardState extends State<SudokuBoard> {
       ),
     );
   }
-}
-
-ElevatedButton cluesButton() {
-  return ElevatedButton(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all((gameController.clues)
-          ? customColors.yellow
-          : customColors.yellowLight),
-    ),
-    onPressed: () {
-      if (gameController.clues) {
-        gameController.clues = false;
-        gameController.selected = 1;
-      } else {
-        gameController.selected = 0;
-        gameController.clues = true;
-      }
-      gameController.update();
-    },
-    child: Text("Help [${sudoku.clues}]"),
-  );
-}
-
-ElevatedButton errorButton() {
-  return ElevatedButton(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all((sudoku.error > 0)
-          ? customColors.error
-          : customColors.selectionTransparent),
-    ),
-    onPressed: () {},
-    child: Text("Errors [${sudoku.error}]"),
-  );
-}
-
-ElevatedButton exitButton(BuildContext context) {
-  return ElevatedButton(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(customColors.green),
-    ),
-    onPressed: () {
-      customRoutes.navigator(context, customRoutes.home);
-    },
-    child: const Text(" Home "),
-  );
-}
-
-noteButton() {
-  return FloatingActionButton(
-    backgroundColor: (gameController.noteMode)
-        ? customColors.green
-        : customColors.blueTransparent,
-    foregroundColor: customColors.white,
-    onPressed: () {
-      gameController.noteMode = !gameController.noteMode;
-      gameController.update();
-    },
-    child: const Text("Note"),
-  );
 }

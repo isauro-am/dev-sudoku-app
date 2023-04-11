@@ -221,22 +221,6 @@ Row drawRow1x3(int x, int y) {
   );
 }
 
-drawCubeR1x1(x, y) {
-  return Resize(
-    allowtextScaling: true,
-    builder: () {
-      // print(ResizeUtil().deviceType);
-      // print(ResizeUtil().orientation);
-      // print(ResizeUtil().screenHeight);
-      // print(ResizeUtil().screenWidth);
-      return Container(
-        color: Colors.red,
-        height: 20.h, // Using Responsive height
-      );
-    },
-  );
-}
-
 drawCube1x1(x, y) {
   SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
 

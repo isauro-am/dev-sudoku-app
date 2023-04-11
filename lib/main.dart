@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:resize/resize.dart';
 
+import 'colors.dart';
 import 'services/services.dart';
 import 'ui/home2.dart';
 

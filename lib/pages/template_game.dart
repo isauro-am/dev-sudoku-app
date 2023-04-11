@@ -3,6 +3,7 @@ import 'package:sudoku/models/models.dart';
 import 'package:sudoku/ui/home.dart';
 import 'package:sudoku/services/services.dart';
 
+import '../colors.dart';
 import 'tools/drow_template.dart';
 import 'template_page.dart';
 import 'tools/set_user_number.dart';

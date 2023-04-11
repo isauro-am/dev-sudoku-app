@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../models/models.dart';
+import '../../colors.dart';
 import '../../domain/sudoku_cell.dart';
-import '../../services/services.dart';
+import '../../models/models.dart';
 
 Color getColor(int x, int y) {
   bool odd = (x > 2 && x < 6) ? true : false;

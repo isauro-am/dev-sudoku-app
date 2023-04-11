@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
+import '../../../colors.dart';
 import '../../../domain/game_control.dart';
-import '../../../services/services.dart';
 
 Wrap numberPad(int init, int end) {
-
   List<Widget> row = [];
 
   int number = 1 * init;
@@ -29,17 +28,16 @@ InkWell numberCell(int n) {
       gameControl.update();
     },
     child: Material(
-      elevation: (gameControl.selected == n) ? 10 : 2,
+      elevation: (gameControl.selected == n) ? 15 : 2,
+      shadowColor: customColors.boardYellow,
       child: Container(
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage("assets/buttons/dificult.jpeg"),
-            fit: BoxFit.cover,
-            opacity: 0.7,
-          ),
+          color: (gameControl.selected == n)
+              ? customColors.boardBlack
+              : customColors.boardBlackSystem,
           border: Border.all(
             color: (gameControl.selected == n)
-                ? customColors.blueLight
+                ? customColors.boardYellow
                 : customColors.white,
             width: (gameControl.selected == n) ? 2 : 0,
           ),
@@ -54,12 +52,15 @@ InkWell numberCell(int n) {
               Text(
                 n.toString(),
                 style: TextStyle(
+                  color: customColors.boardYellow,
                   fontSize: (gameControl.selected == n) ? 14 : 20,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               (gameControl.selected == n)
-                  ? const Icon(Icons.create_rounded)
+                  ? Icon(
+                      Icons.create_rounded,
+                      color: customColors.boardYellow,
+                    )
                   : const SizedBox(),
             ],
           ),
