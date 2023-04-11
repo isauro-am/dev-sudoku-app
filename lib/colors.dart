@@ -32,6 +32,8 @@ class CustomColors {
   Color boardYellow = const Color(0xFFc59a55);
   Color boardBlack = const Color(0xFF222423);
   Color boardBlackSystem = const Color(0xFF141515);
+  Color shadowColor= const Color(0xFFF1F1F1);
+
 
   textStyle(color) {
     return TextStyle(

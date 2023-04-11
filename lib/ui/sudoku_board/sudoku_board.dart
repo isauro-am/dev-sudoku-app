@@ -3,6 +3,7 @@ import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/models/models.dart';
 
 import '../../colors.dart';
+import '../../domain/sudoku_model.dart';
 import 'widgets/draw_board.dart';
 import 'widgets/number_pad.dart';
 import 'widgets/pad_menu.dart';
@@ -24,52 +25,82 @@ class _SudokuBoardState extends State<SudokuBoard> {
     gameControl.update = update;
 
     return Scaffold(
-      floatingActionButton: noteButton(),
       backgroundColor: customColors.boardBlack.withOpacity(0.5),
       body: SafeArea(
         minimum: const EdgeInsets.only(top: 30),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                (gameController.completed) ? const SizedBox() : errorButton(),
-                exitButton(context),
-                (gameController.completed) ? const SizedBox() : cluesButton(),
-              ],
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/tiles_wallpaper/user.jpg'),
+              fit: BoxFit.cover,
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              padding: const EdgeInsets.all(10).copyWith(top: 0),
-              decoration: BoxDecoration(
-                image: const DecorationImage(
-                  image: AssetImage('assets/tiles_wallpaper/system.jpg'),
-                  fit: BoxFit.cover,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              homeButton(context),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.all(10).copyWith(top: 0),
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: AssetImage('assets/tiles_wallpaper/system.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  border: Border.all(
+                    color: customColors.boardYellow,
+                    width: 3.0,
+                  ),
                 ),
-                border: Border.all(
-                  color: customColors.boardYellow,
-                  width: 3.0,
+                child: Column(
+                  children: drawPanel(),
                 ),
-                // color: Colors.amberAccent,
-                // image: const DecorationImage(
-                //   image: AssetImage('assets/tiles_wallpaper/system.jpg'),
-                //   fit: BoxFit.cover,
-                // ),
               ),
-              child: Column(
-                children: drawPanel(),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    (gameController.completed) ? const SizedBox() : gameMode(),
+                    (gameController.completed) ? const SizedBox() : cluesButton(),
+                    notesButton(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Errors:",
+                          style: TextStyle(
+                            color: customColors.boardYellow,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "${sudokuBoard.error}",
+                          style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: (sudokuBoard.error == 0)
+                                ? customColors.green
+                                : customColors.error,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: numberPad(1, 10),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: numberPad(1, 10),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );

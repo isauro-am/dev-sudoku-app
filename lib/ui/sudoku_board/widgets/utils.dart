@@ -23,9 +23,7 @@ List<Color> sudokuCellColors(SudokuCell sudokuCell) {
               : customColors.boardBlack;
   Color textColor = (sudokuCell.bySystem)
       ? customColors.boardYellow
-      : (sudokuCell.value == 0)
-          ? customColors.white
-          : (sudokuBoard.selected == "$x,$y")
+      : (sudokuBoard.selected == "$x,$y")
               ? customColors.boardBlackSystem
               : customColors.boardYellow;
 

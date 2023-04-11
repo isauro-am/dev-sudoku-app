@@ -226,13 +226,16 @@ drawCube1x1(x, y) {
 
   List<Color> colors = sudokuCellColors(sudokuCell);
 
+  sudokuCell.needElevation();
+
   return Material(
+    shadowColor: customColors.shadowColor,
     elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
     child: Container(
       decoration: BoxDecoration(
         border: Border.all(
-          width: 1,
-          color: colors[0],
+          width: (sudokuCell.elevation) ? 2 : 0,
+          color: (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
         ),
         color: colors[1],
       ),
@@ -243,10 +246,14 @@ drawCube1x1(x, y) {
           validateCell(sudokuCell);
         },
         child: Text(
-          (sudokuCell.value == 0) ? "" : sudokuCell.value.toString(),
+          sudokuCell.displayValue(),
           style: TextStyle(
             color: colors[2],
-            fontSize: 20,
+            fontSize: (sudokuCell.hadNotes)
+                ? (sudokuCell.elevation)
+                    ? 9
+                    : 11
+                : 20,
             fontWeight: (sudokuCell.bySystem == true)
                 ? FontWeight.bold
                 : FontWeight.normal,
@@ -258,10 +265,14 @@ drawCube1x1(x, y) {
 }
 
 validateCell(SudokuCell sudokuCell) {
-  // Set or remove value
+  if (gameControl.noteMode && !sudokuCell.bySystem) {
+    sudokuCell.hadNotes = true;
+  }
+
   if (!sudokuCell.bySystem) {
     if (gameControl.selected != 0 && sudokuCell.value != gameControl.selected) {
       sudokuCell.value = gameControl.selected;
+      gameControl.selected = 0;
     } else {
       sudokuCell.value = 0;
     }

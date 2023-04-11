@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:resize/resize.dart';
 
 import '../../../colors.dart';
 import '../../../domain/game_control.dart';
@@ -11,7 +11,6 @@ Material cluesButton() {
     elevation: (gameControl.clues) ? 5 : 0,
     shadowColor: customColors.blueLight,
     color: customColors.boardBlack,
-
     child: TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -32,6 +31,7 @@ Material cluesButton() {
           gameControl.selected = 0;
         } else {
           gameControl.selected = 0;
+          gameControl.noteMode = false;
           gameControl.clues = true;
         }
         gameControl.update();
@@ -40,9 +40,11 @@ Material cluesButton() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Icon(Icons.help_center_outlined),
-          const SizedBox(width: 5),
+          const SizedBox(
+            width: 5,
+            height: 30,
+          ),
           CircleAvatar(
-            
             backgroundColor: customColors.boardBlackSystem,
             radius: 12,
             child: Text(
@@ -59,42 +61,90 @@ Material cluesButton() {
   );
 }
 
-ElevatedButton errorButton() {
-  return ElevatedButton(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all((sudokuBoard.error > 0)
-          ? customColors.error
-          : customColors.selectionTransparent),
+Container gameMode() {
+  String mode = " Mode";
+
+  if (gameControl.noteMode) {
+    mode = "Note$mode";
+  } else if (gameControl.clues) {
+    mode = "Clues$mode";
+  } else {
+    mode = "Input$mode";
+  }
+
+  return Container(
+    padding: const EdgeInsets.symmetric(
+      horizontal: 3,
     ),
-    onPressed: () {},
-    child: Text("Errors [${sudokuBoard.error}]"),
-  );
-}
-
-ElevatedButton exitButton(BuildContext context) {
-  return ElevatedButton(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(customColors.green),
+    decoration: BoxDecoration(
+      color: customColors.boardBlack,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: customColors.boardYellow,
+        width: 2,
+      ),
     ),
-    onPressed: () {
-      customRoutes.navigator(context, customRoutes.home);
-    },
-    child: const Text(" Home "),
+    child: Row(
+      children: [
+        Icon(
+          Icons.gamepad_outlined,
+          color: customColors.boardYellow,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(mode, style: TextStyle(color: customColors.boardYellow)),
+      ],
+    ),
   );
 }
 
-noteButton() {
-  return FloatingActionButton(
-    backgroundColor: (gameControl.noteMode)
-        ? customColors.green
-        : customColors.blueTransparent,
-    foregroundColor: customColors.white,
-    onPressed: () {
-      gameControl.noteMode = !gameControl.noteMode;
-      gameControl.update();
-    },
-    child: const Text("Note"),
+Container homeButton(BuildContext context) {
+  return Container(
+    width: 80.w,
+    decoration: BoxDecoration(
+      color: customColors.boardBlack,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: customColors.boardYellow,
+        width: 2,
+      ),
+    ),
+    child: TextButton(
+      onPressed: () {
+        customRoutes.navigator(context, customRoutes.home);
+      },
+      child: Text(
+        " Home ",
+        style: TextStyle(color: customColors.boardYellow),
+      ),
+    ),
   );
 }
 
+Container notesButton() {
+  return Container(
+    width: 70.w,
+    height: 26.h,
+    decoration: BoxDecoration(
+      color: customColors.boardBlack,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: customColors.boardYellow,
+        width: 2,
+      ),
+    ),
+    child: TextButton(
+      onPressed: () {
+        gameControl.noteMode = !gameControl.noteMode;
+        gameControl.clues = false;
 
+        gameControl.update();
+      },
+      child: Text(
+        "Notes",
+        style: TextStyle(color: customColors.boardYellow),
+      ),
+    ),
+  );
+}

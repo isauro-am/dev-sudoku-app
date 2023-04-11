@@ -1,9 +1,4 @@
-import 'dart:convert';
-
-SudokuCell sudokuCellFromJson(String str) =>
-    SudokuCell.fromJson(json.decode(str));
-
-String sudokuCellToJson(SudokuCell data) => json.encode(data.toJson());
+import 'package:sudoku/domain/sudoku_model.dart';
 
 class SudokuCell {
   SudokuCell({
@@ -18,6 +13,7 @@ class SudokuCell {
     this.notes,
   });
 
+  bool elevation = false;
   int value;
   int solution;
   int column;
@@ -28,27 +24,24 @@ class SudokuCell {
   bool hadNotes;
   List<String>? notes;
 
-  factory SudokuCell.fromJson(Map<String, dynamic> json) => SudokuCell(
-        value: json["value"],
-        solution: json["solution"],
-        column: json["column"],
-        row: json["row"],
-        bySystem: json["bySystem"],
-        error: json["error"],
-        clue: json["clue"],
-        hadNotes: json["hadNotes"],
-        notes: (null == json["notes"]) ? [] : json["notes"],
-      );
+  needElevation() {
+    if (int.parse(sudokuBoard.selected.split(',')[0]) == column ||
+        int.parse(sudokuBoard.selected.split(',')[1]) == row) {
+      elevation = true;
+    } else {
+      elevation = false;
+    }
+  }
 
-  Map<String, dynamic> toJson() => {
-        "value": value,
-        "solution": solution,
-        "column": column,
-        "row": row,
-        "bySystem": bySystem,
-        "error": error,
-        "clue": clue,
-        "hadNotes": hadNotes,
-        "notes": (null == notes) ? [] : notes,
-      };
+  displayValue() {
+    if (hadNotes && notes != null && notes!.isNotEmpty) {
+      return notes!.join('');
+    } else {
+      if (value == 0) {
+        return '';
+      } else {
+        return value.toString();
+      }
+    }
+  }
 }
