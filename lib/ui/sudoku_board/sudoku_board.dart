@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sudoku/models/models.dart';
 import 'package:sudoku/services/services.dart';
 
-import 'board.dart';
+import 'widgets/board.dart';
 import 'widgets/number_pad.dart';
 
 class SudokuBoard extends StatefulWidget {
@@ -37,9 +37,21 @@ class _SudokuBoardState extends State<SudokuBoard> {
                 (gameController.completed) ? const SizedBox() : cluesButton(),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: drawPanel(size),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: customColors.white,
+                  width: 2.0,
+                ),
+                // color: Colors.amberAccent,
+                // image: const DecorationImage(
+                //   image: AssetImage('assets/tiles_wallpaper/system.jpg'),
+                //   fit: BoxFit.cover,
+                // ),
+              ),
+              child: Column(
+                children: drawPanel(size),
+              ),
             ),
             const SizedBox(
               height: 20,

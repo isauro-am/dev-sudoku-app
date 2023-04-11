@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
                         // Reset instance of the sudoku board
                         sudokuBoard = Sudoku();
 
-                        sudokuBoard.setCells(puzzle);
+                        sudokuBoard.setRowColumns(puzzle);
 
                         Navigator.pushReplacement(
                           context,

@@ -66,6 +66,7 @@ flutter:
     - assets/buttons/dificult.jpeg
     - assets/icons/star.png
     - assets/tiles_wallpaper/system.jpg
+    - assets/tiles_wallpaper/user.jpg
     
     # Sounds
     - assets/sounds/switch.mp3
