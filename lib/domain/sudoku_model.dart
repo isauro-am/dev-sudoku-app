@@ -2,7 +2,7 @@
 //
 //     final sudoku = sudokuFromJson(jsonString);
 
-import 'package:sudoku/models/sudoku_cell.dart';
+import 'package:sudoku/domain/sudoku_cell.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 Sudoku sudokuBoard = Sudoku();
@@ -19,7 +19,12 @@ class Sudoku {
   int points;
   int error;
   int clues;
+
+  String selected = "9,9";
+  
   Map<String, SudokuCell>? cells;
+
+  Map<String, List<int>>? errors;
 
   setRowColumns(Puzzle puzzle) {
     cells = {};
@@ -47,6 +52,9 @@ class Sudoku {
         sc.value = value;
         sc.solution = solution;
         sc.bySystem = (value > 0) ? true : false;
+
+        sc.column = x;
+        sc.row = y;
 
         cells!["$x,$y"] = sc;
 

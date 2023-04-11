@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/models/models.dart';
 import 'package:sudoku/services/services.dart';
 
@@ -19,7 +20,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
       setState(() {});
     }
 
-    gameController.update = update;
+    gameControl.update = update; 
 
     Size size = MediaQuery.of(context).size;
 

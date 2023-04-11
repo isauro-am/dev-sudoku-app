@@ -5,7 +5,7 @@ import 'package:sudoku_api/sudoku_api.dart';
 import '../colors.dart';
 import '../domain/game_control.dart';
 import '../models/models.dart';
-import '../models/sudoku_model.dart';
+import '../domain/sudoku_model.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../colors.dart';
 import '../../../domain/game_control.dart';
-import '../../../models/sudoku_cell.dart';
-import '../../../models/sudoku_model.dart';
+import '../../../domain/sudoku_cell.dart';
+import '../../../domain/sudoku_model.dart';
 
 List<Widget> drawPanel(Size size) {
   List<Widget> column = [
@@ -223,33 +223,53 @@ Row drawRow1x3(int x, int y) {
 drawCube1x1(x, y) {
   SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
 
-  return Container(
-    decoration: BoxDecoration(
-      border: Border.all(width: 1, color: customColors.black),
-      color: (sudokuCell.bySystem)
-          ? customColors.blueLight
-          : (sudokuCell.error)
-              ? customColors.error
-              : (gameControl.selected == sudokuCell.value &&
-                      sudokuCell.value != 0)
-                  ? customColors.blueLight
-                  : customColors.blueLightTransparent,
-    ),
-    width: 37,
-    height: 40,
-    child: TextButton(
-      onPressed: () {},
-      child: Text(
-        (sudokuCell.value == 0) ? "" : sudokuCell.value.toString(),
-        style: TextStyle(
-          color:
-              (sudokuCell.value == 0) ? customColors.white : customColors.black,
-          fontSize: 20,
-          fontWeight: (sudokuCell.bySystem == true)
-              ? FontWeight.bold
-              : FontWeight.normal,
+  return Material(
+    elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: (sudokuBoard.selected == "$x,$y")
+              ? customColors.white
+              : customColors.black,
+        ),
+        color: (sudokuCell.bySystem)
+            ? customColors.blueLight
+            : (sudokuCell.error)
+                ? customColors.error
+                : (sudokuBoard.selected == "$x,$y"
+                    // && sudokuCell.value != 0
+                    )
+                    ? customColors.yellow
+                    : customColors.blueLightTransparent,
+      ),
+      width: 37,
+      height: 40,
+      child: TextButton(
+        onPressed: () {
+          validateCell(sudokuCell);
+        },
+        child: Text(
+          (sudokuCell.value == 0) ? "" : sudokuCell.value.toString(),
+          style: TextStyle(
+            color: (sudokuCell.value == 0)
+                ? customColors.white
+                : customColors.black,
+            fontSize: 20,
+            fontWeight: (sudokuCell.bySystem == true)
+                ? FontWeight.bold
+                : FontWeight.normal,
+          ),
         ),
       ),
     ),
   );
+}
+
+validateCell(SudokuCell sudokuCell) {
+
+  sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
+
+
+  gameControl.update();
 }

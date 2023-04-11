@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
-import '../../models/sudoku_cell.dart';
+import '../../domain/sudoku_cell.dart';
 import '../../services/services.dart';
 
 Color getColor(int x, int y) {

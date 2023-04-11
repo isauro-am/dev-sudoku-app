@@ -1,5 +1,5 @@
 import 'package:sudoku/models/models.dart';
-import 'package:sudoku/models/sudoku_cell.dart';
+import 'package:sudoku/domain/sudoku_cell.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 saveSudoku(Puzzle puzzle) {

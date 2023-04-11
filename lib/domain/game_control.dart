@@ -11,6 +11,8 @@ class GameControl {
     currentPos = [0, 0];
   }
 
+  Function update = () {};
+
   int selected = 0;
 
   int dificult = 40;

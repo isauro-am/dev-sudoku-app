@@ -1,5 +1,5 @@
 import 'dificult.dart';
-import 'sudoku_model.dart';
+import '../domain/sudoku_model.dart';
 
 Dificult gameController = Dificult();
 
