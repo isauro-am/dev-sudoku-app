@@ -1,4 +1,4 @@
-import 'colors.dart';
+import '../colors.dart';
 import 'routes.dart';
 
 CustomRoutes customRoutes = CustomRoutes();

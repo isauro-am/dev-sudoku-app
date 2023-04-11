@@ -4,8 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'pages/home.dart';
 import 'services/services.dart';
+import 'ui/home2.dart';
+import 'ui/sudoku_board/sudoku_board.dart';
 
 
 void main() {
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // Dashboard
         customRoutes.home: (context) => const Home(),
+        'game': (context) => const SudokuBoard(),
  
       },
 

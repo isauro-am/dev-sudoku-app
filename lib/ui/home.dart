@@ -5,8 +5,8 @@ import 'package:sudoku_api/sudoku_api.dart';
 import '../models/models.dart';
 import '../models/sudoku_model.dart';
 import '../services/services.dart';
-import 'template_page.dart';
-import 'utils.dart';
+import '../pages/template_page.dart';
+import '../pages/utils.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
 
     return CustomPageTemplate(
       appBar: false,
-      background: "assets/menu.png",
+      background: "assets/wallpaper/wallpaper.jpg",
       size: size,
       color: customColors.green,
       title: "Sudoku",
@@ -76,66 +76,62 @@ SizedBox jump(double value) {
   );
 }
 
-OutlinedButton dificultButton(int star, String text, Function update) {
+Container dificultButton(int star, String text, Function update) {
+  // Set the number of stars
   List<Widget> icons = [];
+
+  // Set the number of clues
   List<int> clues = [40, 32, 24];
   int dificult = clues[star - 1];
 
   while (star > 0) {
     icons.add(
-      Icon(
-        Icons.star,
-        size: 18,
-        color: (gameController.dificult == dificult)
-            ? customColors.yellow
-            : customColors.yellowLight,
-      ),
+      Padding(
+        padding: const EdgeInsets.only(left:2.0),
+        child: Image.asset("assets/icons/star.png", width: 20, height: 20),
+      )
     );
     star--;
   }
 
-  return OutlinedButton.icon(
-    style: ButtonStyle(
-      elevation: MaterialStateProperty.all(10),
-      backgroundColor: MaterialStateProperty.all(
-          (gameController.dificult == dificult)
-              ? customColors.blueTransparent
-              : customColors.blueLightTransparent),
+  return Container(
+
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: customColors.blueLightTransparent,
     ),
-    onPressed: () {
-      gameController.dificult = dificult;
-      update();
-    },
-    icon: SizedBox(
-      width: 60,
-      child: Row(
+    constraints: const BoxConstraints(
+      maxWidth: 200,
+    ),
+
+    child: OutlinedButton.icon(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.all(10),
+        backgroundColor: MaterialStateProperty.all(
+            (gameController.dificult == dificult)
+                ? customColors.blueTransparent
+                : customColors.blueLightTransparent),
+      ),
+      onPressed: () {
+        gameController.dificult = dificult;
+        update();
+      },
+      icon: Row(
         children: icons,
       ),
-    ),
-    label: Container(
-      alignment: Alignment.centerRight,
-      width: 90,
-      height: 50,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: customColors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+      label: Container(
+        alignment: Alignment.centerRight,
+        height: 50,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: customColors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
       ),
     ),
   );
 }
 
-// dificultButtons(context, size, 'Facil', 'template', 40),
-//               dificultButtons(context, size, 'Medio', 'template', 28),
-//               dificultButtons(context, size, 'Dificil', 'template', 18),
-
-  //   _l.add(new MY.Pattern("random", null));
-
-  //   _l.add(new MY.Pattern("spring", _spring, clues: 29));
-  //   _l.add(new MY.Pattern("summer", _summer, clues: 27));
-  //   _l.add(new MY.Pattern("fall", _fall, clues: 24));
-  //   _l.add(new MY.Pattern("winter", _winter, clues: 31));
-  // }

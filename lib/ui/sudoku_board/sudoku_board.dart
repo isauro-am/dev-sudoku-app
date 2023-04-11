@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/models/models.dart';
-import 'package:sudoku/ui/home.dart';
 import 'package:sudoku/services/services.dart';
 
-import 'tools/drow_template.dart';
-import 'template_page.dart';
-import 'tools/set_user_number.dart';
+import 'board.dart';
+import 'widgets/number_pad.dart';
 
-class TemplateGame extends StatefulWidget {
-  const TemplateGame({Key? key}) : super(key: key);
+class SudokuBoard extends StatefulWidget {
+  const SudokuBoard({Key? key}) : super(key: key);
 
   @override
-  State<TemplateGame> createState() => _TemplateGameState();
+  State<SudokuBoard> createState() => _SudokuBoardState();
 }
 
-class _TemplateGameState extends State<TemplateGame> {
+class _SudokuBoardState extends State<SudokuBoard> {
   @override
   Widget build(BuildContext context) {
     update() {
@@ -25,14 +23,10 @@ class _TemplateGameState extends State<TemplateGame> {
 
     Size size = MediaQuery.of(context).size;
 
-    return CustomPageTemplate(
-      actionButton: noteButton(),
-      appBar: false,
-      background: "assets/game.png",
-      size: size,
-      title: "Sudoku",
-      color: customColors.inputBorder,
-      child: SingleChildScrollView(
+    return Scaffold(
+      floatingActionButton: noteButton(),
+      body: SafeArea(
+        minimum: const EdgeInsets.only(top: 30),
         child: Column(
           children: [
             Row(
@@ -47,10 +41,15 @@ class _TemplateGameState extends State<TemplateGame> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: drawPanel(size),
             ),
-            jump(2),
-            userNumberTools(1, 5, size),
-            userNumberTools(5, 10, size),
-            jump(1),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: numberPad(1, 10, size),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
@@ -105,13 +104,14 @@ ElevatedButton exitButton(BuildContext context) {
 
 noteButton() {
   return FloatingActionButton(
-    backgroundColor: (gameController.noteMode)? customColors.green :customColors.blueTransparent,
+    backgroundColor: (gameController.noteMode)
+        ? customColors.green
+        : customColors.blueTransparent,
     foregroundColor: customColors.white,
     onPressed: () {
       gameController.noteMode = !gameController.noteMode;
       gameController.update();
     },
     child: const Text("Note"),
-    // child: const Icon(Icons.note_add),
   );
 }
