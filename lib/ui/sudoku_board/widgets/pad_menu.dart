@@ -3,8 +3,8 @@ import 'package:resize/resize.dart';
 
 import '../../../colors.dart';
 import '../../../domain/game_control.dart';
+import '../../../domain/routes.dart';
 import '../../../domain/sudoku_model.dart';
-import '../../../services/services.dart';
 
 Container cluesButton() {
   return Container(

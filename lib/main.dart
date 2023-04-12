@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:resize/resize.dart';
 
 import 'colors.dart';
-import 'services/services.dart';
-import 'ui/home.dart';
+import 'domain/routes.dart';
+import 'ui/home/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

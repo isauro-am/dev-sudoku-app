@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui/home.dart';
+import '../ui/home/home.dart';
 import '../ui/sudoku_board/sudoku_board.dart';
 
 CustomRoutes customRoutes = CustomRoutes();

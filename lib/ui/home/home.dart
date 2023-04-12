@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
-import '../colors.dart';
-import '../domain/game_control.dart';
-import '../domain/sudoku_model.dart';
-import '../services/routes.dart';
+import '../../colors.dart';
+import '../../domain/game_control.dart';
+import '../../domain/routes.dart';
+import '../../domain/sudoku_model.dart';
 import 'hard_level.dart';
 
 class Home extends StatefulWidget {
