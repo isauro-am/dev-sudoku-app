@@ -33,7 +33,7 @@ Container cluesButton() {
           gameControl.clues = false;
         } else {
           gameControl.noteMode = false;
-          if(sudokuBoard.clues > 0){
+          if (sudokuBoard.clues > 0) {
             gameControl.clues = true;
           }
         }
@@ -42,7 +42,10 @@ Container cluesButton() {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.help_center_outlined),
+          Text(
+            "Clues",
+            style: TextStyle(color: customColors.boardYellow),
+          ),
           const SizedBox(
             width: 5,
             height: 30,

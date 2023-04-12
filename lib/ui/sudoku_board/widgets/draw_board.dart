@@ -83,14 +83,21 @@ drawCube1x1(x, y) {
 
   sudokuCell.needElevation();
 
+  bool same =
+      (sudokuBoard.cells![sudokuBoard.selected]?.value == sudokuCell.value && sudokuCell.value != 0)
+          ? true
+          : false;
+
   return Material(
     shadowColor: customColors.shadowColor,
     elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
     child: Container(
       decoration: BoxDecoration(
         border: Border.all(
-          width: (sudokuCell.elevation) ? 2 : 0,
-          color: (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
+          width: (sudokuCell.elevation || same) ? 2 : 0,
+          color: (sudokuCell.elevation )
+              ? customColors.shadowColor
+              : colors[0],
         ),
         color: (sudokuCell.error) ? customColors.error : colors[1],
       ),
@@ -98,8 +105,6 @@ drawCube1x1(x, y) {
       height: 38.h,
       child: TextButton(
         onPressed: () {
-
-
           // Set selected number or note
           if (gameControl.noteMode && !sudokuCell.bySystem) {
             sudokuCell.hadNotes = true;
