@@ -120,6 +120,8 @@ Container homeButton(BuildContext context) {
     ),
     child: TextButton(
       onPressed: () {
+        gameControl = GameControl();
+
         customRoutes.navigator(context, customRoutes.home);
       },
       child: Text(
