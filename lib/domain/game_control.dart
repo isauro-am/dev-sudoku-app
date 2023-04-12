@@ -37,10 +37,6 @@ class GameControl {
     currentRowCol[1] = x;
   }
 
-  setDificult(int value) {
-    dificult = value;
-  }
-
   String getDificult(value) {
     switch (value) {
       case 40:

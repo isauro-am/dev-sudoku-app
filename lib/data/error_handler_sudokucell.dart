@@ -2,7 +2,7 @@ import 'package:sudoku/domain/game_control.dart';
 
 import '../domain/sudoku_model.dart';
 
-checkAllPad() {
+void checkAllPad() {
   int completed = 0;
 
   removeErrorBySystem();
@@ -35,7 +35,7 @@ checkAllPad() {
   }
 }
 
-incrementError(int x, int y, int value) {
+void incrementError(int x, int y, int value) {
   if (findRowValue(x, y, value) ||
       findColumnValue(x, y, value) ||
       findInSector(x, y, value)) {
@@ -43,7 +43,7 @@ incrementError(int x, int y, int value) {
   }
 }
 
-removeErrorBySystem() {
+void removeErrorBySystem() {
   int x = 0;
   while (x < 9) {
     int y = 0;

@@ -22,7 +22,7 @@ class SudokuCell {
   bool hadNotes;
   List<String>? notes;
 
-  needElevation() {
+  void needElevation() {
     if (int.parse(sudokuBoard.selected.split(',')[0]) == column ||
         int.parse(sudokuBoard.selected.split(',')[1]) == row) {
       elevation = true;
@@ -31,7 +31,7 @@ class SudokuCell {
     }
   }
 
-  displayValue() {
+  String displayValue() {
     if (hadNotes && notes != null && notes!.isNotEmpty) {
       return notes!.join('');
     } else {

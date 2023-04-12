@@ -3,7 +3,7 @@ import 'package:sudoku/domain/game_control.dart';
 import '../domain/sudoku_model.dart';
 import 'error_handler_sudokucell.dart';
 
-setSudokuCellValues(int value) {
+void setSudokuCellValues(int value) {
   if (value != 0) {
     if (!gameControl.noteMode) {
       setSudokuCellValue(value);
@@ -16,7 +16,12 @@ setSudokuCellValues(int value) {
   }
 }
 
-setSudokuCellValue(int value) {
+/// This function sets the value of a cell in a Sudoku board and checks for errors in the row, column,
+/// or sector.
+///
+/// Args:
+///   value (int): The value to be set in the Sudoku cell.
+void setSudokuCellValue(int value) {
   int x = int.parse(sudokuBoard.selected.split(',')[0]);
   int y = int.parse(sudokuBoard.selected.split(',')[1]);
 
@@ -30,10 +35,14 @@ setSudokuCellValue(int value) {
 
   // Check for errors in the row and column or sector and increment error count
   incrementError(x, y, value);
-
 }
 
-setSudokuCellNote(int value) {
+/// This function sets the note of a selected cell in a Sudoku board.
+///
+/// Args:
+///   value (int): The value parameter represents the number that the user wants to add or remove as a
+/// note in a selected cell of a Sudoku board.
+void setSudokuCellNote(int value) {
   int x = int.parse(sudokuBoard.selected.split(',')[0]);
   int y = int.parse(sudokuBoard.selected.split(',')[1]);
 

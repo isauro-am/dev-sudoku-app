@@ -5,7 +5,7 @@ import '../../../domain/game_control.dart';
 
 class SelectHardLevel extends StatelessWidget {
   final int stars;
-  final Function update;
+  final VoidCallback update;
 
   const SelectHardLevel({
     Key? key,

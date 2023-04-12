@@ -24,7 +24,7 @@ class Sudoku {
   Map<String, SudokuCell>? cells;
 
 
-  setRowColumns(Puzzle puzzle) {
+  void setRowColumns(Puzzle puzzle) {
     cells = {};
 
     int x = 0;
@@ -38,14 +38,17 @@ class Sudoku {
         int? value;
         int? solution;
 
-        value = puzzle.board()?.cellAt(Position(column: y, row: x)).getValue();
+        value = puzzle.board()?.cellAt(Position(column: x, row: y)).getValue();
         solution = puzzle
             .solvedBoard()
-            ?.cellAt(Position(column: y, row: x))
+            ?.cellAt(Position(column: x, row: y))
             .getValue();
 
         value = (value == null) ? 0 : value;
         solution = (solution == null) ? 0 : solution;
+
+        sc.column = x;
+        sc.row = y;
 
         sc.value = value;
         sc.solution = solution;
