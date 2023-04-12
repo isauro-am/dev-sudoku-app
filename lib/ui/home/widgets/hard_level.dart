@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../colors.dart';
-import '../../domain/game_control.dart';
+import '../../../colors.dart';
+import '../../../domain/game_control.dart';
 
 Container selectHardLevel(int star, String text, Function update) {
   // Set the number of stars
