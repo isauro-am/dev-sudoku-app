@@ -46,9 +46,6 @@ Container drawCube3x3(int x, int y) {
 
   return Container(
     margin: const EdgeInsets.all(3),
-    // decoration: BoxDecoration(
-    //   border: Border.all(width: 1, color: customColors.boardBlack),
-    // ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,

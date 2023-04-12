@@ -13,7 +13,6 @@ class Sudoku {
     this.error = 0,
     this.clues = 10,
     this.cells,
-    // this.solution,
   });
 
   int points;
@@ -24,7 +23,6 @@ class Sudoku {
   
   Map<String, SudokuCell>? cells;
 
-  Map<String, List>? errors;
 
   setRowColumns(Puzzle puzzle) {
     cells = {};

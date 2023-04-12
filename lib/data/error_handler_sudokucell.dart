@@ -3,7 +3,6 @@ import 'package:sudoku/domain/game_control.dart';
 import '../domain/sudoku_model.dart';
 
 checkAllPad() {
-
   int completed = 0;
 
   removeErrorBySystem();
@@ -19,7 +18,8 @@ checkAllPad() {
         sudokuBoard.cells!['$x,$y']!.error = false;
       }
 
-      if(sudokuBoard.cells!['$x,$y']!.value == sudokuBoard.cells!['$x,$y']!.solution){
+      if (sudokuBoard.cells!['$x,$y']!.value ==
+          sudokuBoard.cells!['$x,$y']!.solution) {
         completed++;
       }
 
@@ -29,18 +29,17 @@ checkAllPad() {
   }
 
   // Verify if the game is completed
-  if(completed == 81){
+  if (completed == 81) {
     gameControl.completed = true;
     sudokuBoard.selected = "9,9";
   }
 }
 
-
 incrementError(int x, int y, int value) {
   if (findRowValue(x, y, value) ||
       findColumnValue(x, y, value) ||
       findInSector(x, y, value)) {
-        sudokuBoard.error++;
+    sudokuBoard.error++;
   }
 }
 
@@ -49,9 +48,7 @@ removeErrorBySystem() {
   while (x < 9) {
     int y = 0;
     while (y < 9) {
-      // if (sudokuBoard.cells!['$x,$y']!.bySystem) {
       sudokuBoard.cells!['$x,$y']!.error = false;
-      // }
       y++;
     }
     x++;
@@ -69,7 +66,7 @@ removeErrorBySystem() {
 /// Returns:
 ///   a boolean value indicating whether there is an error in the row of the Sudoku board where the cell
 /// at position (x, y) is located.
-findRowValue(int x, int y, int value) {
+bool findRowValue(int x, int y, int value) {
   bool error = false;
   int yy = 0;
   while (yy < 9) {
@@ -97,7 +94,7 @@ findRowValue(int x, int y, int value) {
 ///
 /// Returns:
 ///   a boolean value indicating whether there is an error in the column of the Sudoku board.
-findColumnValue(int x, int y, int value) {
+bool findColumnValue(int x, int y, int value) {
   bool error = false;
   int xx = 0;
   while (xx < 9) {
@@ -122,7 +119,7 @@ findColumnValue(int x, int y, int value) {
 /// Returns:
 ///   an array with two elements: the sectorX and sectorY values calculated based on the input x and y
 /// values.
-getSectorXY(int x, int y) {
+List<int> getSectorXY(int x, int y) {
   int sectorX = 0;
   int sectorY = 0;
 
@@ -156,7 +153,7 @@ getSectorXY(int x, int y) {
 /// Returns:
 ///   a boolean value indicating whether there is an error in the sector that contains the cell at
 /// position (x, y) if the value is added to that sector.
-findInSector(int x, int y, int value) {
+bool findInSector(int x, int y, int value) {
   bool error = false;
 
   List<int> sectorXY = getSectorXY(x, y);

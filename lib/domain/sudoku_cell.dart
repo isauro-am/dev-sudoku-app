@@ -8,7 +8,6 @@ class SudokuCell {
     this.row = 0,
     this.bySystem = false,
     this.error = false,
-    this.clue = false,
     this.hadNotes = false,
     this.notes,
   });
@@ -20,7 +19,6 @@ class SudokuCell {
   int row;
   bool bySystem;
   bool error;
-  bool clue;
   bool hadNotes;
   List<String>? notes;
 
