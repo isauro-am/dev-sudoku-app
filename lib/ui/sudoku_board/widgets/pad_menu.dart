@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
-import '../../../colors.dart';
+import '../../../constants/colors.dart';
 import '../../../domain/game_control.dart';
 import '../../../domain/routes.dart';
 import '../../../domain/sudoku_model.dart';
@@ -12,7 +12,7 @@ Container cluesButton() {
     decoration: BoxDecoration(
       color: (gameControl.clues)
           ? customColors.white.withOpacity(0.1)
-          : customColors.boardBlack,
+          : customColors.bgByUser,
       borderRadius: BorderRadius.circular(10),
     ),
     child: TextButton(
@@ -20,13 +20,13 @@ Container cluesButton() {
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             side: BorderSide(
-              color: customColors.boardYellow,
+              color: customColors.primary,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        iconColor: MaterialStateProperty.all(customColors.boardYellow),
+        iconColor: MaterialStateProperty.all(customColors.primary),
       ),
       onPressed: () {
         if (gameControl.clues) {
@@ -44,19 +44,19 @@ Container cluesButton() {
         children: [
           Text(
             "Clues",
-            style: TextStyle(color: customColors.boardYellow),
+            style: TextStyle(color: customColors.primary),
           ),
           const SizedBox(
             width: 5,
             height: 30,
           ),
           CircleAvatar(
-            backgroundColor: customColors.boardBlackSystem,
+            backgroundColor: customColors.bgBySystem,
             radius: 12,
             child: Text(
               "${sudokuBoard.clues}",
               style: TextStyle(
-                color: customColors.boardYellow,
+                color: customColors.primary,
                 fontSize: 12,
               ),
             ),
@@ -84,10 +84,10 @@ Container gameMode() {
       horizontal: 3,
     ),
     decoration: BoxDecoration(
-      color: customColors.boardBlack,
+      color: customColors.bgByUser,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: customColors.boardYellow,
+        color: customColors.primary,
         width: 2,
       ),
     ),
@@ -95,12 +95,12 @@ Container gameMode() {
       children: [
         Icon(
           Icons.gamepad_outlined,
-          color: customColors.boardYellow,
+          color: customColors.primary,
         ),
         const SizedBox(
           width: 5,
         ),
-        Text(mode, style: TextStyle(color: customColors.boardYellow)),
+        Text(mode, style: TextStyle(color: customColors.primary)),
       ],
     ),
   );
@@ -111,10 +111,10 @@ Container homeButton(BuildContext context) {
     width: 80.w,
     height: 36.h,
     decoration: BoxDecoration(
-      color: customColors.boardBlack,
+      color: customColors.bgByUser,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: customColors.boardYellow,
+        color: customColors.primary,
         width: 2,
       ),
     ),
@@ -126,7 +126,7 @@ Container homeButton(BuildContext context) {
       },
       child: Text(
         " Home ",
-        style: TextStyle(color: customColors.boardYellow),
+        style: TextStyle(color: customColors.primary),
       ),
     ),
   );
@@ -139,10 +139,10 @@ Container notesButton() {
     decoration: BoxDecoration(
       color: (gameControl.noteMode)
           ? customColors.white.withOpacity(0.1)
-          : customColors.boardBlack,
+          : customColors.bgByUser,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: customColors.boardYellow,
+        color: customColors.primary,
         width: 2,
       ),
     ),
@@ -155,7 +155,7 @@ Container notesButton() {
       },
       child: Text(
         "Notes",
-        style: TextStyle(color: customColors.boardYellow),
+        style: TextStyle(color: customColors.primary),
       ),
     ),
   );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/domain/sudoku_cell.dart';
 
-import '../../../colors.dart';
+import '../../../constants/colors.dart';
 import '../../../domain/sudoku_model.dart';
 
 List<Color> sudokuCellColors(SudokuCell sudokuCell) {
@@ -10,22 +10,22 @@ List<Color> sudokuCellColors(SudokuCell sudokuCell) {
 
   Color borderColor = (sudokuBoard.selected == "$x,$y")
       ? customColors.white
-      : customColors.boardYellow;
+      : customColors.primary;
 
   Color backgroundColor = (sudokuCell.bySystem)
-      ? customColors.boardBlackSystem
+      ? customColors.bgBySystem
       : (sudokuCell.error)
           ? customColors.error
           : (sudokuBoard.selected == "$x,$y"
               // && sudokuCell.value != 0
               )
-              ? customColors.boardYellow
-              : customColors.boardBlack;
+              ? customColors.primary
+              : customColors.bgByUser;
   Color textColor = (sudokuCell.bySystem)
-      ? customColors.boardYellow
+      ? customColors.primary
       : (sudokuBoard.selected == "$x,$y")
-              ? customColors.boardBlackSystem
-              : customColors.boardYellow;
+              ? customColors.bgBySystem
+              : customColors.primary;
 
   return [borderColor, backgroundColor, textColor];
 }

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:resize/resize.dart';
 
-import 'colors.dart';
 import 'domain/routes.dart';
 import 'ui/home/home.dart';
 
@@ -35,8 +34,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
         theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-          appBarTheme: AppBarTheme(color: customColors.menu),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: customRoutes.home,

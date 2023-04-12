@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
-import '../../colors.dart';
+import '../../constants/colors.dart';
 import '../../domain/game_control.dart';
 import '../../domain/routes.dart';
 import '../../domain/sudoku_model.dart';
@@ -35,15 +35,15 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              selectHardLevel(1, "Easy", update),
+              SelectHardLevel(stars: 1, update: update),
               const SizedBox(
                 height: 20,
               ),
-              selectHardLevel(2, "Medium", update),
+              SelectHardLevel(stars: 2, update: update),
               SizedBox(
                 height: 20.h,
               ),
-              selectHardLevel(3, "Hard", update),
+              SelectHardLevel(stars: 3, update: update),
               const SizedBox(
                 height: 60,
               ),

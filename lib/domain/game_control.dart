@@ -41,14 +41,14 @@ class GameControl {
     dificult = value;
   }
 
-  String getDificult() {
-    switch (dificult) {
+  String getDificult(value) {
+    switch (value) {
       case 40:
-        return "easy";
+        return "Easy";
       case 32:
-        return "medium";
-      case 27:
-        return "hard";
+        return "Medium";
+      case 24:
+        return "Hard";
       default:
         return "unknown";
     }

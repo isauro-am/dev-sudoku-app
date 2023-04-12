@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
-import '../../../colors.dart';
+import '../../../constants/colors.dart';
 import '../../../data/set_value_sudokucell.dart';
 import '../../../domain/game_control.dart';
 
@@ -26,7 +26,7 @@ Wrap numberPad(int init, int end) {
 Container numberCell(int number) {
   return Container(
     decoration: BoxDecoration(
-      color: customColors.boardBlackSystem,
+      color: customColors.bgBySystem,
       border: Border.all(
         color: customColors.white,
         width: 1,
@@ -52,7 +52,7 @@ Container numberCell(int number) {
         child: Text(
           number.toString(),
           style: TextStyle(
-            color: customColors.boardYellow,
+            color: customColors.primary,
             fontSize: 20,
           ),
         ),

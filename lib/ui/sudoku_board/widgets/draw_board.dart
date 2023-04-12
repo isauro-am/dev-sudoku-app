@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/ui/sudoku_board/widgets/utils.dart';
 
-import '../../../colors.dart';
+import '../../../constants/colors.dart';
 import '../../../data/set_clue.dart';
 import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_cell.dart';
@@ -81,7 +81,8 @@ drawCube1x1(x, y) {
   sudokuCell.needElevation();
 
   bool same =
-      (sudokuBoard.cells![sudokuBoard.selected]?.value == sudokuCell.value && sudokuCell.value != 0)
+      (sudokuBoard.cells![sudokuBoard.selected]?.value == sudokuCell.value &&
+              sudokuCell.value != 0)
           ? true
           : false;
 
@@ -92,9 +93,7 @@ drawCube1x1(x, y) {
       decoration: BoxDecoration(
         border: Border.all(
           width: (sudokuCell.elevation || same) ? 2 : 0,
-          color: (sudokuCell.elevation )
-              ? customColors.shadowColor
-              : colors[0],
+          color: (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
         ),
         color: (sudokuCell.error) ? customColors.error : colors[1],
       ),
@@ -120,11 +119,7 @@ drawCube1x1(x, y) {
           sudokuCell.displayValue(),
           style: TextStyle(
             color: colors[2],
-            fontSize: (sudokuCell.hadNotes)
-                ? (sudokuCell.elevation)
-                    ? 9
-                    : 11
-                : 20,
+            fontSize: (sudokuCell.hadNotes) ? 0.7.rem : 1.rem,
             fontWeight: (sudokuCell.bySystem == true)
                 ? FontWeight.bold
                 : FontWeight.normal,

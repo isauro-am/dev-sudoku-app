@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/domain/game_control.dart';
 
-import '../../colors.dart';
+import '../../constants/colors.dart';
 import '../../domain/sudoku_model.dart';
 import 'widgets/draw_board.dart';
 import 'widgets/number_pad.dart';
@@ -45,7 +45,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
                     fit: BoxFit.cover,
                   ),
                   border: Border.all(
-                    color: customColors.boardYellow,
+                    color: customColors.primary,
                     width: 3.0,
                   ),
                 ),
@@ -69,7 +69,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
                               Text(
                                 "Errors:",
                                 style: TextStyle(
-                                  color: customColors.boardYellow,
+                                  color: customColors.primary,
                                 ),
                               ),
                               const SizedBox(
@@ -80,7 +80,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
                                 style: TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   color: (sudokuBoard.error == 0)
-                                      ? customColors.boardYellow
+                                      ? customColors.primary
                                       : customColors.error,
                                 ),
                               ),
@@ -96,7 +96,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 28,
-                      color: customColors.boardYellow,
+                      color: customColors.primary,
                     ),
                   ),
                   const SizedBox(height: 20,),
