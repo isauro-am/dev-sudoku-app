@@ -1,16 +1,30 @@
 # sudoku
 
-A new Flutter project.
+Simple sudoku game made with flutter.
+( No ads, no in-app purchases, no tracking, no analytics, no data collection )
 
-## Getting Started
+## Game Modes
 
-This project is a starting point for a Flutter application.
+- Easy
+- Medium
+- Hard
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- game modes
+  - Input Mode
+  - Clue Mode
+  - Note Mode
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+![Menu](https://github.com/isauro-am/dev-sudoku-app/raw/main/assets/Screenshots/1.png)
+
+![Game](https://github.com/isauro-am/dev-sudoku-app/raw/main/assets/Screenshots/2.png)
+
+![Game error view](https://github.com/isauro-am/dev-sudoku-app/raw/main/assets/Screenshots/3.png)
+
+![Game same selected number](https://github.com/isauro-am/dev-sudoku-app/raw/main/assets/Screenshots/4.png)
+
+![Game completed](https://github.com/isauro-am/dev-sudoku-app/raw/main/assets/Screenshots/5.png)
+
