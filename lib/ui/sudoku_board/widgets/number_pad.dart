@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
 import '../../../colors.dart';
-import '../../../data/check_cells.dart';
+import '../../../data/set_value_sudokucell.dart';
 import '../../../domain/game_control.dart';
 
 Wrap numberPad(int init, int end) {

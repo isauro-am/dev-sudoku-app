@@ -6,7 +6,6 @@ import 'package:sudoku_api/sudoku_api.dart';
 import '../colors.dart';
 import '../domain/game_control.dart';
 import '../domain/sudoku_model.dart';
-import '../models/models.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class _HomeState extends State<Home> {
       setState(() {});
     }
 
-    gameController.update = update;
+    gameControl.update = update;
 
     return Scaffold(
       body: Container(
@@ -74,6 +73,7 @@ class _HomeState extends State<Home> {
                   ),
                   child: const Text("Start Game"),
                   onPressed: () {
+                    print(gameControl.getDificult());
                     // Create a new puzzle with the selected dificult
                     Puzzle puzzle = Puzzle(
                       PuzzleOptions(
@@ -81,6 +81,7 @@ class _HomeState extends State<Home> {
                         clues: gameControl.dificult,
                       ),
                     );
+
 
                     puzzle.generate().then(
                       (_) {
@@ -138,7 +139,7 @@ Container dificultButton(int star, String text, Function update) {
       image: DecorationImage(
         image: const AssetImage('assets/buttons/dificult.jpeg'),
         fit: BoxFit.cover,
-        opacity: (gameController.dificult == dificult) ? 1 : 0.4,
+        opacity: (gameControl.dificult == dificult) ? 1 : 0.4,
       ),
       borderRadius: BorderRadius.circular(10),
       // color: customColors.blueLightTransparent,
@@ -149,10 +150,10 @@ Container dificultButton(int star, String text, Function update) {
     child: OutlinedButton.icon(
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(
-            (gameController.dificult == dificult) ? 30 : 1),
+            (gameControl.dificult == dificult) ? 30 : 1),
       ),
       onPressed: () {
-        gameController.dificult = dificult;
+        gameControl.dificult = dificult;
         update();
       },
       icon: Row(

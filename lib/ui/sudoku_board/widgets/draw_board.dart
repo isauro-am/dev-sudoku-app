@@ -94,7 +94,7 @@ drawCube1x1(x, y) {
           width: (sudokuCell.elevation) ? 2 : 0,
           color: (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
         ),
-        color: colors[1],
+        color: (sudokuCell.error)? customColors.error : colors[1],
       ),
       width: 36.w,
       height: 38.h,
@@ -130,9 +130,8 @@ validateCell(SudokuCell sudokuCell) {
     if (gameControl.selected != 0 && sudokuCell.value != gameControl.selected) {
       sudokuCell.value = gameControl.selected;
       gameControl.selected = 0;
-    } else {
-      sudokuCell.value = 0;
     }
+
   }
 
   sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";

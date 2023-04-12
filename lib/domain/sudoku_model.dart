@@ -24,7 +24,7 @@ class Sudoku {
   
   Map<String, SudokuCell>? cells;
 
-  Map<String, List<int>>? errors;
+  Map<String, List>? errors;
 
   setRowColumns(Puzzle puzzle) {
     cells = {};

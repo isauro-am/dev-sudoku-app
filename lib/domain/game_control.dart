@@ -5,7 +5,6 @@ GameControl gameControl = GameControl();
 class GameControl {
 
   GameControl() {
-    dificult = 40;
     patternName = "random";
     completed = false;
     noteMode = false;
@@ -42,7 +41,7 @@ class GameControl {
     dificult = value;
   }
 
-  String getDificult(int dificult) {
+  String getDificult() {
     switch (dificult) {
       case 40:
         return "easy";

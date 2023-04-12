@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/domain/game_control.dart';
-import 'package:sudoku/models/models.dart';
 
 import '../../colors.dart';
 import '../../domain/sudoku_model.dart';
@@ -59,8 +58,8 @@ class _SudokuBoardState extends State<SudokuBoard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    (gameController.completed) ? const SizedBox() : gameMode(),
-                    (gameController.completed) ? const SizedBox() : cluesButton(),
+                    (gameControl.completed) ? const SizedBox() : gameMode(),
+                    (gameControl.completed) ? const SizedBox() : cluesButton(),
                     notesButton(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
