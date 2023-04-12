@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
-import 'package:sudoku/ui/sudoku_board/sudoku_board.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../colors.dart';
 import '../domain/game_control.dart';
 import '../domain/sudoku_model.dart';
+import '../services/routes.dart';
+import 'hard_level.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -35,15 +36,15 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              dificultButton(1, "Easy", update),
+              selectHardLevel(1, "Easy", update),
               const SizedBox(
                 height: 20,
               ),
-              dificultButton(2, "Medium", update),
+              selectHardLevel(2, "Medium", update),
               SizedBox(
                 height: 20.h,
               ),
-              dificultButton(3, "Hard", update),
+              selectHardLevel(3, "Hard", update),
               const SizedBox(
                 height: 60,
               ),
@@ -73,7 +74,6 @@ class _HomeState extends State<Home> {
                   ),
                   child: const Text("Start Game"),
                   onPressed: () {
-                    print(gameControl.getDificult());
                     // Create a new puzzle with the selected dificult
                     Puzzle puzzle = Puzzle(
                       PuzzleOptions(
@@ -82,7 +82,6 @@ class _HomeState extends State<Home> {
                       ),
                     );
 
-
                     puzzle.generate().then(
                       (_) {
                         // Reset instance of the sudoku board
@@ -90,15 +89,8 @@ class _HomeState extends State<Home> {
 
                         sudokuBoard.setRowColumns(puzzle);
 
-                        Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
-                                const SudokuBoard(),
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );
+                        // Navigate to the game screen
+                        customRoutes.navigator(context, customRoutes.game);
                       },
                     );
                   },
@@ -112,65 +104,3 @@ class _HomeState extends State<Home> {
   }
 }
 
-Container dificultButton(int star, String text, Function update) {
-  // Set the number of stars
-  List<Widget> icons = [];
-
-  // Set the number of clues
-  List<int> clues = [40, 32, 24];
-  int dificult = clues[star - 1];
-
-  while (star > 0) {
-    icons.add(
-      Padding(
-        padding: const EdgeInsets.only(left: 2.0),
-        child: Image.asset(
-          "assets/icons/star.png",
-          width: 20,
-          height: 20,
-        ),
-      ),
-    );
-    star--;
-  }
-
-  return Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: const AssetImage('assets/buttons/dificult.jpeg'),
-        fit: BoxFit.cover,
-        opacity: (gameControl.dificult == dificult) ? 1 : 0.4,
-      ),
-      borderRadius: BorderRadius.circular(10),
-      // color: customColors.blueLightTransparent,
-    ),
-    constraints: const BoxConstraints(
-      maxWidth: 250,
-    ),
-    child: OutlinedButton.icon(
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all(
-            (gameControl.dificult == dificult) ? 30 : 1),
-      ),
-      onPressed: () {
-        gameControl.dificult = dificult;
-        update();
-      },
-      icon: Row(
-        children: icons,
-      ),
-      label: Container(
-        alignment: Alignment.centerRight,
-        height: 50,
-        child: Text(
-          text,
-          style: TextStyle(
-              color: customColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-              overflow: TextOverflow.ellipsis),
-        ),
-      ),
-    ),
-  );
-}

@@ -3,6 +3,7 @@ import 'package:resize/resize.dart';
 import 'package:sudoku/ui/sudoku_board/widgets/utils.dart';
 
 import '../../../colors.dart';
+import '../../../data/set_clue.dart';
 import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_cell.dart';
 import '../../../domain/sudoku_model.dart';
@@ -97,7 +98,21 @@ drawCube1x1(x, y) {
       height: 38.h,
       child: TextButton(
         onPressed: () {
-          validateCell(sudokuCell);
+
+
+          // Set selected number or note
+          if (gameControl.noteMode && !sudokuCell.bySystem) {
+            sudokuCell.hadNotes = true;
+          }
+
+          // Set selected row and column
+          sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
+
+          // Set helped value to sudokuCell
+          helpSetSudokuCellValue();
+
+          // Update the board
+          gameControl.update();
         },
         child: Text(
           sudokuCell.displayValue(),
@@ -116,21 +131,4 @@ drawCube1x1(x, y) {
       ),
     ),
   );
-}
-
-validateCell(SudokuCell sudokuCell) {
-  if (gameControl.noteMode && !sudokuCell.bySystem) {
-    sudokuCell.hadNotes = true;
-  }
-
-  if (!sudokuCell.bySystem) {
-    if (gameControl.selected != 0 && sudokuCell.value != gameControl.selected) {
-      sudokuCell.value = gameControl.selected;
-      gameControl.selected = 0;
-    }
-  }
-
-  sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
-
-  gameControl.update();
 }

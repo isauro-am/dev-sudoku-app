@@ -10,7 +10,9 @@ Container cluesButton() {
   return Container(
     height: 36.h,
     decoration: BoxDecoration(
-      color: (gameControl.clues)? customColors.white.withOpacity(0.1) :customColors.boardBlack,
+      color: (gameControl.clues)
+          ? customColors.white.withOpacity(0.1)
+          : customColors.boardBlack,
       borderRadius: BorderRadius.circular(10),
     ),
     child: TextButton(
@@ -29,14 +31,13 @@ Container cluesButton() {
       onPressed: () {
         if (gameControl.clues) {
           gameControl.clues = false;
-          gameControl.selected = 0;
         } else {
-          gameControl.selected = 0;
           gameControl.noteMode = false;
-          gameControl.clues = true;
+          if(sudokuBoard.clues > 0){
+            gameControl.clues = true;
+          }
         }
         gameControl.update();
-        print("Clues: ${gameControl.clues}");
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,7 +132,9 @@ Container notesButton() {
     width: 70.w,
     height: 36.h,
     decoration: BoxDecoration(
-      color: (gameControl.noteMode)? customColors.white.withOpacity(0.1) :customColors.boardBlack,
+      color: (gameControl.noteMode)
+          ? customColors.white.withOpacity(0.1)
+          : customColors.boardBlack,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
         color: customColors.boardYellow,

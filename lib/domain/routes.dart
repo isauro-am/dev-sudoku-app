@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../ui/home.dart';
+import '../ui/sudoku_board/sudoku_board.dart';
+
+CustomRoutes customRoutes = CustomRoutes();
 
 class CustomRoutes {
   // Dashboard
@@ -10,6 +13,9 @@ class CustomRoutes {
   classRoutes(String route) {
     if (route == home) {
       return const Home();
+    }
+    if (route == game) {
+      return const SudokuBoard();
     }
     return const Home();
   }
