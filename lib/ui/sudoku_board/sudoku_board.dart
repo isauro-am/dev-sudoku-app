@@ -25,16 +25,14 @@ class _SudokuBoardState extends State<SudokuBoard> {
     gameControl.update = update;
 
     return Scaffold(
-      backgroundColor: customColors.boardBlack.withOpacity(0.5),
-      body: SafeArea(
-        minimum: const EdgeInsets.only(top: 30),
-        child: Container(
-          decoration: const BoxDecoration(
+      body: Container(
+        decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/tiles_wallpaper/user.jpg'),
               fit: BoxFit.cover,
             ),
           ),
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -81,7 +79,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
                           style: TextStyle(
                             overflow: TextOverflow.ellipsis,
                             color: (sudokuBoard.error == 0)
-                                ? customColors.green
+                                ? customColors.boardYellow
                                 : customColors.error,
                           ),
                         ),

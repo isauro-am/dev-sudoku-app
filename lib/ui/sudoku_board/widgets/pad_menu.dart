@@ -6,11 +6,13 @@ import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_model.dart';
 import '../../../services/services.dart';
 
-Material cluesButton() {
-  return Material(
-    elevation: (gameControl.clues) ? 5 : 0,
-    shadowColor: customColors.blueLight,
-    color: customColors.boardBlack,
+Container cluesButton() {
+  return Container(
+    height: 36.h,
+    decoration: BoxDecoration(
+      color: (gameControl.clues)? customColors.white.withOpacity(0.1) :customColors.boardBlack,
+      borderRadius: BorderRadius.circular(10),
+    ),
     child: TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -23,7 +25,6 @@ Material cluesButton() {
           ),
         ),
         iconColor: MaterialStateProperty.all(customColors.boardYellow),
-        backgroundColor: MaterialStateProperty.all(customColors.boardBlack),
       ),
       onPressed: () {
         if (gameControl.clues) {
@@ -35,6 +36,7 @@ Material cluesButton() {
           gameControl.clues = true;
         }
         gameControl.update();
+        print("Clues: ${gameControl.clues}");
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,6 +75,7 @@ Container gameMode() {
   }
 
   return Container(
+    height: 36.h,
     padding: const EdgeInsets.symmetric(
       horizontal: 3,
     ),
@@ -102,6 +105,7 @@ Container gameMode() {
 Container homeButton(BuildContext context) {
   return Container(
     width: 80.w,
+    height: 36.h,
     decoration: BoxDecoration(
       color: customColors.boardBlack,
       borderRadius: BorderRadius.circular(10),
@@ -125,9 +129,9 @@ Container homeButton(BuildContext context) {
 Container notesButton() {
   return Container(
     width: 70.w,
-    height: 26.h,
+    height: 36.h,
     decoration: BoxDecoration(
-      color: customColors.boardBlack,
+      color: (gameControl.noteMode)? customColors.white.withOpacity(0.1) :customColors.boardBlack,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
         color: customColors.boardYellow,
