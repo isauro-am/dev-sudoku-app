@@ -38,7 +38,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
               homeButton(context),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.all(10).copyWith(top: 0),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                     image: AssetImage('assets/tiles_wallpaper/system.jpg'),

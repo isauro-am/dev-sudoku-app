@@ -27,6 +27,10 @@ setSudokuCellValue(int value) {
     sudokuBoard.cells!['$x,$y']!.hadNotes = false;
     sudokuBoard.cells!['$x,$y']!.error = false;
   }
+
+  // Check for errors in the row and column or sector and increment error count
+  incrementError(x, y, value);
+
 }
 
 setSudokuCellNote(int value) {

@@ -8,11 +8,7 @@ import '../../../domain/sudoku_cell.dart';
 import '../../../domain/sudoku_model.dart';
 
 List<Widget> drawPanel() {
-  List<Widget> column = [
-    const SizedBox(
-      height: 10,
-    )
-  ];
+  List<Widget> column = [];
 
   //  Create the 9x9 Sudoku Board
   column.add(cubeFile(0));
@@ -48,9 +44,10 @@ Container drawCube3x3(int x, int y) {
   }
 
   return Container(
-    decoration: BoxDecoration(
-      border: Border.all(width: 1, color: customColors.black),
-    ),
+    margin: const EdgeInsets.all(3),
+    // decoration: BoxDecoration(
+    //   border: Border.all(width: 1, color: customColors.boardBlack),
+    // ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -94,7 +91,7 @@ drawCube1x1(x, y) {
           width: (sudokuCell.elevation) ? 2 : 0,
           color: (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
         ),
-        color: (sudokuCell.error)? customColors.error : colors[1],
+        color: (sudokuCell.error) ? customColors.error : colors[1],
       ),
       width: 36.w,
       height: 38.h,
@@ -131,7 +128,6 @@ validateCell(SudokuCell sudokuCell) {
       sudokuCell.value = gameControl.selected;
       gameControl.selected = 0;
     }
-
   }
 
   sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
