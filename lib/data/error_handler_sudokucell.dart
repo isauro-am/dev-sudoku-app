@@ -1,6 +1,11 @@
+import 'package:sudoku/domain/game_control.dart';
+
 import '../domain/sudoku_model.dart';
 
 checkAllPad() {
+
+  int completed = 0;
+
   removeErrorBySystem();
   int x = 0;
   while (x < 9) {
@@ -14,11 +19,22 @@ checkAllPad() {
         sudokuBoard.cells!['$x,$y']!.error = false;
       }
 
+      if(sudokuBoard.cells!['$x,$y']!.value == sudokuBoard.cells!['$x,$y']!.solution){
+        completed++;
+      }
+
       y++;
     }
     x++;
   }
+
+  // Verify if the game is completed
+  if(completed == 81){
+    gameControl.completed = true;
+    sudokuBoard.selected = "9,9";
+  }
 }
+
 
 incrementError(int x, int y, int value) {
   if (findRowValue(x, y, value) ||

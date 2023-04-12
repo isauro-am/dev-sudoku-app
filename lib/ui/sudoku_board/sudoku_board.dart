@@ -26,16 +26,16 @@ class _SudokuBoardState extends State<SudokuBoard> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/tiles_wallpaper/user.jpg'),
-              fit: BoxFit.cover,
-            ),
+          image: DecorationImage(
+            image: AssetImage('assets/tiles_wallpaper/user.jpg'),
+            fit: BoxFit.cover,
           ),
+        ),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              homeButton(context),
+              (gameControl.completed) ? const SizedBox(height: 30,) : homeButton(context),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding: const EdgeInsets.all(5),
@@ -60,32 +60,48 @@ class _SudokuBoardState extends State<SudokuBoard> {
                   children: [
                     (gameControl.completed) ? const SizedBox() : gameMode(),
                     (gameControl.completed) ? const SizedBox() : cluesButton(),
-                    notesButton(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Errors:",
-                          style: TextStyle(
-                            color: customColors.boardYellow,
+                    (gameControl.completed) ? const SizedBox() : notesButton(),
+                    (gameControl.completed)
+                        ? const SizedBox()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Errors:",
+                                style: TextStyle(
+                                  color: customColors.boardYellow,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "${sudokuBoard.error}",
+                                style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  color: (sudokuBoard.error == 0)
+                                      ? customColors.boardYellow
+                                      : customColors.error,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "${sudokuBoard.error}",
-                          style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            color: (sudokuBoard.error == 0)
-                                ? customColors.boardYellow
-                                : customColors.error,
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
+              ),
+              (!gameControl.completed) ? const SizedBox() : Column(
+                children: [
+                  Text(
+                    "Congratulations! You solved the puzzle!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: customColors.boardYellow,
+                    ),
+                  ),
+                  const SizedBox(height: 20,),
+                  homeButton(context),
+                ],
               ),
               const SizedBox(
                 height: 20,

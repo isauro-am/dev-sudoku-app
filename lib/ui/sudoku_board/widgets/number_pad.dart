@@ -19,7 +19,7 @@ Wrap numberPad(int init, int end) {
 
   return Wrap(
     crossAxisAlignment: WrapCrossAlignment.center,
-    children: row,
+    children: (gameControl.completed)? [] : row,
   );
 }
 
