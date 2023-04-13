@@ -14,58 +14,63 @@ class CluesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return Container(
-      height: 36.h,
-      decoration: BoxDecoration(
-        color: (gameControl.mode == gameTags.modeClues)
-            ? customColors.white.withOpacity(0.1)
-            : customColors.bgByUser,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TextButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              side: BorderSide(
-                color: customColors.primary,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          iconColor: MaterialStateProperty.all(customColors.primary),
+    return Material(
+      color: Colors.transparent,
+      shadowColor: customColors.shadowColor,
+      elevation: (gameControl.mode == gameTags.modeClues)? 18: 0,
+      child: Container(
+        height: 36.h,
+        decoration: BoxDecoration(
+          color: (gameControl.mode == gameTags.modeClues)
+              ? customColors.white.withOpacity(0.1)
+              : customColors.bgByUser,
+          borderRadius: BorderRadius.circular(10),
         ),
-        onPressed: (sudokuBoard.clues < 1)
-            ? () {}
-            : () {
-                gameControl.setMode(gameTags.modeClues);
-              },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              gameTags.modeClues,
-              style: TextStyle(
-                color: customColors.primary,
-                fontSize: 0.8.rem,
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                side: BorderSide(
+                  color: customColors.primary,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            const SizedBox(
-              width: 5,
-              height: 30,
-            ),
-            CircleAvatar(
-              backgroundColor: customColors.bgBySystem,
-              radius: 12,
-              child: Text(
-                "${sudokuBoard.clues}",
+            iconColor: MaterialStateProperty.all(customColors.primary),
+          ),
+          onPressed: (sudokuBoard.clues < 1)
+              ? () {}
+              : () {
+                  gameControl.setMode(gameTags.modeClues);
+                },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                gameTags.modeClues,
                 style: TextStyle(
                   color: customColors.primary,
-                  fontSize: 12,
+                  fontSize: 0.8.rem,
                 ),
               ),
-            ),
-          ],
+              const SizedBox(
+                width: 5,
+                height: 30,
+              ),
+              CircleAvatar(
+                backgroundColor: customColors.bgBySystem,
+                radius: 12,
+                child: Text(
+                  "${sudokuBoard.clues}",
+                  style: TextStyle(
+                    color: customColors.primary,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

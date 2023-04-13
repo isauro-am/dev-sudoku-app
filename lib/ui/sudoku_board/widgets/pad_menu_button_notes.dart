@@ -11,29 +11,34 @@ class NotesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      width: 70.w,
-      height: 36.h,
-      decoration: BoxDecoration(
-        color: (gameControl.mode == gameTags.modeNotes)
-            ? customColors.white.withOpacity(0.1)
-            : customColors.bgByUser,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: customColors.primary,
-          width: 2,
-        ),
-      ),
-      child: TextButton(
-        onPressed: () {
-          gameControl.setMode(gameTags.modeNotes);
-          
-        },
-        child: Text(
-          "Notes",
-          style: TextStyle(
+    return Material(
+      color: Colors.transparent,
+      shadowColor: customColors.shadowColor,
+      elevation: (gameControl.mode == gameTags.modeNotes)? 18: 0,
+      child: Container(
+        width: 70.w,
+        height: 36.h,
+        decoration: BoxDecoration(
+          color: (gameControl.mode == gameTags.modeNotes)
+              ? customColors.white.withOpacity(0.1)
+              : customColors.bgByUser,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
             color: customColors.primary,
-            fontSize: 0.8.rem,
+            width: 2,
+          ),
+        ),
+        child: TextButton(
+          onPressed: () {
+            gameControl.setMode(gameTags.modeNotes);
+            
+          },
+          child: Text(
+            "Notes",
+            style: TextStyle(
+              color: customColors.primary,
+              fontSize: 0.8.rem,
+            ),
           ),
         ),
       ),
