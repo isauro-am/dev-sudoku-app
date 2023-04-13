@@ -1,5 +1,7 @@
 
 
+import 'package:flutter/services.dart';
+
 GameControl gameControl = GameControl();
 
 class GameControl {
@@ -13,7 +15,7 @@ class GameControl {
 
   bool clues = false;
 
-  Function update = () {};
+  VoidCallback update = () {};
 
   int selected = 0;
 

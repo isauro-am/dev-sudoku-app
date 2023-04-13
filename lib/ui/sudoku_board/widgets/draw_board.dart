@@ -8,124 +8,177 @@ import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_cell.dart';
 import '../../../domain/sudoku_model.dart';
 
-List<Widget> drawPanel() {
-  List<Widget> column = [];
+class DrawPanel extends StatelessWidget {
+  const DrawPanel({Key? key}) : super(key: key);
 
-  //  Create the 9x9 Sudoku Board
-  column.add(cubeFile(0));
-  column.add(cubeFile(3));
-  column.add(cubeFile(6));
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> column = [];
+    //  Create the 9x9 Sudoku Board
+    column.add(const DrawCubeSector(y: 0));
+    column.add(const DrawCubeSector(y: 3));
+    column.add(const DrawCubeSector(y: 6));
 
-  return column;
-}
-
-Row cubeFile(int y) {
-  List<Widget> row = [];
-
-  row.add(drawCube3x3(0, y));
-  row.add(drawCube3x3(3, y));
-  row.add(drawCube3x3(6, y));
-
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: row,
-  );
-}
-
-Container drawCube3x3(int x, int y) {
-  List<Widget> column = [];
-
-  int i = 0;
-
-  while (i < 3) {
-    column.add(drawRow1x3(x, y + i));
-    i++;
+    return Column(
+      children: column,
+    );
   }
+}
 
-  return Container(
-    margin: const EdgeInsets.all(3),
-    child: Column(
+class DrawCubeSector extends StatelessWidget {
+  final int y;
+
+  const DrawCubeSector({
+    Key? key,
+    required this.y,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> row = [];
+
+    row.add(DrawCubeNine(x: 0, y: y));
+    row.add(DrawCubeNine(x: 3, y: y));
+    row.add(DrawCubeNine(x: 6, y: y));
+
+    return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: column,
-    ),
-  );
-}
-
-Row drawRow1x3(int x, int y) {
-  List<Widget> row = [];
-
-  int i = 0;
-
-  while (i < 3) {
-    row.add(drawCube1x1(x + i, y));
-    i++;
+      children: row,
+    );
   }
-
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: row,
-  );
 }
 
-drawCube1x1(x, y) {
-  SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
+class DrawCubeNine extends StatelessWidget {
+  final int x;
+  final int y;
 
-  List<Color> colors = sudokuCellColors(sudokuCell);
+  const DrawCubeNine({
+    Key? key,
+    required this.x,
+    required this.y,
+  }) : super(key: key);
 
-  sudokuCell.needElevation();
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> column = [];
 
-  bool same =
-      (sudokuBoard.cells![sudokuBoard.selected]?.value == sudokuCell.value &&
-              sudokuCell.value != 0)
-          ? true
-          : false;
+    int i = 0;
 
-  return Material(
-    shadowColor: customColors.shadowColor,
-    elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
-    child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: (sudokuCell.elevation || same) ? 2 : 0,
-          color: (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
-        ),
-        color: (sudokuCell.error) ? customColors.error : colors[1],
+    while (i < 3) {
+      column.add(DrawCubeLine(x: x, y: y + i));
+      i++;
+    }
+
+    return Container(
+      margin: const EdgeInsets.all(3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: column,
       ),
-      width: 36.w,
-      height: 38.h,
-      child: TextButton(
-        onPressed: () {
-          // Set selected number or note
-          if (gameControl.noteMode && !sudokuCell.bySystem) {
-            sudokuCell.hadNotes = true;
-          }
+    );
+  }
+}
 
-          // Set selected row and column
-          sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
+class DrawCubeLine extends StatelessWidget {
+  final int x;
+  final int y;
 
-          // Set helped value to sudokuCell
-          helpSetSudokuCellValue();
+  const DrawCubeLine({
+    Key? key,
+    required this.x,
+    required this.y,
+  }) : super(key: key);
 
-          // Update the board
-          gameControl.update();
-        },
-        child: Text(
-          sudokuCell.displayValue(),
-          style: TextStyle(
-            color: colors[2],
-            fontSize: (sudokuCell.hadNotes) ? 0.7.rem : 1.rem,
-            fontWeight: (sudokuCell.bySystem == true)
-                ? FontWeight.bold
-                : FontWeight.normal,
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> row = [];
+
+    int i = 0;
+
+    while (i < 3) {
+      row.add(DrawOneSudokuCell(x: x + i, y: y));
+      i++;
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: row,
+    );
+  }
+}
+
+class DrawOneSudokuCell extends StatelessWidget {
+  final int x;
+  final int y;
+
+  const DrawOneSudokuCell({
+    Key? key,
+    required this.x,
+    required this.y,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
+
+    List<Color> colors = sudokuCellColors(sudokuCell);
+
+    sudokuCell.needElevation();
+
+    bool same =
+        (sudokuBoard.cells![sudokuBoard.selected]?.value == sudokuCell.value &&
+                sudokuCell.value != 0)
+            ? true
+            : false;
+
+    return Material(
+      shadowColor: customColors.shadowColor,
+      elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: (sudokuCell.elevation || same) ? 2 : 0,
+            color:
+                (sudokuCell.elevation) ? customColors.shadowColor : colors[0],
+          ),
+          color: (sudokuCell.error) ? customColors.error : colors[1],
+        ),
+        width: 36.w,
+        height: 38.h,
+        child: TextButton(
+          onPressed: () {
+            // Set selected number or note
+            if (gameControl.noteMode && !sudokuCell.bySystem) {
+              sudokuCell.hadNotes = true;
+            }
+
+            // Set selected row and column
+            sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
+
+            // Set helped value to sudokuCell
+            helpSetSudokuCellValue();
+
+            // Update the board
+            gameControl.update();
+          },
+          child: Text(
+            sudokuCell.displayValue(),
+            style: TextStyle(
+              color: colors[2],
+              fontSize: (sudokuCell.hadNotes) ? 0.7.rem : 1.rem,
+              fontWeight: (sudokuCell.bySystem == true)
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
