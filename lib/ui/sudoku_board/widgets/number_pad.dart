@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/game_tags.dart';
 import '../../../data/set_value_sudokucell.dart';
 import '../../../domain/game_control.dart';
 
@@ -60,7 +61,7 @@ class NumberCell extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Disable clues
-            gameControl.setMode("Input");
+            gameControl.setMode(gameTags.modeInput);
 
             // Set selected number or note
             setSudokuCellValues(number);

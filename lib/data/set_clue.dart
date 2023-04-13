@@ -1,11 +1,12 @@
 import 'package:sudoku/domain/game_control.dart';
 
+import '../constants/game_tags.dart';
 import '../domain/sudoku_model.dart';
 import 'error_handler_sudokucell.dart';
 
 /// This function sets the real value of a cell in a Sudoku board if complete certain conditions.
 void helpSetSudokuCellValue() {
-  if (gameControl.mode == "Clues" && sudokuBoard.clues > 0) {
+  if (gameControl.mode == gameTags.modeClues && sudokuBoard.clues > 0) {
     int x = int.parse(sudokuBoard.selected.split(',')[0]);
     int y = int.parse(sudokuBoard.selected.split(',')[1]);
 
@@ -19,7 +20,7 @@ void helpSetSudokuCellValue() {
     }
   }
   if (sudokuBoard.clues < 1) {
-    gameControl.mode == "Input";
+    gameControl.mode = gameTags.modeInput;
     gameControl.update();
   }
 }

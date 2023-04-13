@@ -2,12 +2,14 @@
 
 import 'package:flutter/services.dart';
 
+import '../constants/game_tags.dart';
+
 GameControl gameControl = GameControl();
 
 class GameControl {
 
   GameControl() {
-    patternName = "random";
+    patternName = gameTags.gcRandom;
     completed = false;
     currentPos = [0, 0];
   }
@@ -15,11 +17,11 @@ class GameControl {
   VoidCallback updateMenuPad = () {};
   VoidCallback updateMessage = () {};
 
-  String mode = "Input";
+  String mode = gameTags.modeInput;
 
   setMode(String value){
     if(mode == value){
-      mode = "Input";
+      mode = gameTags.modeInput;
     } else {
       mode = value;
     }
@@ -31,7 +33,7 @@ class GameControl {
   int selected = 0;
 
   int dificult = 40;
-  String patternName = "random";
+  String patternName = gameTags.gcRandom;
 
   bool completed = false;
 
@@ -52,13 +54,13 @@ class GameControl {
   String getDificult(value) {
     switch (value) {
       case 40:
-        return "Easy";
+        return gameTags.gcEasy;
       case 32:
-        return "Medium";
+        return gameTags.gcMedium;
       case 24:
-        return "Hard";
+        return gameTags.gcHard;
       default:
-        return "unknown";
+        return gameTags.gcUnknown;
     }
   }
 }

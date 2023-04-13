@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/game_tags.dart';
 import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_model.dart';
 
@@ -12,7 +13,7 @@ class CluesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String keyMode = "Clues";
+    String keyMode = gameTags.modeClues;
     return Container(
       height: 36.h,
       decoration: BoxDecoration(
@@ -44,7 +45,7 @@ class CluesButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Clues",
+              gameTags.modeClues,
               style: TextStyle(
                 color: customColors.primary,
                 fontSize: 0.8.rem,

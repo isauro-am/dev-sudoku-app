@@ -1,11 +1,12 @@
 import 'package:sudoku/domain/game_control.dart';
 
+import '../constants/game_tags.dart';
 import '../domain/sudoku_model.dart';
 import 'error_handler_sudokucell.dart';
 
 void setSudokuCellValues(int value) {
   if (value != 0) {
-    if (gameControl.mode != "Note") {
+    if (gameControl.mode != gameTags.modeNotes) {
       setSudokuCellValue(value);
     } else {
       setSudokuCellNote(value);

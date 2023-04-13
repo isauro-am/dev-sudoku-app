@@ -3,6 +3,7 @@ import 'package:resize/resize.dart';
 import 'package:sudoku/ui/sudoku_board/widgets/utils.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/game_tags.dart';
 import '../../../data/set_clue.dart';
 import '../../../domain/game_control.dart';
 import '../../../domain/sudoku_cell.dart';
@@ -166,7 +167,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
         child: TextButton(
           onPressed: () {
             // Set selected number or note
-            if (gameControl.mode == "Note" && !sudokuCell.bySystem) {
+            if (gameControl.mode == gameTags.modeNotes && !sudokuCell.bySystem) {
               sudokuCell.hadNotes = true;
             }
 

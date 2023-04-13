@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/game_tags.dart';
 import '../../../domain/game_control.dart';
 
 class NotesButton extends StatelessWidget {
@@ -9,7 +10,7 @@ class NotesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String keyMode = "Note";
+    String keyMode = gameTags.modeNotes;
 
     return Container(
       width: 70.w,

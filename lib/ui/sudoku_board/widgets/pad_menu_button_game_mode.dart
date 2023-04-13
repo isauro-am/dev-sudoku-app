@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/game_tags.dart';
 import '../../../domain/game_control.dart';
 
 class GameModeButton extends StatelessWidget {
@@ -30,9 +31,9 @@ class GameModeButton extends StatelessWidget {
         children: [
           Icon(
             size: 0.9.rem,
-            (gameControl.mode == "Note")
+            (gameControl.mode == gameTags.modeNotes)
                 ? Icons.draw
-                : (gameControl.mode == "Clues")
+                : (gameControl.mode == gameTags.modeClues)
                     ? Icons.search
                     : Icons.gamepad_outlined,
             color: customColors.primary,
