@@ -59,4 +59,5 @@ void setSudokuCellNote(int value) {
     }
     sudokuBoard.cells!['$x,$y']!.hadNotes = true;
   }
+
 }

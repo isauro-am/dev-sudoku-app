@@ -20,6 +20,12 @@ class Sudoku {
   int clues;
 
   String selected = "9,9";
+  String oldSelection = "9,9";
+
+  void setSelection(String value) {
+    oldSelection = selected;
+    selected = value;
+  }
   
   Map<String, SudokuCell>? cells;
 

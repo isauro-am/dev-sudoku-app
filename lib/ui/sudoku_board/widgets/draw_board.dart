@@ -113,7 +113,7 @@ class DrawCubeLine extends StatelessWidget {
   }
 }
 
-class DrawOneSudokuCell extends StatelessWidget {
+class DrawOneSudokuCell extends StatefulWidget {
   final int x;
   final int y;
 
@@ -124,8 +124,20 @@ class DrawOneSudokuCell extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DrawOneSudokuCell> createState() => _DrawOneSudokuCellState();
+}
+
+class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
+  update() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    SudokuCell sudokuCell = sudokuBoard.cells!["$x,$y"]!;
+    SudokuCell sudokuCell = sudokuBoard.cells!["${widget.x},${widget.y}"]!;
+
+    // Add callback to update the cell when the value changes
+    sudokuCell.onChange = update;
 
     List<Color> colors = sudokuCellColors(sudokuCell);
 
@@ -139,7 +151,7 @@ class DrawOneSudokuCell extends StatelessWidget {
 
     return Material(
       shadowColor: customColors.shadowColor,
-      elevation: (sudokuBoard.selected == "$x,$y") ? 5 : 0,
+      elevation: (sudokuBoard.selected == "${widget.x},${widget.y}") ? 5 : 0,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
@@ -159,10 +171,12 @@ class DrawOneSudokuCell extends StatelessWidget {
             }
 
             // Set selected row and column
-            sudokuBoard.selected = "${sudokuCell.column},${sudokuCell.row}";
+            sudokuBoard.setSelection("${sudokuCell.column},${sudokuCell.row}");
 
             // Set helped value to sudokuCell
             helpSetSudokuCellValue();
+
+            updateSudokuCells();
 
             // Update the board
             gameControl.update();
@@ -180,5 +194,24 @@ class DrawOneSudokuCell extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// The function updates the cells in a Sudoku board based on the current and previous selections.
+void updateSudokuCells(){
+  int pX = int.parse(sudokuBoard.oldSelection.split(",")[0]);
+  int pY = int.parse(sudokuBoard.oldSelection.split(",")[1]);
+
+  for (int i = 0; i < 9; i++) {
+    sudokuBoard.cells!["$i,$pY"]!.onChange();
+    sudokuBoard.cells!["$pX,$i"]!.onChange();
+  }
+
+  int cX = int.parse(sudokuBoard.selected.split(",")[0]);
+  int cY = int.parse(sudokuBoard.selected.split(",")[1]);
+
+  for (int i = 0; i < 9; i++) {
+    sudokuBoard.cells!["$i,$cY"]!.onChange();
+    sudokuBoard.cells!["$cX,$i"]!.onChange();
   }
 }

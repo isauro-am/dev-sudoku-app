@@ -10,6 +10,7 @@ void checkAllPad() {
   while (x < 9) {
     int y = 0;
     while (y < 9) {
+
       if (sudokuBoard.cells!['$x,$y']!.value != 0) {
         findRowValue(x, y, sudokuBoard.cells!['$x,$y']!.value);
         findColumnValue(x, y, sudokuBoard.cells!['$x,$y']!.value);
@@ -23,6 +24,9 @@ void checkAllPad() {
         completed++;
       }
 
+      // Update the cell
+      sudokuBoard.cells!['$x,$y']!.onChange();
+
       y++;
     }
     x++;
@@ -31,7 +35,7 @@ void checkAllPad() {
   // Verify if the game is completed
   if (completed == 81) {
     gameControl.completed = true;
-    sudokuBoard.selected = "9,9";
+    sudokuBoard.setSelection("9,9");
   }
 }
 

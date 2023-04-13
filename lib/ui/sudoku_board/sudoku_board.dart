@@ -53,18 +53,18 @@ class _SudokuBoardState extends State<SudokuBoard> {
                     width: 3.0,
                   ),
                 ),
-                child: DrawPanel(key: Key(key.toString())),
+                child: const DrawPanel(),
               ),
               // Draw the pad menu
-              PadMenu(key: Key((key+1).toString())),
+              const PadMenu(),
 
               // Show message when the game is completed
-              CompletedBoard(key: Key((key+2).toString())),
+              const CompletedBoard(),
 
               const SizedBox(
                 height: 20,
               ),
-              NumberPad(key: Key((key+3).toString()), init: 1, end: 10),
+              const NumberPad(init: 1, end: 10),
               const SizedBox(
                 height: 20,
               ),

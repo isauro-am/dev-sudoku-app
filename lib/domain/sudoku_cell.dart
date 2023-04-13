@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sudoku/domain/sudoku_model.dart';
 
 class SudokuCell {
@@ -11,6 +12,8 @@ class SudokuCell {
     this.hadNotes = false,
     this.notes,
   });
+
+  VoidCallback onChange = () {};
 
   bool elevation = false;
   int value;
