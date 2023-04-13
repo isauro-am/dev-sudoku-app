@@ -50,14 +50,6 @@ void setSudokuCellNote(int value) {
   sudokuBoard.cells!['$x,$y']!.value = 0;
 
   if (value > 0 && !sudokuBoard.cells!['$x,$y']!.bySystem) {
-    if (sudokuBoard.cells!['$x,$y']!.notes == null) {
-      sudokuBoard.cells!['$x,$y']!.notes = [];
-    }
-    if (sudokuBoard.cells!['$x,$y']!.notes!.contains(value.toString())) {
-      sudokuBoard.cells!['$x,$y']!.notes!.remove(value.toString());
-    } else {
-      sudokuBoard.cells!['$x,$y']!.notes!.add(value.toString());
-    }
-    sudokuBoard.cells!['$x,$y']!.hadNotes = true;
+    sudokuBoard.cells!['$x,$y']!.addNote(value);
   }
 }

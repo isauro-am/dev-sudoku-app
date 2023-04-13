@@ -34,6 +34,20 @@ class SudokuCell {
     }
   }
 
+  void addNote(int value) {
+    notes ??= [];
+    if (notes!.contains(value.toString())) {
+      notes!.remove(value.toString());
+    } else {
+      notes!.add(value.toString());
+    }
+    hadNotes = true;
+
+    if(notes!.length > 5){
+      notes!.removeAt(0);
+    }
+  }
+
   String displayValue() {
     if (hadNotes && notes != null && notes!.isNotEmpty) {
       return notes!.join('');

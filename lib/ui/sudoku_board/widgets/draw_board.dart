@@ -163,7 +163,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
           color: (sudokuCell.error) ? customColors.error : colors[1],
         ),
         width: 10.1.vw,
-        height: 6.vh,
+        height: 45.h,
         child: TextButton(
           onPressed: () {
             // Set selected number or note
@@ -186,7 +186,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
             sudokuCell.displayValue(),
             style: TextStyle(
               color: colors[2],
-              fontSize: (sudokuCell.hadNotes) ? 1.4.vh : 1.rem,
+              fontSize: (sudokuCell.hadNotes) ? 0.7.rem : 1.rem,
               fontWeight: (sudokuCell.bySystem == true)
                   ? FontWeight.bold
                   : FontWeight.normal,
