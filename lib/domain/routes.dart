@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/ui/settings/settings.dart';
 
 import '../ui/home/home.dart';
 import '../ui/sudoku_board/sudoku_board.dart';
@@ -9,6 +10,7 @@ class CustomRoutes {
   // Dashboard
   String get home => "/";
   String get game => "game";
+  String get settings => "settings";
 
 /// The function returns a widget based on the input route string.
 /// 
@@ -26,6 +28,9 @@ class CustomRoutes {
     }
     if (route == game) {
       return const SudokuBoard();
+    }
+    if (route == settings) {
+      return const Settings();
     }
     return const Home();
   }

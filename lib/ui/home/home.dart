@@ -22,9 +22,20 @@ class _HomeState extends State<Home> {
     update() {
       setState(() {});
     }
+
     gameControl.gcUpdate = update;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          customRoutes.navigator(context, customRoutes.settings);
+        },
+        backgroundColor: customColors.bgBySystem,
+        child: Icon(
+          Icons.settings,
+          color: customColors.white,
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -103,4 +114,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-

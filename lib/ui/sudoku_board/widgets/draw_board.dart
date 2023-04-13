@@ -145,14 +145,14 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
     sudokuCell.needElevation();
 
     bool same =
-        (sudokuBoard.cells![sudokuBoard.selected]?.value == sudokuCell.value &&
+        (sudokuBoard.cells![gameControl.currentSelected]?.value == sudokuCell.value &&
                 sudokuCell.value != 0)
             ? true
             : false;
 
     return Material(
       shadowColor: customColors.shadowColor,
-      elevation: (sudokuBoard.selected == "${widget.x},${widget.y}") ? 5 : 0,
+      elevation: (gameControl.currentSelected == "${widget.x},${widget.y}") ? 5 : 0,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
@@ -172,7 +172,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
             }
 
             // Set selected row and column
-            sudokuBoard.setSelection("${sudokuCell.column},${sudokuCell.row}");
+            gameControl.setSelection("${sudokuCell.column},${sudokuCell.row}");
 
             // Set helped value to sudokuCell
             helpSetSudokuCellValue();
@@ -200,8 +200,8 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
 
 /// The function updates the cells in a Sudoku board based on the current and previous selections.
 void updateSudokuCells() {
-  int pX = int.parse(sudokuBoard.oldSelection.split(",")[0]);
-  int pY = int.parse(sudokuBoard.oldSelection.split(",")[1]);
+  int pX = int.parse(gameControl.oldSelection.split(",")[0]);
+  int pY = int.parse(gameControl.oldSelection.split(",")[1]);
 
   if (pX != 9 && pY != 9) {
     for (int i = 0; i < 9; i++) {
@@ -210,8 +210,8 @@ void updateSudokuCells() {
     }
   }
 
-  int cX = int.parse(sudokuBoard.selected.split(",")[0]);
-  int cY = int.parse(sudokuBoard.selected.split(",")[1]);
+  int cX = int.parse(gameControl.currentSelected.split(",")[0]);
+  int cY = int.parse(gameControl.currentSelected.split(",")[1]);
 
   if (cX == 9 || cY == 9) {
     for (int i = 0; i < 9; i++) {

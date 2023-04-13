@@ -23,8 +23,8 @@ void setSudokuCellValues(int value) {
 /// Args:
 ///   value (int): The value to be set in the Sudoku cell.
 void setSudokuCellValue(int value) {
-  int x = int.parse(sudokuBoard.selected.split(',')[0]);
-  int y = int.parse(sudokuBoard.selected.split(',')[1]);
+  int x = int.parse(gameControl.currentSelected.split(',')[0]);
+  int y = int.parse(gameControl.currentSelected.split(',')[1]);
 
   if (value > 0 && !sudokuBoard.cells!['$x,$y']!.bySystem) {
     sudokuBoard.cells!['$x,$y']!.value =
@@ -44,8 +44,8 @@ void setSudokuCellValue(int value) {
 ///   value (int): The value parameter represents the number that the user wants to add or remove as a
 /// note in a selected cell of a Sudoku board.
 void setSudokuCellNote(int value) {
-  int x = int.parse(sudokuBoard.selected.split(',')[0]);
-  int y = int.parse(sudokuBoard.selected.split(',')[1]);
+  int x = int.parse(gameControl.currentSelected.split(',')[0]);
+  int y = int.parse(gameControl.currentSelected.split(',')[1]);
 
   sudokuBoard.cells!['$x,$y']!.value = 0;
 

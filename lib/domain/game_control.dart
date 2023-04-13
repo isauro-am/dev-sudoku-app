@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/services.dart';
 
 import '../constants/game_tags.dart';
@@ -7,20 +5,42 @@ import '../constants/game_tags.dart';
 GameControl gameControl = GameControl();
 
 class GameControl {
+  VoidCallback gcUpdate = () {};
 
-  GameControl() {
-    patternName = gameTags.gcRandom;
-    completed = false;
-    currentPos = [0, 0];
-  }
+  int selected = 0;
+  int dificult = 40;
+  int cluesLimit = 10;
+  int errorLimit = -1; // -1 = unlimited
 
-  VoidCallback updateMenuPad = () {};
-  VoidCallback updateMessage = () {};
+  bool completed = false;
 
   String mode = gameTags.modeInput;
+  String patternName = gameTags.gcRandom;
 
-  void setMode(String value){
-    if(mode == value){
+  List<int> currentPos = [9, 9];
+  List<int> currentRowCol = [9, 9];
+
+  String currentSelected = "9,9";
+  String oldSelection = "9,9";
+
+  void setSelection(String value) {
+    oldSelection = currentSelected;
+    currentSelected = value;
+  }
+
+  void reset() {
+    currentPos = [9, 9];
+    currentRowCol = [9, 9];
+    selected = 0;
+    dificult = 40;
+    completed = false;
+    mode = gameTags.modeInput;
+    patternName = gameTags.gcRandom;
+    gcUpdate = () {};
+  }
+
+  void setMode(String value) {
+    if (mode == value) {
       mode = gameTags.modeInput;
     } else {
       mode = value;
@@ -28,24 +48,10 @@ class GameControl {
     gcUpdate();
   }
 
-
-  VoidCallback gcUpdate = () {};
-
-  int selected = 0;
-
-  int dificult = 40;
-  String patternName = gameTags.gcRandom;
-
-  bool completed = false;
-
-  List<int> currentPos = [10, 10];
-
   setPos(int x, int y) {
     currentPos[0] = x;
     currentPos[1] = x;
-  }  
-  
-  List<int> currentRowCol = [10, 10];
+  }
 
   setRowCol(int x, int y) {
     currentRowCol[0] = x;

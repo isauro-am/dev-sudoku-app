@@ -35,7 +35,7 @@ void checkAllPad() {
   // Verify if the game is completed
   if (completed == 81) {
     gameControl.completed = true;
-    sudokuBoard.setSelection("9,9");
+    gameControl.setSelection("9,9");
   }
 }
 

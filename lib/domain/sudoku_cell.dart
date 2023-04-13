@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/domain/sudoku_model.dart';
+
+import 'game_control.dart';
 
 class SudokuCell {
   SudokuCell({
@@ -26,8 +27,8 @@ class SudokuCell {
   List<String>? notes;
 
   void needElevation() {
-    if (int.parse(sudokuBoard.selected.split(',')[0]) == column ||
-        int.parse(sudokuBoard.selected.split(',')[1]) == row) {
+    if (int.parse(gameControl.currentSelected.split(',')[0]) == column ||
+        int.parse(gameControl.currentSelected.split(',')[1]) == row) {
       elevation = true;
     } else {
       elevation = false;

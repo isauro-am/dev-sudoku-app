@@ -5,6 +5,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/game_tags.dart';
 import '../../../data/set_value_sudokucell.dart';
 import '../../../domain/game_control.dart';
+import '../../../domain/sudoku_model.dart';
 
 class NumberPad extends StatelessWidget {
   final int init;
@@ -30,7 +31,7 @@ class NumberPad extends StatelessWidget {
     return Center(
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
-        children: (gameControl.completed) ? [] : row,
+        children: (gameControl.completed || gameControl.errorLimit == sudokuBoard.error) ? [] : row,
       ),
     );
   }

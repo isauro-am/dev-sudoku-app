@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/constants/game_tags.dart';
+import 'package:sudoku/domain/sudoku_model.dart';
 
 import '../../../constants/colors.dart';
 import '../../../domain/game_control.dart';
@@ -15,7 +16,10 @@ class HomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (gameControl.completed && draw)
+    return ((gameControl.completed ||
+                (gameControl.completed ||
+                    gameControl.errorLimit == sudokuBoard.error)) &&
+            draw)
         ? const SizedBox(
             height: 30,
           )
@@ -32,7 +36,7 @@ class HomeButton extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                gameControl = GameControl();
+                gameControl.reset();
 
                 customRoutes.navigator(context, customRoutes.home);
               },
@@ -50,22 +54,32 @@ class CompletedBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (!gameControl.completed)
+    bool display =
+        (gameControl.completed || gameControl.errorLimit == sudokuBoard.error)
+            ? true
+            : false;
+
+    String msg =
+        (gameControl.completed) ? gameTags.msgSolved : gameTags.msgErrors;
+
+    return (!display)
         ? const SizedBox()
         : Column(
             children: [
               Text(
-                gameTags.msgSolved,
+                msg,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 26.h,
                   color: customColors.primary,
                 ),
               ),
               const SizedBox(
                 height: 20,
               ),
-              const HomeButton(draw: false,),
+              const HomeButton(
+                draw: false,
+              ),
             ],
           );
   }

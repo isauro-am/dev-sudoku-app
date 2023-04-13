@@ -25,12 +25,12 @@ class _PadMenuState extends State<PadMenu> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          (gameControl.completed) ? const SizedBox() : const GameModeButton(),
-          (gameControl.completed)
+          (gameControl.completed || gameControl.errorLimit == sudokuBoard.error) ? const SizedBox() : const GameModeButton(),
+          (gameControl.completed || gameControl.errorLimit == sudokuBoard.error)
               ? const SizedBox()
               : const CluesButton(),
-          (gameControl.completed) ? const SizedBox() : const NotesButton(),
-          (gameControl.completed)
+          (gameControl.completed || gameControl.errorLimit == sudokuBoard.error) ? const SizedBox() : const NotesButton(),
+          (gameControl.completed || gameControl.errorLimit == sudokuBoard.error)
               ? const SizedBox()
               : Row(
                   mainAxisAlignment: MainAxisAlignment.end,

@@ -2,6 +2,7 @@
 //
 //     final sudoku = sudokuFromJson(jsonString);
 
+import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/domain/sudoku_cell.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
@@ -11,21 +12,14 @@ class Sudoku {
   Sudoku({
     this.points = 1000,
     this.error = 0,
-    this.clues = 10,
     this.cells,
   });
 
   int points;
   int error;
-  int clues;
+  int clues = gameControl.cluesLimit;
 
-  String selected = "9,9";
-  String oldSelection = "9,9";
 
-  void setSelection(String value) {
-    oldSelection = selected;
-    selected = value;
-  }
   
   Map<String, SudokuCell>? cells;
 
