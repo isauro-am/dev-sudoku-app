@@ -25,7 +25,6 @@ class GameControl {
     }
   }
 
-  bool clues = false;
 
   VoidCallback update = () {};
 

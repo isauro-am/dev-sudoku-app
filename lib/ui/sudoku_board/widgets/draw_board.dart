@@ -72,7 +72,7 @@ class DrawCubeNine extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.all(3),
+      margin: const EdgeInsets.all(2.5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -161,8 +161,8 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
           ),
           color: (sudokuCell.error) ? customColors.error : colors[1],
         ),
-        width: 36.w,
-        height: 38.h,
+        width: 10.1.vw,
+        height: 6.vh,
         child: TextButton(
           onPressed: () {
             // Set selected number or note
@@ -185,7 +185,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
             sudokuCell.displayValue(),
             style: TextStyle(
               color: colors[2],
-              fontSize: (sudokuCell.hadNotes) ? 0.7.rem : 1.rem,
+              fontSize: (sudokuCell.hadNotes) ? 1.4.vh : 1.rem,
               fontWeight: (sudokuCell.bySystem == true)
                   ? FontWeight.bold
                   : FontWeight.normal,
@@ -218,7 +218,7 @@ void updateSudokuCells() {
       sudokuBoard.cells!["$cX,$i"]!.onChange();
     }
 
-    
+
     for (int x = 0; x < 9; x++) {
       for (int y = 0; y < 9; y++) {
         if (sudokuBoard.cells!["$x,$y"]!.value != 0) {

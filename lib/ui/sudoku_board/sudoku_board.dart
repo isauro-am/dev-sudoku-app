@@ -47,7 +47,6 @@ class _SudokuBoardState extends State<SudokuBoard> {
                 draw: true,
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   image: const DecorationImage(

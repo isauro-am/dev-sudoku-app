@@ -60,7 +60,7 @@ class NumberCell extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Disable clues
-            gameControl.clues = false;
+            gameControl.setMode("Input");
 
             // Set selected number or note
             setSudokuCellValues(number);
