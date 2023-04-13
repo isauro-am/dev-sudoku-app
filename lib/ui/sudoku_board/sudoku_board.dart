@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:sudoku/domain/game_control.dart';
 
@@ -16,15 +18,14 @@ class SudokuBoard extends StatefulWidget {
 
 class _SudokuBoardState extends State<SudokuBoard> {
   int key = 0;
+  update() {
+    setState(() {
+      key++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    update() {
-      setState(() {
-        key++;
-      });
-    }
-
     gameControl.update = update;
 
     return Scaffold(
@@ -39,7 +40,12 @@ class _SudokuBoardState extends State<SudokuBoard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const HomeButton(),
+              HomeButton(
+                key: Key(
+                  Random().nextInt(1000).toString(),
+                ),
+                draw: true,
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding: const EdgeInsets.all(5),
@@ -56,15 +62,22 @@ class _SudokuBoardState extends State<SudokuBoard> {
                 child: const DrawPanel(),
               ),
               // Draw the pad menu
-              const PadMenu(),
+              PadMenu(
+                key: Key(Random().nextInt(1000).toString()),
+              ),
 
               // Show message when the game is completed
-              const CompletedBoard(),
+              CompletedBoard(
+                key: Key(Random().nextInt(1000).toString()),
+              ),
 
               const SizedBox(
                 height: 20,
               ),
-              const NumberPad(init: 1, end: 10),
+              NumberPad(
+                  key: Key(Random().nextInt(1000).toString()),
+                  init: 1,
+                  end: 10),
               const SizedBox(
                 height: 20,
               ),

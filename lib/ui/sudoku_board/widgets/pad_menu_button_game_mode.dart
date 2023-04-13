@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
@@ -7,19 +5,13 @@ import '../../../constants/colors.dart';
 import '../../../domain/game_control.dart';
 
 class GameModeButton extends StatelessWidget {
-  const GameModeButton({Key? key,}) : super(key: key);
+  const GameModeButton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String mode = " Mode";
-
-    if (gameControl.noteMode) {
-      mode = "Note$mode";
-    } else if (gameControl.clues) {
-      mode = "Clues$mode";
-    } else {
-      mode = "Input$mode";
-    }
+    String mode = "${gameControl.mode} Mode";
 
     return Container(
       height: 36.h,
@@ -37,16 +29,24 @@ class GameModeButton extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            (gameControl.noteMode)? Icons.draw : (gameControl.clues)? Icons.search :  Icons.gamepad_outlined,
+            size: 0.9.rem,
+            (gameControl.mode == "Note")
+                ? Icons.draw
+                : (gameControl.mode == "Clues")
+                    ? Icons.search
+                    : Icons.gamepad_outlined,
             color: customColors.primary,
           ),
           const SizedBox(
             width: 5,
           ),
-          Text(mode, style: TextStyle(color: customColors.primary)),
+          Text(mode,
+              style: TextStyle(
+                color: customColors.primary,
+                fontSize: 0.8.rem,
+              )),
         ],
       ),
     );
   }
 }
-

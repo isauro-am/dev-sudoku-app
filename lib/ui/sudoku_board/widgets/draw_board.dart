@@ -166,7 +166,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
         child: TextButton(
           onPressed: () {
             // Set selected number or note
-            if (gameControl.noteMode && !sudokuCell.bySystem) {
+            if (gameControl.mode == "Note" && !sudokuCell.bySystem) {
               sudokuCell.hadNotes = true;
             }
 
@@ -202,29 +202,34 @@ void updateSudokuCells() {
   int pX = int.parse(sudokuBoard.oldSelection.split(",")[0]);
   int pY = int.parse(sudokuBoard.oldSelection.split(",")[1]);
 
-  for (int i = 0; i < 9; i++) {
-    sudokuBoard.cells!["$i,$pY"]!.onChange();
-    sudokuBoard.cells!["$pX,$i"]!.onChange();
+  if (pX != 9 && pY != 9) {
+    for (int i = 0; i < 9; i++) {
+      sudokuBoard.cells!["$i,$pY"]!.onChange();
+      sudokuBoard.cells!["$pX,$i"]!.onChange();
+    }
   }
 
   int cX = int.parse(sudokuBoard.selected.split(",")[0]);
   int cY = int.parse(sudokuBoard.selected.split(",")[1]);
 
-  for (int i = 0; i < 9; i++) {
-    sudokuBoard.cells!["$i,$cY"]!.onChange();
-    sudokuBoard.cells!["$cX,$i"]!.onChange();
-  }
+  if (cX == 9 || cY == 9) {
+    for (int i = 0; i < 9; i++) {
+      sudokuBoard.cells!["$i,$cY"]!.onChange();
+      sudokuBoard.cells!["$cX,$i"]!.onChange();
+    }
 
-  for (int x = 0; x < 9; x++) {
-    for (int y = 0; y < 9; y++) {
-      if (sudokuBoard.cells!["$x,$y"]!.value != 0) {
-        if (sudokuBoard.cells!["$x,$y"]!.value ==
-            sudokuBoard.cells!["$pX,$pY"]!.value) {
-          sudokuBoard.cells!["$x,$y"]!.onChange();
-        }
-        if (sudokuBoard.cells!["$x,$y"]!.value ==
-            sudokuBoard.cells!["$cX,$cY"]!.value) {
-          sudokuBoard.cells!["$x,$y"]!.onChange();
+    
+    for (int x = 0; x < 9; x++) {
+      for (int y = 0; y < 9; y++) {
+        if (sudokuBoard.cells!["$x,$y"]!.value != 0) {
+          if (sudokuBoard.cells!["$x,$y"]!.value ==
+              sudokuBoard.cells!["$pX,$pY"]!.value) {
+            sudokuBoard.cells!["$x,$y"]!.onChange();
+          }
+          if (sudokuBoard.cells!["$x,$y"]!.value ==
+              sudokuBoard.cells!["$cX,$cY"]!.value) {
+            sudokuBoard.cells!["$x,$y"]!.onChange();
+          }
         }
       }
     }

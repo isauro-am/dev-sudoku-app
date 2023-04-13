@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resize/resize.dart';
 import 'package:sudoku/ui/sudoku_board/widgets/pad_menu_button_game_mode.dart';
 
 import '../../../constants/colors.dart';
@@ -38,6 +39,7 @@ class _PadMenuState extends State<PadMenu> {
                       "Errors:",
                       style: TextStyle(
                         color: customColors.primary,
+                        fontSize: 0.8.rem,
                       ),
                     ),
                     const SizedBox(
@@ -46,6 +48,7 @@ class _PadMenuState extends State<PadMenu> {
                     Text(
                       "${sudokuBoard.error}",
                       style: TextStyle(
+                        fontSize: 0.9.rem,
                         overflow: TextOverflow.ellipsis,
                         color: (sudokuBoard.error == 0)
                             ? customColors.primary

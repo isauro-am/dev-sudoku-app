@@ -9,11 +9,13 @@ class NotesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String keyMode = "Note";
+
     return Container(
       width: 70.w,
       height: 36.h,
       decoration: BoxDecoration(
-        color: (gameControl.noteMode)
+        color: (gameControl.mode == keyMode)
             ? customColors.white.withOpacity(0.1)
             : customColors.bgByUser,
         borderRadius: BorderRadius.circular(10),
@@ -24,14 +26,15 @@ class NotesButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          gameControl.noteMode = !gameControl.noteMode;
-          gameControl.clues = false;
-
+          gameControl.setMode(keyMode);
           gameControl.update();
         },
         child: Text(
           "Notes",
-          style: TextStyle(color: customColors.primary),
+          style: TextStyle(
+            color: customColors.primary,
+            fontSize: 0.8.rem,
+          ),
         ),
       ),
     );

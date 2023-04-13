@@ -6,11 +6,15 @@ import '../../../domain/game_control.dart';
 import '../../../domain/routes.dart';
 
 class HomeButton extends StatelessWidget {
-  const HomeButton({Key? key}) : super(key: key);
+  final bool draw;
+  const HomeButton({
+    Key? key,
+    required this.draw,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return (gameControl.completed)
+    return (gameControl.completed && draw)
         ? const SizedBox(
             height: 30,
           )
@@ -60,7 +64,7 @@ class CompletedBoard extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const HomeButton(),
+              const HomeButton(draw: false,),
             ],
           );
   }

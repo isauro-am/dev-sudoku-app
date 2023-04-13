@@ -5,7 +5,7 @@ import 'error_handler_sudokucell.dart';
 
 void setSudokuCellValues(int value) {
   if (value != 0) {
-    if (!gameControl.noteMode) {
+    if (gameControl.mode != "Note") {
       setSudokuCellValue(value);
     } else {
       setSudokuCellNote(value);
@@ -59,5 +59,4 @@ void setSudokuCellNote(int value) {
     }
     sudokuBoard.cells!['$x,$y']!.hadNotes = true;
   }
-
 }

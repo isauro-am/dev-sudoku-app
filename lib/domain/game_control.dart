@@ -9,8 +9,20 @@ class GameControl {
   GameControl() {
     patternName = "random";
     completed = false;
-    noteMode = false;
     currentPos = [0, 0];
+  }
+
+  VoidCallback updateMenuPad = () {};
+  VoidCallback updateMessage = () {};
+
+  String mode = "Input";
+
+  setMode(String value){
+    if(mode == value){
+      mode = "Input";
+    } else {
+      mode = value;
+    }
   }
 
   bool clues = false;
@@ -23,7 +35,6 @@ class GameControl {
   String patternName = "random";
 
   bool completed = false;
-  bool noteMode = false;
 
   List<int> currentPos = [10, 10];
 
