@@ -198,7 +198,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
 }
 
 /// The function updates the cells in a Sudoku board based on the current and previous selections.
-void updateSudokuCells(){
+void updateSudokuCells() {
   int pX = int.parse(sudokuBoard.oldSelection.split(",")[0]);
   int pY = int.parse(sudokuBoard.oldSelection.split(",")[1]);
 
@@ -213,5 +213,20 @@ void updateSudokuCells(){
   for (int i = 0; i < 9; i++) {
     sudokuBoard.cells!["$i,$cY"]!.onChange();
     sudokuBoard.cells!["$cX,$i"]!.onChange();
+  }
+
+  for (int x = 0; x < 9; x++) {
+    for (int y = 0; y < 9; y++) {
+      if (sudokuBoard.cells!["$x,$y"]!.value != 0) {
+        if (sudokuBoard.cells!["$x,$y"]!.value ==
+            sudokuBoard.cells!["$pX,$pY"]!.value) {
+          sudokuBoard.cells!["$x,$y"]!.onChange();
+        }
+        if (sudokuBoard.cells!["$x,$y"]!.value ==
+            sudokuBoard.cells!["$cX,$cY"]!.value) {
+          sudokuBoard.cells!["$x,$y"]!.onChange();
+        }
+      }
+    }
   }
 }
