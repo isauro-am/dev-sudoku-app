@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
+import 'package:sudoku/constants/game_tags.dart';
 import 'package:sudoku/ui/sudoku_board/widgets/pad_menu_button_game_mode.dart';
 
 import '../../../constants/colors.dart';
@@ -36,7 +37,7 @@ class _PadMenuState extends State<PadMenu> {
                   children: [
                     
                     Text(
-                      "Errors:",
+                      gameTags.gcErrors,
                       style: TextStyle(
                         color: customColors.primary,
                         fontSize: 0.8.rem,

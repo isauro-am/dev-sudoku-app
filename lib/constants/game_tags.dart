@@ -15,4 +15,13 @@ class GameTags {
 
   String gcRandom = "Random";
 
+  String gcErrors = "Errors:";
+  String gcStartGame = "Start Game";
+  String gcHome = "Home";
+
+  String msgSolved = "Congratulations! You solved the puzzle!";
+  String mode = "Mode";
+
+
+
 }

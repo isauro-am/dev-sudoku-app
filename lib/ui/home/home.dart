@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
+import 'package:sudoku/constants/game_tags.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../../constants/colors.dart';
@@ -71,7 +72,7 @@ class _HomeState extends State<Home> {
                     backgroundColor:
                         MaterialStateProperty.all(Colors.transparent),
                   ),
-                  child: const Text("Start Game"),
+                  child: Text(gameTags.gcStartGame),
                   onPressed: () {
                     // Create a new puzzle with the selected dificult
                     Puzzle puzzle = Puzzle(

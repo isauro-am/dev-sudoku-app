@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
+import 'package:sudoku/constants/game_tags.dart';
 
 import '../../../constants/colors.dart';
 import '../../../domain/game_control.dart';
@@ -36,7 +37,7 @@ class HomeButton extends StatelessWidget {
                 customRoutes.navigator(context, customRoutes.home);
               },
               child: Text(
-                " Home ",
+                gameTags.gcHome,
                 style: TextStyle(color: customColors.primary),
               ),
             ),
@@ -54,7 +55,7 @@ class CompletedBoard extends StatelessWidget {
         : Column(
             children: [
               Text(
-                "Congratulations! You solved the puzzle!",
+                gameTags.msgSolved,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 28,

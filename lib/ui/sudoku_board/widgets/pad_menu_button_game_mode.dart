@@ -12,7 +12,7 @@ class GameModeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String mode = "${gameControl.mode} Mode";
+    String mode = "${gameControl.mode} ${gameTags.mode}";
 
     return Container(
       height: 36.h,

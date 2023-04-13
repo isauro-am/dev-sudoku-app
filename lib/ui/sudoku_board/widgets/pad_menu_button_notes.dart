@@ -34,7 +34,7 @@ class NotesButton extends StatelessWidget {
             
           },
           child: Text(
-            "Notes",
+            gameTags.modeNotes,
             style: TextStyle(
               color: customColors.primary,
               fontSize: 0.8.rem,
