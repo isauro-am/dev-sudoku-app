@@ -13,19 +13,16 @@ class CluesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return Material(
-      color: Colors.transparent,
-      shadowColor: customColors.shadowColor,
-      elevation: (gameControl.mode == gameTags.modeClues)? 18: 0,
-      child: Container(
-        height: 36.h,
-        decoration: BoxDecoration(
-          color: (gameControl.mode == gameTags.modeClues)
-              ? customColors.white.withOpacity(0.1)
-              : customColors.bgByUser,
-          borderRadius: BorderRadius.circular(10),
-        ),
+    return Container(
+      height: 36.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Material(
+        borderRadius: BorderRadius.circular(10),
+        color: customColors.bgByUser,
+        shadowColor: customColors.shadowColor,
+        elevation: (gameControl.mode == gameTags.modeClues) ? 20 : 0,
         child: TextButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
