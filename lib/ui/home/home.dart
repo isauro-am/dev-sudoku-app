@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     update() {
       setState(() {});
     }
-    gameControl.update = update;
+    gameControl.gcUpdate = update;
 
     return Scaffold(
       body: Container(

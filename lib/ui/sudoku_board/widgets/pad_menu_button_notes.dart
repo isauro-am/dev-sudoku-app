@@ -10,13 +10,12 @@ class NotesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String keyMode = gameTags.modeNotes;
 
     return Container(
       width: 70.w,
       height: 36.h,
       decoration: BoxDecoration(
-        color: (gameControl.mode == keyMode)
+        color: (gameControl.mode == gameTags.modeNotes)
             ? customColors.white.withOpacity(0.1)
             : customColors.bgByUser,
         borderRadius: BorderRadius.circular(10),
@@ -27,8 +26,8 @@ class NotesButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          gameControl.setMode(keyMode);
-          gameControl.update();
+          gameControl.setMode(gameTags.modeNotes);
+          
         },
         child: Text(
           "Notes",

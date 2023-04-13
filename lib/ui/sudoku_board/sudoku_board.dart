@@ -26,7 +26,7 @@ class _SudokuBoardState extends State<SudokuBoard> {
 
   @override
   Widget build(BuildContext context) {
-    gameControl.update = update;
+    gameControl.gcUpdate = update;
 
     return Scaffold(
       body: Container(

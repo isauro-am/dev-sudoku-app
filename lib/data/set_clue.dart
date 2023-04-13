@@ -21,6 +21,6 @@ void helpSetSudokuCellValue() {
   }
   if (sudokuBoard.clues < 1) {
     gameControl.mode = gameTags.modeInput;
-    gameControl.update();
+    gameControl.gcUpdate();
   }
 }

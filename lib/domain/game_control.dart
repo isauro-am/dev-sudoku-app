@@ -19,16 +19,17 @@ class GameControl {
 
   String mode = gameTags.modeInput;
 
-  setMode(String value){
+  void setMode(String value){
     if(mode == value){
       mode = gameTags.modeInput;
     } else {
       mode = value;
     }
+    gcUpdate();
   }
 
 
-  VoidCallback update = () {};
+  VoidCallback gcUpdate = () {};
 
   int selected = 0;
 

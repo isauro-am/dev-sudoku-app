@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
@@ -61,11 +60,13 @@ class NumberCell extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Disable clues
-            gameControl.setMode(gameTags.modeInput);
+            if (gameControl.mode == gameTags.modeClues) {
+              gameControl.setMode(gameTags.modeInput);
+            }
 
             // Set selected number or note
             setSudokuCellValues(number);
-            gameControl.update();
+            gameControl.gcUpdate();
           },
           child: Text(
             number.toString(),

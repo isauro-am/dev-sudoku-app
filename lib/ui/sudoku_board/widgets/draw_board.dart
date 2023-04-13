@@ -180,7 +180,7 @@ class _DrawOneSudokuCellState extends State<DrawOneSudokuCell> {
             updateSudokuCells();
 
             // Update the board
-            gameControl.update();
+            gameControl.gcUpdate();
           },
           child: Text(
             sudokuCell.displayValue(),

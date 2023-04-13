@@ -13,11 +13,11 @@ class CluesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String keyMode = gameTags.modeClues;
+    
     return Container(
       height: 36.h,
       decoration: BoxDecoration(
-        color: (gameControl.mode == keyMode)
+        color: (gameControl.mode == gameTags.modeClues)
             ? customColors.white.withOpacity(0.1)
             : customColors.bgByUser,
         borderRadius: BorderRadius.circular(10),
@@ -38,8 +38,7 @@ class CluesButton extends StatelessWidget {
         onPressed: (sudokuBoard.clues < 1)
             ? () {}
             : () {
-                gameControl.setMode(keyMode);
-                gameControl.update();
+                gameControl.setMode(gameTags.modeClues);
               },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
