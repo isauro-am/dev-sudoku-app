@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/constants/colors.dart';
 import 'package:sudoku/domain/game_control.dart';
-import 'package:sudoku/ui/settings/widgets/clues_limit.dart';
-import 'package:sudoku/ui/settings/widgets/error_limit.dart';
+import 'package:sudoku/ui/settings/widgets/limit_pad.dart';
 
 import '../../constants/game_tags.dart';
 import '../../domain/routes.dart';
@@ -63,11 +62,32 @@ class _SettingsState extends State<Settings> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ErrorLimit(key: Key(Random().nextInt(1000).toString())),
+                  LimitPad(
+                    key: Key(
+                      Random().nextInt(100).toString(),
+                    ),
+                    isError: true,
+                    limits: const [
+                      ["", 5],
+                      ["", 10],
+                      ["", 20],
+                      ["Unlimited", -1]
+                    ],
+                  ),
                   SizedBox(
                     height: 30.h,
                   ),
-                  CluesLimit(key: Key(Random().nextInt(1000).toString()))
+                  LimitPad(
+                    key: Key(
+                      Random().nextInt(100).toString(),
+                    ),
+                    isError: false,
+                    limits: const [
+                      ["", 5],
+                      ["", 10],
+                      ["Disabled", 0]
+                    ],
+                  ),
                 ],
               ),
             ],

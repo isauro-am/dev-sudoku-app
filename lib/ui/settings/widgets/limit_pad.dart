@@ -3,19 +3,33 @@ import 'package:resize/resize.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/game_tags.dart';
-import 'clues_button.dart';
+import 'limit_pad_button.dart';
 
-class CluesLimit extends StatelessWidget {
-  const CluesLimit({Key? key}) : super(key: key);
+class LimitPad extends StatelessWidget {
+  final bool isError;
+  final List limits;
+
+  const LimitPad({
+    Key? key,
+    required this.isError,
+    required this.limits,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> buttons = [];
+
+    for (var element in limits) {
+      buttons.add(LimitPadButton(
+          text: element[0], value: element[1], isError: isError));
+    }
+
     return Container(
       margin: EdgeInsets.all(10.h).copyWith(top: 20.h),
       child: Column(
         children: [
           Text(
-            gameTags.settingsClues,
+            (isError) ? gameTags.settingsError : gameTags.settingsClues,
             style: TextStyle(
               fontSize: 1.2.rem,
               color: customColors.primary,
@@ -25,16 +39,12 @@ class CluesLimit extends StatelessWidget {
           SizedBox(height: 10.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              ClueButton(text: "", value: 5),
-              ClueButton(text: "", value: 10),
-              ClueButton(text: "Disabled", value: 0),
-            ],
+            children: buttons,
           ),
           SizedBox(height: 15.h),
           Text(
             textAlign: TextAlign.center,
-            gameTags.cluesInfo,
+            (isError) ? gameTags.errorInfo : gameTags.cluesInfo,
             style: TextStyle(
               color: customColors.primary,
               fontSize: 0.8.rem,
