@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/constants/game_tags.dart';
-import 'package:sudoku_api/sudoku_api.dart';
 
 import '../../constants/colors.dart';
 import '../../domain/game_control.dart';
@@ -85,25 +84,7 @@ class _HomeState extends State<Home> {
                   ),
                   child: Text(gameTags.gcStartGame),
                   onPressed: () {
-                    // Create a new puzzle with the selected dificult
-                    Puzzle puzzle = Puzzle(
-                      PuzzleOptions(
-                        patternName: gameControl.patternName,
-                        clues: gameControl.dificult,
-                      ),
-                    );
-
-                    puzzle.generate().then(
-                      (_) {
-                        // Reset instance of the sudoku board
-                        sudokuBoard = Sudoku();
-
-                        sudokuBoard.setRowColumns(puzzle);
-
-                        // Navigate to the game screen
-                        customRoutes.navigator(context, customRoutes.game);
-                      },
-                    );
+                    sudokuBoard.newBoard(context);
                   },
                 ),
               ),

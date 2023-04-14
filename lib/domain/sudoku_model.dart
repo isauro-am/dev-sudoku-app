@@ -2,7 +2,9 @@
 //
 //     final sudoku = sudokuFromJson(jsonString);
 
+import 'package:flutter/material.dart';
 import 'package:sudoku/domain/game_control.dart';
+import 'package:sudoku/domain/routes.dart';
 import 'package:sudoku/domain/sudoku_cell.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
@@ -19,10 +21,29 @@ class Sudoku {
   int error;
   int clues = gameControl.cluesLimit;
 
-
-  
   Map<String, SudokuCell>? cells;
 
+  void newBoard(BuildContext context) {
+    Puzzle puzzle = Puzzle(
+      PuzzleOptions(
+        patternName: gameControl.patternName,
+        clues: gameControl.dificult,
+      ),
+    );
+    puzzle.generate().then(
+      (_) {
+        // Reset instance of the sudoku board
+        sudokuBoard.points = 1000;  
+        sudokuBoard.error = 0;
+        sudokuBoard.cells = {};
+
+        setRowColumns(puzzle);
+
+        // Navigate to the game screen
+        customRoutes.navigator(context, customRoutes.game);
+      },
+    );
+  }
 
   void setRowColumns(Puzzle puzzle) {
     cells = {};
