@@ -34,3 +34,13 @@ class SudokuUserInteractionSetValuesEvent extends SudokuEvent {
 }
 
 class SudokuAwaitingInteractionEvent extends SudokuEvent {}
+
+class SudokuUserInteractionSetNotesEvent extends SudokuEvent {
+  final int value;
+  final List<int> position;
+
+  SudokuUserInteractionSetNotesEvent({
+    required this.value,
+    required this.position,
+  });
+}

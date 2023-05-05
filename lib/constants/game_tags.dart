@@ -2,8 +2,8 @@ GameTags gameTags = GameTags();
 
 class GameTags {
   String modeInput = "Input";
-  String modeClues = "Clues";
-  String modeNotes = "Notes";
+  String modeClues = "Clue";
+  String modeNotes = "Note";
 
   String gcEasy = "Easy";
   String gcMedium = "Medium";

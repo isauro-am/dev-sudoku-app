@@ -28,13 +28,16 @@ class NumberPad extends StatelessWidget {
       number++;
     }
 
-    return Center(
-      child: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: (gameControl.completed ||
-                gameControl.errorLimit == sudokuBoard.error)
-            ? []
-            : row,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
+      child: Center(
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: (gameControl.completed ||
+                  gameControl.errorLimit == sudokuBoard.error)
+              ? []
+              : row,
+        ),
       ),
     );
   }
@@ -63,12 +66,21 @@ class NumberCell extends StatelessWidget {
       child: Center(
         child: TextButton(
           onPressed: () {
-            context.read<SudokuBloc>().add(
-                  SudokuUserInteractionSetValuesEvent(
-                      position:
-                          context.read<SudokuBloc>().state.originalPosition,
-                      value: number),
-                );
+            if (sudokuBoard.mode == SudokuStatus.noteMode) {
+              context.read<SudokuBloc>().add(
+                    SudokuUserInteractionSetNotesEvent(
+                        position:
+                            context.read<SudokuBloc>().state.originalPosition,
+                        value: number),
+                  );
+            } else {
+              context.read<SudokuBloc>().add(
+                    SudokuUserInteractionSetValuesEvent(
+                        position:
+                            context.read<SudokuBloc>().state.originalPosition,
+                        value: number),
+                  );
+            }
           },
           child: Text(
             number.toString(),

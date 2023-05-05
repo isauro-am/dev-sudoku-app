@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -20,6 +22,12 @@ class SudokuBloc extends Bloc<SudokuEvent, SudokuState> {
       emit(SudokuUserInteractionSetValuesState(
         position: event.position,
         value: event.value,
+      ));
+    });
+
+    on<SudokuUserInteractionSetNotesEvent>((event, emit) {
+      emit(SudokuUserInteractionSetNotesState(
+        position: event.position, value: event.value,
       ));
     });
   }

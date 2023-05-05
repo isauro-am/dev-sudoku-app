@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:resize/resize.dart';
+
+import '../../../constants/colors.dart';
+import '../../../constants/game_tags.dart';
+import '../../../domain/sudoku_model.dart';
+
+class CluesButton extends StatefulWidget {
+  final Function update;
+  const CluesButton({
+    Key? key,
+    required this.update,
+  }) : super(key: key);
+
+  @override
+  State<CluesButton> createState() => _CluesButtonState();
+}
+
+class _CluesButtonState extends State<CluesButton> {
+  @override
+  Widget build(BuildContext context) {
+    bool enabled = (sudokuBoard.mode == SudokuStatus.clues) ? true : false;
+
+    return SizedBox(
+      width: 70.w,
+      height: 36.h,
+      child: Material(
+        borderRadius: BorderRadius.circular(10),
+        color: customColors.bgByUser,
+        shadowColor: customColors.shadowColor,
+        elevation: enabled ? 20 : 0,
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                side: BorderSide(
+                  color: customColors.primary,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            iconColor: MaterialStateProperty.all(customColors.primary),
+          ),
+          onPressed: () {
+            if (sudokuBoard.mode == SudokuStatus.clues) {
+              sudokuBoard.mode = SudokuStatus.input;
+            } else {
+              sudokuBoard.mode = SudokuStatus.clues;
+            }
+
+            widget.update();
+          },
+          child: Text(
+            gameTags.modeClues,
+            style: TextStyle(
+              color: customColors.primary,
+              fontSize: 0.8.rem,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

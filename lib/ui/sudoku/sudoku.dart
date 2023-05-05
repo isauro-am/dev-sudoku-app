@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'draw_board.dart';
 import 'number_pad.dart';
+import 'widgets/pad_menu.dart';
 
 class SudokuGame extends StatefulWidget {
   const SudokuGame({super.key});
@@ -20,13 +21,13 @@ class _SudokuGameState extends State<SudokuGame> {
           key: const Key("BoardGame"),
           height: double.infinity,
           width: double.infinity,
-          // key: const Key('GameBoard'),
           child: Column(
             children: const [
               DrawPanel(),
               SizedBox(
                 height: 10,
               ),
+              PadMenu(),
               NumberPad(
                 init: 1,
                 end: 10,

@@ -56,3 +56,17 @@ class SudokuUserInteractionSetValuesState extends SudokuState {
   @override
   int get originalValue => value;
 }
+
+class SudokuUserInteractionSetNotesState extends SudokuState {
+  final int value;
+  final List<int> position;
+  SudokuUserInteractionSetNotesState({
+    required this.value,
+    required this.position,
+  });
+  @override
+  List<int> get originalPosition => position;
+
+  @override
+  int get originalValue => 0;
+}

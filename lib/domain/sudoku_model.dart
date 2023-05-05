@@ -6,12 +6,20 @@ import 'package:sudoku_api/sudoku_api.dart';
 
 Sudoku sudokuBoard = Sudoku();
 
+class SudokuStatus {
+  static const String clues = 'clues';
+  static const String input = 'input';
+  static const String noteMode = 'noteMode';
+}
+
 class Sudoku {
   Sudoku({
     this.points = 1000,
     this.error = 0,
     this.cells,
   });
+
+  String mode = SudokuStatus.input;
 
   int points;
   int error;
@@ -43,6 +51,20 @@ class Sudoku {
         customRoutes.navigator(context, customRoutes.game);
       },
     );
+  }
+
+  isCompleted() {
+    bool completed = true;
+
+    values!.forEach(
+      (key, value) {
+        if (value != solved![key]) {
+          completed = false;
+        }
+      },
+    );
+
+    return completed;
   }
 
   void setRowColumns(Puzzle puzzle) {
@@ -82,7 +104,7 @@ class Sudoku {
 
         values!["$x,$y"] = value;
         solved!["$x,$y"] = solution;
-        bySystem!["$x,$y"] = (value > 0) ? false : true;
+        bySystem!["$x,$y"] = (value > 0) ? true : false;
 
         y++;
       }

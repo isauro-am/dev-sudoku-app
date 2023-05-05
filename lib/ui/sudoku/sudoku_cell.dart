@@ -34,9 +34,15 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
     solution = sudokuBoard.solved![strPosition] ?? 0;
     bySystem = sudokuBoard.bySystem![strPosition] ?? false;
 
+    error = crossSelectionError(widget.position, value);
+
+    update() {
+      setState(() {});
+    }
+
     return Material(
       shadowColor: customColors.shadowColor,
-      elevation: selected ? 15 : 0,
+      elevation: selected ? 10 : 0,
       child: Column(
         children: [
           BlocListener<SudokuBloc, SudokuState>(
@@ -48,16 +54,43 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                 } else {
                   selected = false;
                 }
-
-                setState(() {});
+                update();
               }
 
               if (state is SudokuUserInteractionSetValuesState) {
-                if (state.position == widget.position) {
-                  sudokuBoard.values![strPosition] = state.value;
+                if (state.position == widget.position && !bySystem) {
+                  if (state.value == value) {
+                    context.read<SudokuBloc>().add(
+                          SudokuUserInteractionSetValuesEvent(
+                              position: context
+                                  .read<SudokuBloc>()
+                                  .state
+                                  .originalPosition,
+                              value: 0),
+                        );
+                  } else {
+                    sudokuBoard.values![strPosition] = state.value;
+                    value = state.value;
+                    if (crossSelectionError(widget.position, value)) {
+                      sudokuBoard.error++;
+                    }
+                    notes = [];
+                  }
                 }
+                update();
+              }
 
-                setState(() {});
+              if (state is SudokuUserInteractionSetNotesState) {
+                if (state.position == widget.position && !bySystem) {
+                  sudokuBoard.values![strPosition] = 0;
+                  if (notes.contains(state.value)) {
+                    notes.remove(state.value);
+                  } else {
+                    notes.add(state.value);
+                    (notes.length > 5) ? notes.removeAt(0) : null;
+                  }
+                }
+                update();
               }
             },
             child: const SizedBox(),
@@ -68,15 +101,11 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                 width: (crossSelection(
                         context.read<SudokuBloc>().state.originalPosition,
                         widget.position))
-                    ? 3
+                    ? 2
                     : 0,
                 color: customColors.shadowColor,
               ),
-              color: cellColor(
-                selected,
-                error,
-                bySystem,
-              ),
+              color: cellColor(selected, error, bySystem),
             ),
             width: 10.1.vw,
             height: 45.h,
@@ -85,17 +114,18 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                 context
                     .read<SudokuBloc>()
                     .add(SudokuUserInteractionEvent(position: widget.position));
-
                 setState(() {});
               },
               child: Text(
-                (value > 0) ? "$value" : "",
-                // sudokuCell.displayValue(),
+                (notes.isNotEmpty)
+                    ? notes.join(",")
+                    : (value > 0)
+                        ? "$value"
+                        : "",
                 style: TextStyle(
                   color:
                       selected ? customColors.bgBySystem : customColors.primary,
-                  // color: colors[2],
-                  fontSize: 1.2.rem,
+                  fontSize: notes.isNotEmpty ? 0.7.rem : 1.2.rem,
                   fontWeight: (bySystem) ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
@@ -107,12 +137,17 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
   }
 }
 
+bool isBySystem(List<int> position) {
+  String strPosition = '${position[0]},${position[1]}';
+  return sudokuBoard.bySystem![strPosition] ?? false;
+}
+
 Color cellColor(bool selected, bool error, bool bySystem) {
   if (selected && !error) {
     return customColors.selectedRow;
   } else if (error) {
     return customColors.error;
-  } else if (!bySystem) {
+  } else if (bySystem) {
     return customColors.bgBySystem;
   } else {
     return customColors.bgByUser;
@@ -131,5 +166,45 @@ bool crossSelection(List<int> selected, List<int> cell) {
 }
 
 bool crossSelectionError(List<int> cell, int value) {
-  return false;
+  bool error = false;
+
+  int x = 0;
+  while (x < 9) {
+    if (sudokuBoard.values!['$x,${cell[1]}'] == value) {
+      if (cell[0] != x && value != 0) {
+        error = true;
+      }
+    }
+    x++;
+  }
+
+  int y = 0;
+  while (y < 9) {
+    if (sudokuBoard.values!['${cell[0]},$y'] == value) {
+      if (cell[1] != y && value != 0) {
+        error = true;
+      }
+    }
+    y++;
+  }
+
+  int xx = 0;
+  while (xx < 3) {
+    int yy = 0;
+    while (yy < 3) {
+      if (sudokuBoard
+              .values!['${cell[0] ~/ 3 * 3 + xx},${cell[1] ~/ 3 * 3 + yy}'] ==
+          value) {
+        if (cell[0] != cell[0] ~/ 3 * 3 + xx &&
+            cell[1] != cell[1] ~/ 3 * 3 + yy &&
+            value != 0) {
+          error = true;
+        }
+      }
+      yy++;
+    }
+    xx++;
+  }
+
+  return error;
 }
