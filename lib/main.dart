@@ -1,12 +1,14 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resize/resize.dart';
 
 import 'domain/routes.dart';
 import 'ui/home/home.dart';
+import 'ui/sudoku/bloc/sudoku_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +19,8 @@ void main() {
   runApp(
     DevicePreview(
       builder: (_) => const MyApp(),
-      enabled: !kReleaseMode, // Enable DevicePreview only in debug mode
+      // enabled: !kReleaseMode, // Enable DevicePreview only in debug mode
+      enabled: false, // Enable DevicePreview only in debug mode
     ),
   );
 }
@@ -28,22 +31,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Resize(
-      allowtextScaling: true,
-      builder: (){
-        return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        scrollBehavior: MyCustomScrollBehavior(),
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        initialRoute: customRoutes.home,
-        routes: {
-          // Dashboard
-          customRoutes.home: (context) => const Home(),
-        },
-      );
-      }
-    );
+        allowtextScaling: true,
+        builder: () {
+          return BlocProvider(
+            create: (context) => SudokuBloc(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              scrollBehavior: MyCustomScrollBehavior(),
+              theme: ThemeData(
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+              ),
+              initialRoute: customRoutes.home,
+              routes: {
+                // Dashboard
+                customRoutes.home: (context) => const Home(),
+              },
+            ),
+          );
+        });
   }
 }
 

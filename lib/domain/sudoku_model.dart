@@ -21,6 +21,10 @@ class Sudoku {
   int error;
   int clues = gameControl.cluesLimit;
 
+  Map<List<int>, int>? values;
+  Map<List<int>, int>? solved;
+  Map<List<int>, bool>? isEditable;
+
   Map<String, SudokuCell>? cells;
 
   void newBoard(BuildContext context) {
@@ -33,7 +37,7 @@ class Sudoku {
     puzzle.generate().then(
       (_) {
         // Reset instance of the sudoku board
-        sudokuBoard.points = 1000;  
+        sudokuBoard.points = 1000;
         sudokuBoard.error = 0;
         sudokuBoard.cells = {};
 
@@ -79,6 +83,10 @@ class Sudoku {
         sc.row = y;
 
         cells!["$x,$y"] = sc;
+
+        values![[x, y]] = value;
+        solved![[x, y]] = solution;
+        isEditable![[x, y]] = (value > 0) ? false : true;
 
         y++;
       }
