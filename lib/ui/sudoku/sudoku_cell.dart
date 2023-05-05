@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resize/resize.dart';
+import 'package:sudoku/domain/sudoku_model.dart';
 import 'package:sudoku/ui/sudoku/bloc/sudoku_bloc.dart';
 
 import '../../constants/colors.dart';
 
 class SudokuCellBox extends StatefulWidget {
-  final int initialValue;
   final List<int> position;
-  final int solution;
-  final bool isEditable;
 
   const SudokuCellBox({
     super.key,
-    required this.initialValue,
     required this.position,
-    required this.isEditable,
-    required this.solution,
   });
 
   @override
@@ -25,17 +20,19 @@ class SudokuCellBox extends StatefulWidget {
 
 class _SudokuCellBoxState extends State<SudokuCellBox> {
   bool selected = false;
+  bool bySystem = false;
+  int solution = 0;
   bool error = false;
-  int value = 0;
-  bool initial = true;
   List<int> notes = [];
+  int value = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (initial) {
-      value = widget.initialValue;
-      initial = false;
-    }
+    String strPosition = '${widget.position[0]},${widget.position[1]}';
+
+    value = sudokuBoard.values![strPosition] ?? 0;
+    solution = sudokuBoard.solved![strPosition] ?? 0;
+    bySystem = sudokuBoard.bySystem![strPosition] ?? false;
 
     return Material(
       shadowColor: customColors.shadowColor,
@@ -57,7 +54,7 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
 
               if (state is SudokuUserInteractionSetValuesState) {
                 if (state.position == widget.position) {
-                  value = state.value;
+                  sudokuBoard.values![strPosition] = state.value;
                 }
 
                 setState(() {});
@@ -78,7 +75,7 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
               color: cellColor(
                 selected,
                 error,
-                widget.isEditable,
+                bySystem,
               ),
             ),
             width: 10.1.vw,
@@ -99,8 +96,7 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                       selected ? customColors.bgBySystem : customColors.primary,
                   // color: colors[2],
                   fontSize: 1.2.rem,
-                  fontWeight:
-                      (widget.isEditable) ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: (bySystem) ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ),
@@ -111,12 +107,12 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
   }
 }
 
-Color cellColor(bool selected, bool error, bool isEditable) {
+Color cellColor(bool selected, bool error, bool bySystem) {
   if (selected && !error) {
     return customColors.selectedRow;
   } else if (error) {
     return customColors.error;
-  } else if (isEditable) {
+  } else if (!bySystem) {
     return customColors.bgBySystem;
   } else {
     return customColors.bgByUser;

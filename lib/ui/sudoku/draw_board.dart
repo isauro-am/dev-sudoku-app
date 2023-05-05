@@ -100,9 +100,6 @@ class DrawCubeLine extends StatelessWidget {
         SudokuCellBox(
           key: Key("${x + i},$y"),
           position: [x + i, y],
-          initialValue: sudokuBoard.cells!["${x + i},$y"]!.value,
-          solution: sudokuBoard.cells!["${x + i},$y"]!.value,
-          isEditable: sudokuBoard.cells!["${x + i},$y"]!.bySystem,
         ),
       );
       i++;

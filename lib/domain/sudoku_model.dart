@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final sudoku = sudokuFromJson(jsonString);
-
 import 'package:flutter/material.dart';
 import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/domain/routes.dart';
@@ -21,9 +17,9 @@ class Sudoku {
   int error;
   int clues = gameControl.cluesLimit;
 
-  Map<List<int>, int>? values;
-  Map<List<int>, int>? solved;
-  Map<List<int>, bool>? isEditable;
+  Map<String, int>? values = {};
+  Map<String, int>? solved = {};
+  Map<String, bool>? bySystem = {};
 
   Map<String, SudokuCell>? cells;
 
@@ -84,9 +80,9 @@ class Sudoku {
 
         cells!["$x,$y"] = sc;
 
-        values![[x, y]] = value;
-        solved![[x, y]] = solution;
-        isEditable![[x, y]] = (value > 0) ? false : true;
+        values!["$x,$y"] = value;
+        solved!["$x,$y"] = solution;
+        bySystem!["$x,$y"] = (value > 0) ? false : true;
 
         y++;
       }
