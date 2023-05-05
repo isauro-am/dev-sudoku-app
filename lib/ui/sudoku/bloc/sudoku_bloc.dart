@@ -30,5 +30,11 @@ class SudokuBloc extends Bloc<SudokuEvent, SudokuState> {
         position: event.position, value: event.value,
       ));
     });
+
+    on<SudokuUserInteractionSetClueEvent>((event, emit) {
+      emit(SudokuUserInteractionSetClueState(
+        position: event.position, value: event.value,
+      ));
+    });
   }
 }

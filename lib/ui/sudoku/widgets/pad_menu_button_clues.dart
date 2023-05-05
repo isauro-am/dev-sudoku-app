@@ -34,7 +34,9 @@ class _CluesButtonState extends State<CluesButton> {
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 side: BorderSide(
-                  color: customColors.primary,
+                  color: (sudokuBoard.clues == 0)
+                      ? customColors.primary.withOpacity(0.3)
+                      : customColors.primary,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(10),
@@ -42,15 +44,17 @@ class _CluesButtonState extends State<CluesButton> {
             ),
             iconColor: MaterialStateProperty.all(customColors.primary),
           ),
-          onPressed: () {
-            if (sudokuBoard.mode == SudokuStatus.clues) {
-              sudokuBoard.mode = SudokuStatus.input;
-            } else {
-              sudokuBoard.mode = SudokuStatus.clues;
-            }
+          onPressed: (sudokuBoard.clues == 0)
+              ? null
+              : () {
+                  if (sudokuBoard.mode == SudokuStatus.clues) {
+                    sudokuBoard.mode = SudokuStatus.input;
+                  } else {
+                    sudokuBoard.mode = SudokuStatus.clues;
+                  }
 
-            widget.update();
-          },
+                  widget.update();
+                },
           child: Text(
             gameTags.modeClues,
             style: TextStyle(

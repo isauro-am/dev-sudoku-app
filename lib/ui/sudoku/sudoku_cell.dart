@@ -92,6 +92,16 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                 }
                 update();
               }
+
+              if (state is SudokuUserInteractionSetClueState) {
+                if (state.position == widget.position) {
+                  sudokuBoard.values![strPosition] =
+                      sudokuBoard.solved![strPosition]!;
+                  value = sudokuBoard.solved![strPosition]!;
+                  notes = [];
+                }
+                update();
+              }
             },
             child: const SizedBox(),
           ),
@@ -111,9 +121,21 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
             height: 45.h,
             child: TextButton(
               onPressed: () {
+                if (sudokuBoard.mode == SudokuStatus.clues &&
+                    !bySystem &&
+                    sudokuBoard.clues > 0) {
+                  context.read<SudokuBloc>().add(
+                        SudokuUserInteractionSetClueEvent(
+                            position: widget.position, value: 0),
+                      );
+                  sudokuBoard.bySystem![strPosition] = true;
+                  sudokuBoard.clues--;
+                }
+
                 context
                     .read<SudokuBloc>()
                     .add(SudokuUserInteractionEvent(position: widget.position));
+
                 setState(() {});
               },
               child: Text(

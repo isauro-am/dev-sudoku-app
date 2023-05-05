@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sudoku/constants/colors.dart';
+import 'package:sudoku/ui/sudoku/bloc/sudoku_bloc.dart';
 
 import '../../../domain/sudoku_model.dart';
 import 'pad_menu_button_clues.dart';
@@ -23,6 +25,25 @@ class _PadMenuState extends State<PadMenu> {
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
+          BlocListener<SudokuBloc, SudokuState>(
+            bloc: context.read<SudokuBloc>(),
+            listener: (context, state) {
+              if (state is SudokuUserInteractionSetClueState) {
+                update();
+              }
+
+              if (state is SudokuUserInteractionState &&
+                  sudokuBoard.mode == SudokuStatus.clues &&
+                  sudokuBoard.clues == 0) {
+                sudokuBoard.mode = SudokuStatus.input;
+                update();
+              }
+              if (state is SudokuUserInteractionSetValuesState) {
+                update();
+              }
+            },
+            child: const SizedBox(),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -35,13 +56,30 @@ class _PadMenuState extends State<PadMenu> {
                     fontSize: 16,
                   ),
                 ),
-                Text(
-                  "Mode: ${sudokuBoard.mode}",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                if (sudokuBoard.mode == SudokuStatus.clues)
+                  Text(
+                    "Clues: ${sudokuBoard.clues}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
+                if (sudokuBoard.mode == SudokuStatus.noteMode)
+                  const Text(
+                    "Note Mode",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                if (sudokuBoard.mode == SudokuStatus.input)
+                  const Text(
+                    "Input Mode",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
                 Row(
                   children: [
                     const Text(

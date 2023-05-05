@@ -9,7 +9,7 @@ class GameControl {
 
   int selected = 0;
   int dificult = 40;
-  int cluesLimit = 10;
+  int cluesLimit = 80;
   int errorLimit = -1; // -1 = unlimited
 
   bool completed = false;

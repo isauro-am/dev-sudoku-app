@@ -14,15 +14,13 @@ class SudokuStatus {
 
 class Sudoku {
   Sudoku({
-    this.points = 1000,
-    this.error = 0,
     this.cells,
   });
 
   String mode = SudokuStatus.input;
 
-  int points;
-  int error;
+  int points = 1000;
+  int error = 0;
   int clues = gameControl.cluesLimit;
 
   Map<String, int>? values = {};
@@ -54,17 +52,17 @@ class Sudoku {
   }
 
   isCompleted() {
-    bool completed = true;
+    int completed = 0;
 
     values!.forEach(
       (key, value) {
-        if (value != solved![key]) {
-          completed = false;
+        if (value == solved![key]) {
+          completed++;
         }
       },
     );
 
-    return completed;
+    return (completed == 81) ? true : false;
   }
 
   void setRowColumns(Puzzle puzzle) {

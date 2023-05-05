@@ -44,3 +44,13 @@ class SudokuUserInteractionSetNotesEvent extends SudokuEvent {
     required this.position,
   });
 }
+
+class SudokuUserInteractionSetClueEvent extends SudokuEvent {
+  final int value;
+  final List<int> position;
+
+  SudokuUserInteractionSetClueEvent({
+    required this.value,
+    required this.position,
+  });
+}
