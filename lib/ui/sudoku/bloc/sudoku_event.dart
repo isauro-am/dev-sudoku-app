@@ -54,3 +54,5 @@ class SudokuUserInteractionSetClueEvent extends SudokuEvent {
     required this.position,
   });
 }
+
+class SudokuCompletedEvent extends SudokuEvent {}

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resize/resize.dart';
@@ -37,6 +39,7 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
     error = crossSelectionError(widget.position, value);
 
     update() {
+      sudokuBoard.isCompleted(context);
       setState(() {});
     }
 
@@ -73,6 +76,11 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                     value = state.value;
                     if (crossSelectionError(widget.position, value)) {
                       sudokuBoard.error++;
+                      sudokuBoard.points = sudokuBoard.points -
+                          (Random().nextInt(10 - 5 + 1) + 5);
+                      if (sudokuBoard.points < 0) {
+                        sudokuBoard.points = 0;
+                      }
                     }
                     notes = [];
                   }
@@ -120,24 +128,25 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
             width: 10.1.vw,
             height: 45.h,
             child: TextButton(
-              onPressed: () {
-                if (sudokuBoard.mode == SudokuStatus.clues &&
-                    !bySystem &&
-                    sudokuBoard.clues > 0) {
-                  context.read<SudokuBloc>().add(
-                        SudokuUserInteractionSetClueEvent(
-                            position: widget.position, value: 0),
-                      );
-                  sudokuBoard.bySystem![strPosition] = true;
-                  sudokuBoard.clues--;
-                }
+              onPressed: sudokuBoard.completed
+                  ? null
+                  : () {
+                      if (sudokuBoard.mode == SudokuStatus.clues &&
+                          !bySystem &&
+                          sudokuBoard.clues > 0) {
+                        context.read<SudokuBloc>().add(
+                              SudokuUserInteractionSetClueEvent(
+                                  position: widget.position, value: 0),
+                            );
+                        sudokuBoard.bySystem![strPosition] = true;
+                        sudokuBoard.clues--;
+                      }
 
-                context
-                    .read<SudokuBloc>()
-                    .add(SudokuUserInteractionEvent(position: widget.position));
+                      context.read<SudokuBloc>().add(SudokuUserInteractionEvent(
+                          position: widget.position));
 
-                setState(() {});
-              },
+                      setState(() {});
+                    },
               child: Text(
                 (notes.isNotEmpty)
                     ? notes.join(",")

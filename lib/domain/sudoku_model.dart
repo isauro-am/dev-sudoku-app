@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/domain/routes.dart';
 import 'package:sudoku/domain/sudoku_cell.dart';
 import 'package:sudoku_api/sudoku_api.dart';
+
+import '../ui/sudoku/bloc/sudoku_bloc.dart';
 
 Sudoku sudokuBoard = Sudoku();
 
@@ -19,9 +22,10 @@ class Sudoku {
 
   String mode = SudokuStatus.input;
 
-  int points = 1000;
+  int points = 0;
   int error = 0;
   int clues = gameControl.cluesLimit;
+  bool completed = false;
 
   Map<String, int>? values = {};
   Map<String, int>? solved = {};
@@ -39,7 +43,7 @@ class Sudoku {
     puzzle.generate().then(
       (_) {
         // Reset instance of the sudoku board
-        sudokuBoard.points = 1000;
+        sudokuBoard.points = 100;
         sudokuBoard.error = 0;
         sudokuBoard.cells = {};
 
@@ -51,18 +55,24 @@ class Sudoku {
     );
   }
 
-  isCompleted() {
-    int completed = 0;
+  isCompleted(BuildContext context) {
+    int n = 0;
 
     values!.forEach(
       (key, value) {
         if (value == solved![key]) {
-          completed++;
+          n++;
         }
       },
     );
 
-    return (completed == 81) ? true : false;
+    completed = (n == 81) ? true : false;
+
+    if (completed) {
+      context.read<SudokuBloc>().add(SudokuCompletedEvent());
+    }
+
+    return (n == 81) ? true : false;
   }
 
   void setRowColumns(Puzzle puzzle) {

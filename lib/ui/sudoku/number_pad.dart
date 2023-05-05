@@ -65,23 +65,29 @@ class NumberCell extends StatelessWidget {
       width: 36.w,
       child: Center(
         child: TextButton(
-          onPressed: () {
-            if (sudokuBoard.mode == SudokuStatus.noteMode) {
-              context.read<SudokuBloc>().add(
-                    SudokuUserInteractionSetNotesEvent(
-                        position:
-                            context.read<SudokuBloc>().state.originalPosition,
-                        value: number),
-                  );
-            } else {
-              context.read<SudokuBloc>().add(
-                    SudokuUserInteractionSetValuesEvent(
-                        position:
-                            context.read<SudokuBloc>().state.originalPosition,
-                        value: number),
-                  );
-            }
-          },
+          onPressed: gameControl.completed
+              ? null
+              : () {
+                  if (sudokuBoard.mode == SudokuStatus.noteMode) {
+                    context.read<SudokuBloc>().add(
+                          SudokuUserInteractionSetNotesEvent(
+                              position: context
+                                  .read<SudokuBloc>()
+                                  .state
+                                  .originalPosition,
+                              value: number),
+                        );
+                  } else {
+                    context.read<SudokuBloc>().add(
+                          SudokuUserInteractionSetValuesEvent(
+                              position: context
+                                  .read<SudokuBloc>()
+                                  .state
+                                  .originalPosition,
+                              value: number),
+                        );
+                  }
+                },
           child: Text(
             number.toString(),
             style: TextStyle(

@@ -84,3 +84,11 @@ class SudokuUserInteractionSetClueState extends SudokuState {
   @override
   int get originalValue => 0;
 }
+
+class SudokuCompletedState extends SudokuState {
+  @override
+  List<int> get originalPosition => [9, 9];
+
+  @override
+  int get originalValue => 0;
+}

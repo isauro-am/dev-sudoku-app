@@ -49,9 +49,9 @@ class _PadMenuState extends State<PadMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Score: 0",
-                  style: TextStyle(
+                Text(
+                  "Score: ${sudokuBoard.points}",
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),
