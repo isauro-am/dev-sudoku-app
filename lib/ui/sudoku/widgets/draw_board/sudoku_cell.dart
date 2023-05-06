@@ -77,7 +77,7 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                     if (crossSelectionError(widget.position, value)) {
                       sudokuBoard.error++;
                       sudokuBoard.points = sudokuBoard.points -
-                          (Random().nextInt(10 - 5 + 1) + 5);
+                          (Random().nextInt(10 - 4 + 1) + 4);
                       if (sudokuBoard.points < 0 || sudokuBoard.points == 0) {
                         sudokuBoard.points = 0;
                         context.read<SudokuBloc>().add(

@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/constants/colors.dart';
+import 'package:sudoku/constants/navigation.dart';
+import 'package:sudoku/constants/routes.dart';
 import 'package:sudoku/ui/settings/widgets/limit_pad.dart';
 
 import '../../constants/game_tags.dart';
-import '../../domain/routes.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _SettingsState extends State<Settings> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: customColors.bgBySystem,
         onPressed: () {
-          customRoutes.navigator(context, customRoutes.home);
+          AppNavigator.navigator(context, Routes.home);
         },
         child: Icon(
           Icons.home,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sudoku/domain/routes.dart';
+import 'package:sudoku/constants/navigation.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
+import '../constants/routes.dart';
 import '../ui/sudoku/bloc/sudoku_bloc.dart';
 import 'game_control.dart';
 
@@ -48,7 +49,7 @@ class Sudoku {
         setRowColumns(puzzle);
 
         // Navigate to the game screen
-        customRoutes.navigator(context, customRoutes.game);
+        AppNavigator.navigator(context, Routes.game);
       },
     );
   }

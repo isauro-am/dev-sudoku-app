@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resize/resize.dart';
 
-import 'domain/routes.dart';
-import 'ui/home/home.dart';
+import 'constants/app_routes.dart';
+import 'constants/routes.dart';
 import 'ui/sudoku/bloc/sudoku_bloc.dart';
 
 void main() {
@@ -41,11 +41,8 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
-              initialRoute: customRoutes.home,
-              routes: {
-                // Dashboard
-                customRoutes.home: (context) => const Home(),
-              },
+              initialRoute: Routes.home,
+              routes: appRoutes,
             ),
           );
         });

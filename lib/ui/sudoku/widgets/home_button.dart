@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/constants/game_tags.dart';
+import 'package:sudoku/constants/navigation.dart';
+import 'package:sudoku/constants/routes.dart';
 
 import '../../../constants/colors.dart';
 import '../../../domain/game_control.dart';
-import '../../../domain/routes.dart';
 
 class HomeButton extends StatelessWidget {
   const HomeButton({
@@ -28,7 +29,7 @@ class HomeButton extends StatelessWidget {
         onPressed: () {
           gameSettings.reset();
 
-          customRoutes.navigator(context, customRoutes.home);
+          AppNavigator.navigator(context, Routes.home);
         },
         child: Text(
           gameTags.gcHome,
