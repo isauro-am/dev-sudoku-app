@@ -4,7 +4,7 @@ GameSettings gameSettings = GameSettings();
 
 class GameSettings {
   int dificult = 40;
-  int cluesLimits = 80;
+  int cluesLimits = 10;
   int errorLimit = -1; // -1 = unlimited
 
   String patternName = gameTags.gcRandom;
