@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/domain/sudoku_model.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/game_tags.dart';
+import '../../../../constants/colors.dart';
+import '../../../../constants/game_tags.dart';
 
 class NotesButton extends StatefulWidget {
   final Function update;

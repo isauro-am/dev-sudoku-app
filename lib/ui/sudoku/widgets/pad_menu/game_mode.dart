@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/game_tags.dart';
-import '../../../domain/game_control.dart';
+import '../../../../constants/colors.dart';
+import '../../../../constants/game_tags.dart';
+import '../../../../domain/sudoku_model.dart';
 
 class GameModeButton extends StatelessWidget {
   const GameModeButton({
@@ -12,7 +12,7 @@ class GameModeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String mode = "${gameControl.mode} ${gameTags.mode}";
+    String mode = "${sudokuBoard.mode} ${gameTags.mode}";
 
     return Container(
       height: 36.h,
@@ -31,9 +31,9 @@ class GameModeButton extends StatelessWidget {
         children: [
           Icon(
             size: 0.9.rem,
-            (gameControl.mode == gameTags.modeNotes)
+            (sudokuBoard.mode == gameTags.modeNotes)
                 ? Icons.draw
-                : (gameControl.mode == gameTags.modeClues)
+                : (sudokuBoard.mode == gameTags.modeClues)
                     ? Icons.search
                     : Icons.gamepad_outlined,
             color: customColors.primary,

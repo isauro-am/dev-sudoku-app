@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resize/resize.dart';
 
-import '../../../constants/colors.dart';
-import '../../../domain/game_control.dart';
-import '../../../domain/sudoku_model.dart';
-import 'bloc/sudoku_bloc.dart';
+import '../../../../../constants/colors.dart';
+import '../../../../../domain/sudoku_model.dart';
+import '../../bloc/sudoku_bloc.dart';
 
 class NumberPad extends StatelessWidget {
   final int init;
@@ -33,10 +32,7 @@ class NumberPad extends StatelessWidget {
       child: Center(
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
-          children: (gameControl.completed ||
-                  gameControl.errorLimit == sudokuBoard.error)
-              ? []
-              : row,
+          children: row,
         ),
       ),
     );
@@ -65,7 +61,7 @@ class NumberCell extends StatelessWidget {
       width: 36.w,
       child: Center(
         child: TextButton(
-          onPressed: gameControl.completed
+          onPressed: sudokuBoard.completed
               ? null
               : () {
                   if (sudokuBoard.mode == SudokuStatus.noteMode) {

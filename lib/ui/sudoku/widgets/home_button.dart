@@ -26,7 +26,7 @@ class HomeButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          gameControl.reset();
+          gameSettings.reset();
 
           customRoutes.navigator(context, customRoutes.home);
         },

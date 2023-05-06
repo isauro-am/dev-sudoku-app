@@ -5,7 +5,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/game_tags.dart';
 import 'limit_pad_button.dart';
 
-class LimitPad extends StatelessWidget {
+class LimitPad extends StatefulWidget {
   final bool isError;
   final List limits;
 
@@ -16,12 +16,25 @@ class LimitPad extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<LimitPad> createState() => _LimitPadState();
+}
+
+class _LimitPadState extends State<LimitPad> {
+  @override
   Widget build(BuildContext context) {
     List<Widget> buttons = [];
 
-    for (var element in limits) {
+    update() {
+      setState(() {});
+    }
+
+    for (var element in widget.limits) {
       buttons.add(LimitPadButton(
-          text: element[0], value: element[1], isError: isError));
+        text: element[0],
+        value: element[1],
+        isError: widget.isError,
+        update: update,
+      ));
     }
 
     return Container(
@@ -29,7 +42,7 @@ class LimitPad extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            (isError) ? gameTags.settingsError : gameTags.settingsClues,
+            (widget.isError) ? gameTags.settingsError : gameTags.settingsClues,
             style: TextStyle(
               fontSize: 1.2.rem,
               color: customColors.primary,
@@ -44,7 +57,7 @@ class LimitPad extends StatelessWidget {
           SizedBox(height: 15.h),
           Text(
             textAlign: TextAlign.center,
-            (isError) ? gameTags.errorInfo : gameTags.cluesInfo,
+            (widget.isError) ? gameTags.errorInfo : gameTags.cluesInfo,
             style: TextStyle(
               color: customColors.primary,
               fontSize: 0.8.rem,

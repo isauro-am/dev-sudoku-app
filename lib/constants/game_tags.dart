@@ -3,7 +3,7 @@ GameTags gameTags = GameTags();
 class GameTags {
   String modeInput = "Input";
   String modeClues = "Clue";
-  String modeNotes = "Note";
+  String modeNotes = "Note Mode";
 
   String gcEasy = "Easy";
   String gcMedium = "Medium";
@@ -12,12 +12,15 @@ class GameTags {
 
   String gcRandom = "Random";
 
-  String gcErrors = "Errors:";
+  String gcErrors = "Errors:  ";
+  String gcClues = "Clues: ";
+  String gcScore = "Score: ";
   String gcStartGame = "Start Game";
   String gcHome = "Home";
 
   String msgSolved = "Congratulations! You solved the puzzle!";
   String msgErrors = "You have reached the maximum number of errors allowed.";
+  String msgScore = "Your score has reached zero";
   String mode = "Mode";
 
   String settings = "Game Settings";

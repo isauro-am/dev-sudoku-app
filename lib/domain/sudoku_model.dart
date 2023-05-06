@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/domain/routes.dart';
-import 'package:sudoku/domain/sudoku_cell.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 
 import '../ui/sudoku/bloc/sudoku_bloc.dart';
+import 'game_control.dart';
 
 Sudoku sudokuBoard = Sudoku();
 
@@ -16,37 +15,36 @@ class SudokuStatus {
 }
 
 class Sudoku {
-  Sudoku({
-    this.cells,
-  });
-
   String mode = SudokuStatus.input;
 
   int points = 0;
   int error = 0;
-  int clues = gameControl.cluesLimit;
+  int clues = gameSettings.cluesLimits;
   bool completed = false;
 
   Map<String, int>? values = {};
   Map<String, int>? solved = {};
   Map<String, bool>? bySystem = {};
 
-  Map<String, SudokuCell>? cells;
-
   void newBoard(BuildContext context) {
+    values = {};
+    solved = {};
+    bySystem = {};
+
+    points = 100;
+    error = 0;
+    clues = gameSettings.cluesLimits;
+    completed = false;
+
     Puzzle puzzle = Puzzle(
       PuzzleOptions(
-        patternName: gameControl.patternName,
-        clues: gameControl.dificult,
+        patternName: gameSettings.patternName,
+        clues: gameSettings.dificult,
       ),
     );
     puzzle.generate().then(
       (_) {
         // Reset instance of the sudoku board
-        sudokuBoard.points = 100;
-        sudokuBoard.error = 0;
-        sudokuBoard.cells = {};
-
         setRowColumns(puzzle);
 
         // Navigate to the game screen
@@ -76,16 +74,12 @@ class Sudoku {
   }
 
   void setRowColumns(Puzzle puzzle) {
-    cells = {};
-
     int x = 0;
 
     while (x < 9) {
       int y = 0;
 
       while (y < 9) {
-        SudokuCell sc = SudokuCell();
-
         int? value;
         int? solution;
 
@@ -98,21 +92,9 @@ class Sudoku {
         value = (value == null) ? 0 : value;
         solution = (solution == null) ? 0 : solution;
 
-        sc.column = x;
-        sc.row = y;
-
-        sc.value = value;
-        sc.solution = solution;
-        sc.bySystem = (value > 0) ? true : false;
-
-        sc.column = x;
-        sc.row = y;
-
-        cells!["$x,$y"] = sc;
-
-        values!["$x,$y"] = value;
-        solved!["$x,$y"] = solution;
-        bySystem!["$x,$y"] = (value > 0) ? true : false;
+        values?["$x,$y"] = value;
+        solved?["$x,$y"] = solution;
+        bySystem?["$x,$y"] = (value > 0) ? true : false;
 
         y++;
       }

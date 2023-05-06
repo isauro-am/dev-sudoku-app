@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/game_control.dart';
-import '../../../domain/sudoku_model.dart';
 import 'sudoku_cell.dart';
 
 class DrawPanel extends StatelessWidget {
@@ -111,43 +109,5 @@ class DrawCubeLine extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: row,
     );
-  }
-}
-
-/// The function updates the cells in a Sudoku board based on the current and previous selections.
-void updateSudokuCells() {
-  int pX = int.parse(gameControl.oldSelection.split(",")[0]);
-  int pY = int.parse(gameControl.oldSelection.split(",")[1]);
-
-  if (pX != 9 && pY != 9) {
-    for (int i = 0; i < 9; i++) {
-      sudokuBoard.cells!["$i,$pY"]!.onChange();
-      sudokuBoard.cells!["$pX,$i"]!.onChange();
-    }
-  }
-
-  int cX = int.parse(gameControl.currentSelected.split(",")[0]);
-  int cY = int.parse(gameControl.currentSelected.split(",")[1]);
-
-  if (cX == 9 || cY == 9) {
-    for (int i = 0; i < 9; i++) {
-      sudokuBoard.cells!["$i,$cY"]!.onChange();
-      sudokuBoard.cells!["$cX,$i"]!.onChange();
-    }
-
-    for (int x = 0; x < 9; x++) {
-      for (int y = 0; y < 9; y++) {
-        if (sudokuBoard.cells!["$x,$y"]!.value != 0) {
-          if (sudokuBoard.cells!["$x,$y"]!.value ==
-              sudokuBoard.cells!["$pX,$pY"]!.value) {
-            sudokuBoard.cells!["$x,$y"]!.onChange();
-          }
-          if (sudokuBoard.cells!["$x,$y"]!.value ==
-              sudokuBoard.cells!["$cX,$cY"]!.value) {
-            sudokuBoard.cells!["$x,$y"]!.onChange();
-          }
-        }
-      }
-    }
   }
 }

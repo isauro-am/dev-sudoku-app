@@ -3,7 +3,6 @@ import 'package:resize/resize.dart';
 import 'package:sudoku/constants/game_tags.dart';
 
 import '../../constants/colors.dart';
-import '../../domain/game_control.dart';
 import '../../domain/routes.dart';
 import '../../domain/sudoku_model.dart';
 import 'widgets/hard_level.dart';
@@ -21,8 +20,6 @@ class _HomeState extends State<Home> {
     update() {
       setState(() {});
     }
-
-    gameControl.gcUpdate = update;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(

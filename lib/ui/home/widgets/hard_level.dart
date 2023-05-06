@@ -44,7 +44,7 @@ class SelectHardLevel extends StatelessWidget {
         image: DecorationImage(
           image: const AssetImage('assets/buttons/dificult.jpeg'),
           fit: BoxFit.cover,
-          opacity: (gameControl.dificult == dificult) ? 1 : 0.4,
+          opacity: (gameSettings.dificult == dificult) ? 1 : 0.4,
         ),
         borderRadius: BorderRadius.circular(10),
         // color: customColors.blueLightTransparent,
@@ -55,10 +55,10 @@ class SelectHardLevel extends StatelessWidget {
       child: OutlinedButton.icon(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(
-              (gameControl.dificult == dificult) ? 30 : 1),
+              (gameSettings.dificult == dificult) ? 30 : 1),
         ),
         onPressed: () {
-          gameControl.dificult = dificult;
+          gameSettings.dificult = dificult;
           update();
         },
         icon: Row(
@@ -68,7 +68,7 @@ class SelectHardLevel extends StatelessWidget {
           alignment: Alignment.centerRight,
           height: 50,
           child: Text(
-            gameControl.getDificult(dificult),
+            gameSettings.getDificult(dificult),
             style: TextStyle(
                 color: customColors.white,
                 fontWeight: FontWeight.bold,

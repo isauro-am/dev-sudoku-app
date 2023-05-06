@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
-import '../../../constants/colors.dart';
-import '../../../domain/sudoku_model.dart';
-import 'home_button.dart';
+import '../../../../constants/colors.dart';
+import '../../../../domain/sudoku_model.dart';
+import '../home_button.dart';
 
 class EndGame extends StatelessWidget {
   final String text;
@@ -22,7 +22,6 @@ class EndGame extends StatelessWidget {
         height: 75.mv,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: customColors.bgBySystem,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

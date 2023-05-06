@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/game_tags.dart';
-import '../../../domain/sudoku_model.dart';
+import '../../../../constants/colors.dart';
+import '../../../../constants/game_tags.dart';
+import '../../../../domain/sudoku_model.dart';
 
 class CluesButton extends StatefulWidget {
   final Function update;

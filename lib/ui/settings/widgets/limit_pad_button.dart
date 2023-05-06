@@ -4,21 +4,28 @@ import 'package:resize/resize.dart';
 import '../../../constants/colors.dart';
 import '../../../domain/game_control.dart';
 
-class LimitPadButton extends StatelessWidget {
+class LimitPadButton extends StatefulWidget {
   final bool isError;
   final String text;
   final int value;
+  final Function update;
   const LimitPadButton({
     Key? key,
     required this.text,
     required this.value,
     required this.isError,
+    required this.update,
   }) : super(key: key);
 
   @override
+  State<LimitPadButton> createState() => _LimitPadButtonState();
+}
+
+class _LimitPadButtonState extends State<LimitPadButton> {
+  @override
   Widget build(BuildContext context) {
     int currentLimit =
-        (isError) ? gameControl.errorLimit : gameControl.cluesLimit;
+        (widget.isError) ? gameSettings.errorLimit : gameSettings.cluesLimits;
 
     return Container(
       height: 36.h,
@@ -29,7 +36,7 @@ class LimitPadButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: customColors.bgByUser,
         shadowColor: customColors.shadowColor,
-        elevation: (currentLimit == value) ? 20 : 0,
+        elevation: (currentLimit == widget.value) ? 20 : 0,
         child: TextButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
@@ -44,18 +51,18 @@ class LimitPadButton extends StatelessWidget {
             iconColor: MaterialStateProperty.all(customColors.primary),
           ),
           onPressed: () {
-            if (isError) {
-              gameControl.errorLimit = value;
-            } else{
-              gameControl.cluesLimit = value;
+            if (widget.isError) {
+              gameSettings.errorLimit = widget.value;
+            } else {
+              gameSettings.cluesLimits = widget.value;
             }
-            gameControl.gcUpdate();
+            widget.update();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                (text != "") ? text : value.toString(),
+                (widget.text != "") ? widget.text : widget.value.toString(),
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
                   color: customColors.primary,

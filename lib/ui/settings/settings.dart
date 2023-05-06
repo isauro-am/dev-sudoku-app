@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:resize/resize.dart';
 import 'package:sudoku/constants/colors.dart';
-import 'package:sudoku/domain/game_control.dart';
 import 'package:sudoku/ui/settings/widgets/limit_pad.dart';
 
 import '../../constants/game_tags.dart';
@@ -19,12 +18,6 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    update() {
-      setState(() {});
-    }
-
-    gameControl.gcUpdate = update;
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: customColors.bgBySystem,

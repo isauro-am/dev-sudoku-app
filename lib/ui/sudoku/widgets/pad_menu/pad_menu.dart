@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sudoku/constants/colors.dart';
 import 'package:sudoku/ui/sudoku/bloc/sudoku_bloc.dart';
 
-import '../../../domain/sudoku_model.dart';
-import 'pad_menu_button_clues.dart';
-import 'pad_menu_button_notes.dart';
+import '../../../../constants/game_tags.dart';
+import '../../../../domain/sudoku_model.dart';
+import 'button_clues.dart';
+import 'button_notes.dart';
 
 class PadMenu extends StatefulWidget {
   const PadMenu({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _PadMenuState extends State<PadMenu> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Score: ${sudokuBoard.points}",
+                  "${gameTags.gcScore}${sudokuBoard.points}",
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -58,33 +59,26 @@ class _PadMenuState extends State<PadMenu> {
                 ),
                 if (sudokuBoard.mode == SudokuStatus.clues)
                   Text(
-                    "Clues: ${sudokuBoard.clues}",
+                    "${gameTags.gcClues}${sudokuBoard.clues}",
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                     ),
                   ),
                 if (sudokuBoard.mode == SudokuStatus.noteMode)
-                  const Text(
-                    "Note Mode",
-                    style: TextStyle(
+                  Text(
+                    gameTags.modeNotes,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                     ),
                   ),
-                if (sudokuBoard.mode == SudokuStatus.input)
-                  const Text(
-                    "Input Mode",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
+                if (sudokuBoard.mode == SudokuStatus.input) const SizedBox(),
                 Row(
                   children: [
-                    const Text(
-                      "Errors: ",
-                      style: TextStyle(
+                    Text(
+                      gameTags.gcErrors,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
