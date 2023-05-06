@@ -92,3 +92,11 @@ class SudokuCompletedState extends SudokuState {
   @override
   int get originalValue => 0;
 }
+
+class SudokuFailedState extends SudokuState {
+  @override
+  List<int> get originalPosition => [9, 9];
+
+  @override
+  int get originalValue => 0;
+}

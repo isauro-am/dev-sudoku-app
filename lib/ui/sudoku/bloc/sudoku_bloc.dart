@@ -37,5 +37,9 @@ class SudokuBloc extends Bloc<SudokuEvent, SudokuState> {
     on<SudokuCompletedEvent>((event, emit) {
       emit(SudokuCompletedState());
     });
+
+    on<SudokuFailedEvent>((event, emit) {
+      emit(SudokuFailedState());
+    });
   }
 }

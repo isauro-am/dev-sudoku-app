@@ -56,3 +56,5 @@ class SudokuUserInteractionSetClueEvent extends SudokuEvent {
 }
 
 class SudokuCompletedEvent extends SudokuEvent {}
+
+class SudokuFailedEvent extends SudokuEvent {}
