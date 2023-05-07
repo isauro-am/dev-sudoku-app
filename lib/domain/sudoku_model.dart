@@ -36,6 +36,7 @@ class Sudoku {
     error = 0;
     clues = gameSettings.cluesLimits;
     completed = false;
+    mode = SudokuStatus.input;
 
     Puzzle puzzle = Puzzle(
       PuzzleOptions(

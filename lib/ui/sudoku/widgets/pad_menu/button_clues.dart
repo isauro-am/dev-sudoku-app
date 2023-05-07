@@ -5,18 +5,11 @@ import '../../../../constants/colors.dart';
 import '../../../../constants/game_tags.dart';
 import '../../../../domain/sudoku_model.dart';
 
-class CluesButton extends StatefulWidget {
+class CluesButton extends StatelessWidget {
   final Function update;
-  const CluesButton({
-    Key? key,
-    required this.update,
-  }) : super(key: key);
 
-  @override
-  State<CluesButton> createState() => _CluesButtonState();
-}
+  const CluesButton({super.key, required this.update});
 
-class _CluesButtonState extends State<CluesButton> {
   @override
   Widget build(BuildContext context) {
     bool enabled = (sudokuBoard.mode == SudokuStatus.clues) ? true : false;
@@ -53,7 +46,7 @@ class _CluesButtonState extends State<CluesButton> {
                     sudokuBoard.mode = SudokuStatus.clues;
                   }
 
-                  widget.update();
+                  update();
                 },
           child: Text(
             gameTags.modeClues,

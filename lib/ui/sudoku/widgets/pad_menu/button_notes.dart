@@ -5,17 +5,10 @@ import 'package:sudoku/domain/sudoku_model.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/game_tags.dart';
 
-class NotesButton extends StatefulWidget {
+class NotesButton extends StatelessWidget {
   final Function update;
 
-  const NotesButton({Key? key, required this.update}) : super(key: key);
-
-  @override
-  State<NotesButton> createState() => _NotesButtonState();
-}
-
-class _NotesButtonState extends State<NotesButton> {
-  String current = "";
+  const NotesButton({super.key, required this.update});
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +41,7 @@ class _NotesButtonState extends State<NotesButton> {
             } else {
               sudokuBoard.mode = SudokuStatus.noteMode;
             }
-            current = sudokuBoard.mode;
-
-            widget.update();
+            update();
           },
           child: Text(
             gameTags.modeNotes,

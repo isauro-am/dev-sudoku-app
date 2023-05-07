@@ -63,7 +63,6 @@ class _HomeState extends State<Home> {
                     color: customColors.white,
                     width: 2.0,
                   ),
-                  color: Colors.amberAccent,
                   image: const DecorationImage(
                     image: AssetImage('assets/tiles_wallpaper/system.jpg'),
                     fit: BoxFit.cover,

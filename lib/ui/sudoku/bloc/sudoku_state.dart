@@ -17,18 +17,6 @@ class SudokuInitial extends SudokuState {
   int get originalValue => value;
 }
 
-class SudokuAwaitingInteractionState extends SudokuState {
-  final List<int> position;
-  final int value;
-
-  SudokuAwaitingInteractionState(this.position, this.value);
-  @override
-  List<int> get originalPosition => position;
-
-  @override
-  int get originalValue => value;
-}
-
 class SudokuUserInteractionState extends SudokuState {
   final List<int> position;
   final int value;

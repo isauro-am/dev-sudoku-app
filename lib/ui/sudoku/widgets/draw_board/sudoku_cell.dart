@@ -7,6 +7,7 @@ import 'package:sudoku/domain/sudoku_model.dart';
 import 'package:sudoku/ui/sudoku/bloc/sudoku_bloc.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../../domain/game_control.dart';
 import '../utils.dart';
 
 class SudokuCellBox extends StatefulWidget {
@@ -77,8 +78,16 @@ class _SudokuCellBoxState extends State<SudokuCellBox> {
                     value = state.value;
                     if (crossSelectionError(widget.position, value)) {
                       sudokuBoard.error++;
+
+                      if (sudokuBoard.error >= gameSettings.errorLimit &&
+                          gameSettings.errorLimit > 0) {
+                        context.read<SudokuBloc>().add(
+                              SudokuFailedEvent(),
+                            );
+                      }
+
                       sudokuBoard.points = sudokuBoard.points -
-                          (Random().nextInt(10 - 4 + 1) + 4);
+                          (Random().nextInt(10 - 5 + 1) + 2);
                       if (sudokuBoard.points < 0 || sudokuBoard.points == 0) {
                         sudokuBoard.points = 0;
                         context.read<SudokuBloc>().add(
