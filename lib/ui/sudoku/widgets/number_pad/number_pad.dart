@@ -28,7 +28,8 @@ class NumberPad extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 25)
+          .copyWith(top: 10),
       child: Center(
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -57,7 +58,7 @@ class NumberCell extends StatelessWidget {
           width: 1,
         ),
       ),
-      height: 40.h,
+      height: 44.h,
       width: 36.w,
       child: Center(
         child: TextButton(

@@ -4,6 +4,7 @@ class GameTags {
   String modeInput = "Input";
   String modeClues = "Clue";
   String modeNotes = "Note Mode";
+  String note = "Note";
 
   String gcEasy = "Easy";
   String gcMedium = "Medium";

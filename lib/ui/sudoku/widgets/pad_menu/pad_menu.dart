@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resize/resize.dart';
 import 'package:sudoku/constants/colors.dart';
 import 'package:sudoku/ui/sudoku/bloc/sudoku_bloc.dart';
 
@@ -97,8 +98,8 @@ class _PadMenuState extends State<PadMenu> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 8.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resize/resize.dart';
 
 import '../../../../constants/colors.dart';
 import '../draw_board/draw_board.dart';
@@ -15,8 +16,8 @@ class BoardGame extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const HomeButton(),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: 10.h,
         ),
         Container(
           padding: const EdgeInsets.all(5),
@@ -35,9 +36,9 @@ class BoardGame extends StatelessWidget {
         // Draw the pad menu
         const PadMenu(),
 
-        const SizedBox(
-          height: 10,
-        ),
+        // const SizedBox(
+        //   height: 10,
+        // ),
         const NumberPad(init: 1, end: 10),
       ],
     );

@@ -44,7 +44,8 @@ class NotesButton extends StatelessWidget {
             update();
           },
           child: Text(
-            gameTags.modeNotes,
+            gameTags.note,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: customColors.primary,
               fontSize: 0.8.rem,

@@ -50,6 +50,7 @@ class CluesButton extends StatelessWidget {
                 },
           child: Text(
             gameTags.modeClues,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: customColors.primary,
               fontSize: 0.8.rem,
